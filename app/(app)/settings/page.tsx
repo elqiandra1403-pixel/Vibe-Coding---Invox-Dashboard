@@ -42,13 +42,15 @@ export default function SettingsPage() {
 
   const handleThemeChange = (newTheme: 'light' | 'dark') => {
     setTheme(newTheme);
-    addToast(`Appearance updated to ${newTheme === 'dark' ? 'Dark' : 'Light'} mode`, 'info');
+    const modeLabel = newTheme === 'dark' ? 'Dark' : 'Light';
+    addToast('Appearance updated to ' + modeLabel + ' mode', 'info');
   };
 
   const handleToggle = (setter: (val: boolean) => void, current: boolean, label: string) => {
     const nextVal = !current;
     setter(nextVal);
-    addToast(`${label} ${nextVal ? 'enabled' : 'disabled'}`, 'info');
+    const statusLabel = nextVal ? 'enabled' : 'disabled';
+    addToast(label + ' ' + statusLabel, 'info');
   };
 
   return (
