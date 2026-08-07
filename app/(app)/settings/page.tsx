@@ -252,7 +252,7 @@ export default function SettingsPage() {
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                justify-content: 'center',
+                justifyContent: 'center',
                 gap: '6px',
                 transition: 'background-color 150ms ease',
               }}
