@@ -1,0 +1,177 @@
+.formContainer {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: var(--invox-space-xl);
+  animation: authEntrance 250ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
+}
+
+@keyframes authEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: var(--invox-space-xl);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--invox-space-sm);
+  margin-bottom: var(--invox-space-xl);
+}
+
+.logoIcon {
+  width: 32px;
+  height: 32px;
+  background-color: var(--invox-color-ink);
+  color: var(--invox-color-canvas);
+  border-radius: var(--invox-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.logoText {
+  font-family: var(--invox-font-display);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--invox-color-ink);
+}
+
+.welcomeSubtitle {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--invox-color-text-secondary);
+  margin-bottom: var(--invox-space-xs);
+}
+
+.title {
+  font-family: var(--invox-font-display);
+  font-size: var(--invox-text-xl);
+  font-weight: 700;
+  color: var(--invox-color-text-primary);
+  margin: 0 0 var(--invox-space-xs) 0;
+}
+
+.description {
+  font-size: var(--invox-text-sm);
+  color: var(--invox-color-text-secondary);
+  margin: 0;
+}
+
+.ssoButtons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--invox-space-md);
+  margin-bottom: var(--invox-space-xl);
+}
+
+.ssoButtonContent {
+  display: flex;
+  align-items: center;
+  gap: var(--invox-space-sm);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-bottom: var(--invox-space-xl);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--invox-color-hairline);
+}
+
+.divider:not(:empty)::before {
+  margin-right: var(--invox-space-md);
+}
+
+.divider:not(:empty)::after {
+  margin-left: var(--invox-space-md);
+}
+
+.dividerText {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--invox-color-text-secondary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--invox-space-md);
+  margin-bottom: var(--invox-space-xl);
+}
+
+.passwordInputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--invox-color-text-secondary);
+  cursor: pointer;
+}
+
+.submitBtn {
+  width: 100%;
+  margin-top: var(--invox-space-sm);
+}
+
+.signUpPrompt {
+  text-align: center;
+  font-size: var(--invox-text-sm);
+  color: var(--invox-color-text-secondary);
+  margin-bottom: var(--invox-space-xxl);
+}
+
+.link {
+  color: var(--invox-color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.footer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--invox-space-sm);
+  font-size: var(--invox-text-xs);
+  color: var(--invox-color-text-secondary);
+  line-height: 1.5;
+  margin-top: auto;
+}
+
+.footerIcon {
+  margin-top: 2px;
+  flex-shrink: 0;
+}

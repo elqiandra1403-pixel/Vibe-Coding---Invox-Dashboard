@@ -1,0 +1,30 @@
+@import "./tokens.css";
+@import "./typography.css";
+@import "./animations.css";
+
+/* CSS Reset */
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: 16px; }
+body, button, input, select, textarea {
+  margin: 0;
+  font-family: var(--invox-font-display);
+  font-size: var(--invox-text-body);
+  color: var(--invox-color-text-primary);
+  background-color: var(--invox-color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--invox-color-hairline); border-radius: var(--invox-radius-pill); }
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--invox-color-primary);
+  outline-offset: 2px;
+  border-radius: var(--invox-radius-xs);
+}
+
+/* HMR Refresh Trigger - Fix TSX generic parser ambiguity in settings/page.tsx */

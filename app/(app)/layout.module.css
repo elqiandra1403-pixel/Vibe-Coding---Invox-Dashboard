@@ -1,0 +1,21 @@
+.appLayout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--invox-color-background, #14161B);
+  color: var(--invox-color-text-primary, #F7F7F7);
+}
+
+.mainContent {
+  flex: 1;
+  margin-left: 260px; /* Sidebar width */
+  display: flex;
+  flex-direction: column;
+}
+
+.pageContent {
+  flex: 1;
+  padding: var(--invox-space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}

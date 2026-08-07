@@ -1,0 +1,224 @@
+color-text-text-gray-text-display
+color-text-text-gray-text-primary
+color-text-text-gray-text-primary_on-brand
+color-text-text-gray-text-secondary
+color-text-text-gray-text-secondary_hover
+color-text-text-gray-text-secondary_on-brand
+color-text-text-gray-text-tertiary
+color-text-text-gray-text-tertiary_hover
+color-text-text-gray-text-tertiary_on-brand
+color-text-text-gray-text-quartinary
+color-text-text-color-text-brand_primary
+color-text-text-color-text-quartinary_on-brand
+color-text-text-color-text-placeholder
+color-text-text-color-text-placeholder_subtle
+color-text-text-color-text-white
+color-text-text-color-text-disable
+color-text-text-color-text-brand-primary
+color-text-text-color-text-brand-primary_alt
+color-text-text-color-text-secondary-brand
+color-text-text-color-text-accent
+color-text-text-color-text-error
+color-text-text-color-text-error_on-bg
+color-text-text-color-text-info
+color-text-text-color-text-info_on-bg
+color-text-text-color-text-success
+color-text-text-color-text-success_on-bg
+color-text-text-color-text-warning
+color-text-text-color-text-warning_on-bg
+color-border-border-gray-border-primary
+color-border-border-gray-border-secondary
+color-border-border-gray-border-tertiary
+color-border-border-gray-border-disable
+color-border-border-gray-border-disable_subtle
+color-border-border-color-border-error_subtle
+color-border-border-color-border-warning
+color-border-border-color-border-warning_subtle
+color-border-border-color-border-success
+color-border-border-color-border-success_subtle
+color-border-border-color-border-info
+color-border-border-color-border-info_subtle
+color-border-border-color-border-brand
+color-border-border-color-border-brand_alt
+color-border-border-color-border-brand-hover
+color-border-border-color-border-error
+color-background-background-gray-bg-primary
+color-background-background-gray-bg-primary_alt
+color-background-background-gray-bg-primary_hover
+color-background-background-gray-bg-primary_solid
+color-background-background-gray-bg-secondary
+color-background-background-gray-bg-secondary_alt
+color-background-background-gray-bg-secondary_hover
+color-background-background-gray-bg-secondary_subtle
+color-background-background-gray-bg-secondary-solid
+color-background-background-gray-bg-tertiary
+color-background-background-gray-bg-quaternary
+color-background-background-gray-bg-active
+color-background-background-gray-bg-disable
+color-background-background-gray-bg-disable_subtle
+color-background-background-gray-bg-overlay
+color-background-background-color-bg-brand-primary
+color-background-background-color-bg-brand-primary_alt
+color-background-background-color-bg-brand-secondary
+color-background-background-color-bg-brand-solid
+color-background-background-color-bg-brand-solid_hover
+color-background-background-color-bg-brand-section
+color-background-background-color-bg-brand-section_subtle
+color-background-background-color-bg-secondary-color
+color-background-background-color-bg-secondary-color-solid
+color-background-background-color-bg-secondary-color-hover
+color-background-background-color-bg-error-primary
+color-background-background-color-bg-error-secondary
+color-background-background-color-bg-error-solid
+color-background-background-color-bg-warning-primary
+color-background-background-color-bg-warning-secondary
+color-background-background-color-bg-warning-solid
+color-background-background-color-bg-success-primary
+color-background-background-color-bg-success-secondary
+color-background-background-color-bg-success-solid
+color-background-background-color-bg-info-primary
+color-background-background-color-bg-info-secondary
+color-background-background-color-bg-info-solid
+color-foreground-foreground-gray-fg-primary
+color-foreground-foreground-gray-fg-secondary
+color-foreground-foreground-gray-fg-secondary_hover
+color-foreground-foreground-gray-fg-tertiary
+color-foreground-foreground-gray-fg-tertiary_hover
+color-foreground-foreground-gray-fg-quartenary
+color-foreground-foreground-gray-fg-quartenary-hover
+color-foreground-foreground-gray-fg-alternative
+color-foreground-foreground-gray-fg-alternative_hover
+color-foreground-foreground-gray-fg-alternative_subtle
+color-foreground-foreground-gray-fg-white
+color-foreground-foreground-gray-fg-disable
+color-foreground-foreground-gray-fg-disable_subtle
+color-foreground-foreground-color-fg-brand-primary
+color-foreground-foreground-color-fg-brand-primary_alt
+color-foreground-foreground-color-fg-brand-secondary
+color-foreground-foreground-color-fg-error
+color-foreground-foreground-color-fg-error_alt
+color-foreground-foreground-color-fg-warning
+color-foreground-foreground-color-fg-warning_alt
+color-foreground-foreground-color-fg-success
+color-foreground-foreground-color-fg-success_alt
+color-foreground-foreground-color-fg-info
+color-foreground-foreground-color-fg-info_alt
+color-button-button-primary-button-primary-fg
+color-button-button-primary-button-primary-fg_hover
+color-button-button-primary-button-primary-bg
+color-button-button-primary-button-primary-bg_hover
+color-button-button-secondary-button-secondary-fg
+color-button-button-secondary-button-secondary-fg_hover
+color-button-button-secondary-button-secondary-bg
+color-button-button-secondary-button-secondary-bg_hover
+color-button-button-secondary-button-secondary-border
+color-button-button-secondary-button-secondary-border_hover
+color-button-button-secondary color-button-secondary-color-fg
+color-button-button-secondary color-button-secondary-color-fg_hover
+color-button-button-secondary color-button-secondary-color-bg
+color-button-button-secondary color-button-secondary-color-bg_hover
+color-button-button-secondary color-button-secondary-color-border
+color-button-button-secondary color-button-secondary-color-border_hover
+color-button-button-tertiary-button-tertiary-fg
+color-button-button-tertiary-button-tertiary-fg_hover
+color-button-button-tertiary-button-tertiary-bg_hover
+color-button-button-tertiary color-button-tertiary-color-fg
+color-button-button-tertiary color-button-tertiary-color-fg_hover
+color-button-button-tertiary color-button-tertiary-color-bg_hover
+color-button-button-primary error-button-primary-error-fg
+color-button-button-primary error-button-primary-error-fg_hover
+color-button-button-primary error-button-primary-error-bg
+color-button-button-primary error-button-primary-error-bg_hover
+color-button-button-seconday error-button-secondary-error-fg
+color-button-button-seconday error-button-secondary-error-fg_hover
+color-button-button-seconday error-button-secondary-error-bg
+color-button-button-seconday error-button-secondary-error-bg_hover
+color-button-button-seconday error-button-secondary-error-border
+color-button-button-seconday error-button-secondary-error-border_hover
+color-button-button-tertiary error-button-tertiary-error-fg
+color-button-button-tertiary error-button-tertiary-error-fg_hover
+color-button-button-tertiary error-button-tertiary-error-bg_hover
+color-alpha-alpha-gray-alpha-white-100
+color-alpha-alpha-gray-alpha-white-90
+color-alpha-alpha-gray-alpha-white-80
+color-alpha-alpha-gray-alpha-white-70
+color-alpha-alpha-gray-alpha-white-60
+color-alpha-alpha-gray-alpha-white-50
+color-alpha-alpha-gray-alpha-white-40
+color-alpha-alpha-gray-alpha-white-30
+color-alpha-alpha-gray-alpha-white-20
+color-alpha-alpha-gray-alpha-white-10
+color-alpha-alpha-color-alpha-black-100
+color-alpha-alpha-color-alpha-black-90
+color-alpha-alpha-color-alpha-black-80
+color-alpha-alpha-color-alpha-black-70
+color-alpha-alpha-color-alpha-black-60
+color-alpha-alpha-color-alpha-black-50
+color-alpha-alpha-color-alpha-black-40
+color-alpha-alpha-color-alpha-black-30
+color-alpha-alpha-color-alpha-black-20
+color-alpha-alpha-color-alpha-black-10
+color-utility-utility-gray-utility-gray-25
+color-utility-utility-gray-utility-gray-50
+color-utility-utility-gray-utility-gray-100
+color-utility-utility-gray-utility-gray-200
+color-utility-utility-gray-utility-gray-300
+color-utility-utility-gray-utility-gray-400
+color-utility-utility-gray-utility-gray-500
+color-utility-utility-gray-utility-gray-600
+color-utility-utility-gray-utility-gray-700
+color-utility-utility-gray-utility-gray-800
+color-utility-utility-gray-utility-gray-900
+color-utility-utility-color-utility-brand-25
+color-utility-utility-color-utility-brand-50
+color-utility-utility-color-utility-brand-50_alt
+color-utility-utility-color-utility-brand-100
+color-utility-utility-color-utility-brand-100_alt
+color-utility-utility-color-utility-brand-200
+color-utility-utility-color-utility-brand-200_alt
+color-utility-utility-color-utility-brand-300
+color-utility-utility-color-utility-brand-300_alt
+color-utility-utility-color-utility-brand-400
+color-utility-utility-color-utility-brand-400_alt
+color-utility-utility-color-utility-brand-500
+color-utility-utility-color-utility-brand-500_alt
+color-utility-utility-color-utility-brand-600
+color-utility-utility-color-utility-brand-600_alt
+color-utility-utility-color-utility-brand-700
+color-utility-utility-color-utility-brand-700_alt
+color-utility-utility-color-utility-brand-800
+color-utility-utility-color-utility-brand-800_alt
+color-utility-utility-color-utility-brand-900
+color-utility-utility-color-utility-brand-900_alt
+color-utility-utility-color-utility-error-50
+color-utility-utility-color-utility-error-100
+color-utility-utility-color-utility-error-200
+color-utility-utility-color-utility-error-300
+color-utility-utility-color-utility-error-400
+color-utility-utility-color-utility-error-500
+color-utility-utility-color-utility-error-600
+color-utility-utility-color-utility-error-700
+color-utility-utility-color-utility-warning-50
+color-utility-utility-color-utility-warning-100
+color-utility-utility-color-utility-warning-200
+color-utility-utility-color-utility-warning-300
+color-utility-utility-color-utility-warning-400
+color-utility-utility-color-utility-warning-500
+color-utility-utility-color-utility-warning-600
+color-utility-utility-color-utility-warning-700
+color-utility-utility-color-utility-success-50
+color-utility-utility-color-utility-success-100
+color-utility-utility-color-utility-success-200
+color-utility-utility-color-utility-success-300
+color-utility-utility-color-utility-success-400
+color-utility-utility-color-utility-success-500
+color-utility-utility-color-utility-success-600
+color-utility-utility-color-utility-success-700
+color-utility-utility-color-utility-info-50
+color-utility-utility-color-utility-info-100
+color-utility-utility-color-utility-info-200
+color-utility-utility-color-utility-info-300
+color-utility-utility-color-utility-info-400
+color-utility-utility-color-utility-info-500
+color-utility-utility-color-utility-info-600
+color-utility-utility-color-utility-info-700

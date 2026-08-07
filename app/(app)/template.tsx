@@ -1,0 +1,10 @@
+'use client';
+import * as React from 'react';
+
+export default function AppTemplate({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="page-transition">
+      {children}
+    </div>
+  );
+}

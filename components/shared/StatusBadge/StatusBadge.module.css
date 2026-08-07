@@ -1,0 +1,66 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--invox-radius-pill);
+  padding: 4px 10px;
+  font-family: var(--invox-font-body);
+  font-size: var(--invox-text-xs); /* fine print / caption sized */
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: -0.12px;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+/* Status: Draft */
+.status_draft {
+  background-color: rgba(110, 110, 115, 0.12); /* text-secondary base */
+  color: var(--invox-color-text-secondary);
+}
+.status_draft .dot {
+  background-color: var(--invox-color-text-secondary);
+}
+
+/* Status: Pending */
+.status_pending {
+  background-color: rgba(0, 122, 255, 0.12); /* accent/primary base */
+  color: var(--invox-color-accent);
+}
+.status_pending .dot {
+  background-color: var(--invox-color-accent);
+}
+
+/* Status: Paid */
+.status_paid {
+  background-color: rgba(48, 209, 88, 0.12); /* success base */
+  color: var(--invox-color-success);
+}
+.status_paid .dot {
+  background-color: var(--invox-color-success);
+}
+
+/* Status: Overdue */
+.status_overdue {
+  background-color: rgba(255, 69, 58, 0.12); /* danger base */
+  color: var(--invox-color-danger);
+}
+.status_overdue .dot {
+  background-color: var(--invox-color-danger);
+}
+
+/* Status: Cancelled */
+.status_cancelled {
+  background-color: rgba(142, 142, 147, 0.12);
+  color: var(--invox-color-text-secondary);
+}
+.status_cancelled .dot {
+  background-color: var(--invox-color-text-secondary);
+}

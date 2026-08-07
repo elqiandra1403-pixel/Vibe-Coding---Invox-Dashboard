@@ -1,0 +1,121 @@
+.buttonBase {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), background-color 150ms ease, box-shadow 150ms ease, opacity 150ms ease;
+  will-change: transform;
+}
+
+.buttonBase:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.buttonBase:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+.buttonBase:focus-visible {
+  outline: 2px solid var(--invox-color-accent, #0071e3);
+  outline-offset: 2px;
+}
+
+.primary {
+  background-color: var(--invox-color-button-button-primary-button-primary-bg, #52627F);
+  color: var(--invox-color-button-button-primary-button-primary-fg, #FFFFFF);
+  border-radius: var(--invox-radius-pill);
+  padding: 12px 24px;
+  font-family: var(--invox-font-body);
+  font-size: var(--invox-text-sm);
+  font-weight: 500;
+  line-height: 1.47;
+  letter-spacing: -0.2px;
+}
+
+.primary:hover:not(:disabled) {
+  background-color: var(--invox-color-button-button-primary-button-primary-bg_hover, #39455C);
+}
+
+/* 2. Secondary Pill (Ghost Pill) */
+.secondaryPill {
+  background-color: transparent;
+  color: var(--invox-color-primary);
+  border: 1px solid var(--invox-color-primary);
+  border-radius: var(--invox-radius-pill);
+  padding: 11px 22px;
+  font-family: var(--invox-font-body);
+  font-size: var(--invox-text-body);
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+}
+
+/* 2b. Outline (Standard border button) */
+.outline {
+  background-color: var(--invox-color-surface);
+  color: var(--invox-color-ink);
+  border: 1px solid var(--invox-color-hairline);
+  border-radius: var(--invox-radius-pill);
+  padding: 11px 22px;
+  font-family: var(--invox-font-body);
+  font-size: var(--invox-text-sm);
+  font-weight: 500;
+  line-height: 1.47;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* 3. Dark Utility (Nav actions, Sign In, Bag) */
+.darkUtility {
+  background-color: var(--invox-color-ink);
+  color: var(--invox-color-canvas);
+  border-radius: var(--invox-radius-sm);
+  padding: 8px 15px;
+  font-family: var(--invox-font-body);
+  font-size: var(--invox-text-sm);
+  font-weight: 400;
+  line-height: 1.29;
+  letter-spacing: -0.224px;
+}
+
+/* 4. Pearl Capsule (Secondary cards) */
+.pearlCapsule {
+  background-color: var(--invox-color-pearl);
+  color: var(--invox-color-ink-muted-80);
+  border: 3px solid var(--invox-color-divider-soft);
+  border-radius: var(--invox-radius-md);
+  padding: 8px 14px;
+  font-family: var(--invox-font-body);
+  font-size: var(--invox-text-sm); /* Caption */
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: -0.224px;
+}
+
+/* 5. Store Hero */
+.storeHero {
+  background-color: var(--invox-color-primary);
+  color: var(--invox-color-surface);
+  border-radius: var(--invox-radius-pill);
+  padding: 14px 28px;
+  font-family: var(--invox-font-display);
+  font-size: 18px; /* Button Large */
+  font-weight: 300; /* Rare weight 300 */
+  line-height: 1.0;
+  letter-spacing: 0;
+}
+
+/* 6. Icon Circular (Floating controls) */
+.iconCircular {
+  background-color: rgba(210, 210, 215, 0.64);
+  color: var(--invox-color-ink);
+  border-radius: var(--invox-radius-pill);
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}

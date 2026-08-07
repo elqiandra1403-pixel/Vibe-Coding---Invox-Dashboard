@@ -1,0 +1,14 @@
+/**
+ * Typography utilities — SF Pro Display + SF Pro Text scale
+ * Based on DESIGN-apple.md typography tokens
+ */
+
+.type-hero     { font-family: var(--invox-font-display); font-size: var(--invox-text-hero); font-weight: 600; line-height: 1.07; letter-spacing: -0.28px; }
+.type-2xl      { font-family: var(--invox-font-display); font-size: var(--invox-text-2xl);  font-weight: 600; line-height: 1.10; letter-spacing: 0; }
+.type-xl       { font-family: var(--invox-font-display); font-size: var(--invox-text-xl);   font-weight: 600; line-height: 1.47; letter-spacing: -0.374px; }
+.type-lg       { font-family: var(--invox-font-display); font-size: var(--invox-text-lg);   font-weight: 400; line-height: 1.14; letter-spacing: 0.196px; }
+.type-tagline  { font-family: var(--invox-font-display); font-size: var(--invox-text-md);   font-weight: 600; line-height: 1.19; letter-spacing: 0.231px; }
+.type-strong   { font-family: var(--invox-font-display); font-size: var(--invox-text-body); font-weight: 600; line-height: 1.24; letter-spacing: -0.374px; }
+.type-body     { font-family: var(--invox-font-display); font-size: var(--invox-text-body); font-weight: 400; line-height: 1.47; letter-spacing: -0.374px; }
+.type-caption  { font-family: var(--invox-font-display); font-size: var(--invox-text-sm);   font-weight: 400; line-height: 1.43; letter-spacing: -0.224px; }
+.type-fine     { font-family: var(--invox-font-display); font-size: var(--invox-text-xs);   font-weight: 400; line-height: 1.0;  letter-spacing: -0.12px; }

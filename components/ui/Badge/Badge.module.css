@@ -1,0 +1,40 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--invox-radius-pill);
+  padding: 4px 10px;
+  font-family: var(--invox-font-body);
+  font-size: var(--invox-text-xs); /* fine print / caption sized */
+  font-weight: 600;
+  line-height: 1.0;
+  letter-spacing: -0.12px;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Primary Badge */
+.primary {
+  background-color: var(--invox-color-primary);
+  color: var(--invox-color-surface);
+}
+
+/* Secondary Badge (Ghost) */
+.secondary {
+  background-color: transparent;
+  color: var(--invox-color-primary);
+  border: 1px solid var(--invox-color-primary);
+}
+
+/* Outline Badge */
+.outline {
+  background-color: transparent;
+  color: var(--invox-color-text-secondary);
+  border: 1px solid var(--invox-color-border);
+}
+
+/* Muted Badge */
+.muted {
+  background-color: var(--invox-color-pearl);
+  color: var(--invox-color-ink-muted-80);
+}

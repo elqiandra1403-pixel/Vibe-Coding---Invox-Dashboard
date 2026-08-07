@@ -1,0 +1,21 @@
+// Design System — UI Primitives barrel export
+export { Button } from "./Button";
+export { Badge } from "./Badge";
+export { Card } from "./Card";
+export { Table } from "./Table";
+export { Modal } from "./Modal";
+export { Drawer } from "./Drawer";
+export { Input } from "./Input";
+export { Select } from "./Select";
+export { Textarea } from "./Textarea";
+export { DatePicker } from "./DatePicker";
+export { Checkbox } from "./Checkbox";
+export { Toast } from "./Toast";
+export { Tooltip } from "./Tooltip";
+export { Popover } from "./Popover";
+export { Skeleton } from "./Skeleton";
+export { Spinner } from "./Spinner";
+export { EmptyState } from "./EmptyState";
+export { ConfirmDialog } from "./ConfirmDialog";
+export { Divider } from "./Divider";
+export { Avatar } from "./Avatar";

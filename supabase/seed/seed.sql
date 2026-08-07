@@ -1,0 +1,4 @@
+-- Dev-only seed data
+-- Phase 2: Add test data for all three roles (Admin, Finance, Client)
+-- and a set of test invoices in various statuses
+-- NOTE: Never run against production

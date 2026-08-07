@@ -1,0 +1,84 @@
+@import './colors.css';
+
+/**
+ * Invox Design Tokens — CSS Custom Properties
+ * Source: PRD §15 + DESIGN-apple.md + Figma Color Mode
+ * Pipeline: DESIGN-apple.md → theme/tokens.ts → styles/tokens.css → components
+ */
+
+:root, [data-theme="dark"] {
+  /* ── Colors — Mapped to Custom Figma Tokens ─────────────────────────────── */
+  --invox-color-primary:         var(--invox-color-background-background-color-bg-info-solid);
+  --invox-color-accent:          var(--invox-color-foreground-foreground-color-fg-brand-primary);
+  --invox-color-background:      var(--invox-color-background-background-gray-bg-secondary);
+  --invox-color-surface:         var(--invox-color-background-background-gray-bg-primary);
+  --invox-color-border:          var(--invox-color-border-border-gray-border-secondary);
+  --invox-color-text-primary:    var(--invox-color-text-text-gray-text-primary);
+  --invox-color-text-secondary:  var(--invox-color-text-text-gray-text-secondary);
+  --invox-color-success:         var(--invox-color-text-text-color-text-success);
+  --invox-color-warning:         var(--invox-color-text-text-color-text-warning);
+  --invox-color-danger:          var(--invox-color-text-text-color-text-error);
+
+  /* ── Colors — Apple Design System Base (Mapped) ────────────────────────── */
+  --invox-color-ink:             var(--invox-color-text-text-gray-text-primary);
+  --invox-color-ink-muted-80:    var(--invox-color-text-text-gray-text-secondary);
+  --invox-color-ink-muted-48:    var(--invox-color-text-text-gray-text-tertiary);
+  --invox-color-canvas:          var(--invox-color-background-background-gray-bg-primary);
+  --invox-color-parchment:       var(--invox-color-background-background-gray-bg-secondary);
+  --invox-color-pearl:           var(--invox-color-background-background-gray-bg-tertiary);
+  --invox-color-divider-soft:    var(--invox-color-border-border-gray-border-tertiary);
+  --invox-color-hairline:        var(--invox-color-border-border-gray-border-primary);
+  --invox-color-on-dark:         var(--invox-color-text-text-gray-text-primary_on-brand);
+  --invox-color-muted-on-dark:   var(--invox-color-text-text-gray-text-secondary_on-brand);
+
+  /* ── Typography ─────────────────────────────────────────────────────────── */
+  --invox-font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --invox-font-body:    "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Type scale */
+  --invox-text-hero:    56px;  /* hero-display */
+  --invox-text-2xl:     40px;  /* display-lg */
+  --invox-text-xl:      34px;  /* display-md */
+  --invox-text-lg:      28px;  /* lead */
+  --invox-text-md:      21px;  /* tagline */
+  --invox-text-body:    17px;  /* body */
+  --invox-text-sm:      14px;  /* caption */
+  --invox-text-xs:      12px;  /* fine-print */
+  --invox-text-micro:   10px;  /* micro-legal */
+
+  /* ── Spacing (8pt grid) ─────────────────────────────────────────────────── */
+  --invox-space-xxs:     4px;
+  --invox-space-xs:      8px;
+  --invox-space-sm:     12px;
+  --invox-space-md:     16px;
+  --invox-space-lg:     24px;
+  --invox-space-xl:     32px;
+  --invox-space-xxl:    48px;
+  --invox-space-section: 80px;
+
+  /* ── Border Radius ─────────────────────────────────────────────────────── */
+  --invox-radius-xs:    5px;
+  --invox-radius-sm:    8px;
+  --invox-radius-md:    11px;
+  --invox-radius-lg:    18px;
+  --invox-radius-card:  20px;   /* KPI cards, table container, detail panel */
+  --invox-radius-pill:  9999px; /* Buttons, badges, search input */
+
+  /* ── Elevation (single shadow rule: product images only) ────────────────── */
+  --invox-shadow-product: rgba(0, 0, 0, 0.22) 3px 5px 30px 0;
+  --invox-shadow-card:    0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --invox-shadow-none:    none;
+
+  /* ── Transitions (PRD: 150–200ms ease-out) ──────────────────────────────── */
+  --invox-transition-fast:   150ms ease-out;
+  --invox-transition-medium: 200ms ease-out;
+
+  /* ── Z-index scale ──────────────────────────────────────────────────────── */
+  --invox-z-base:    0;
+  --invox-z-raised:  10;
+  --invox-z-nav:     100;
+  --invox-z-drawer:  200;
+  --invox-z-modal:   300;
+  --invox-z-toast:   400;
+}
+

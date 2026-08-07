@@ -1,0 +1,7 @@
+.card {
+  background-color: var(--invox-color-canvas);
+  border: 1px solid var(--invox-color-hairline);
+  border-radius: var(--invox-radius-lg); /* 18px */
+  padding: var(--invox-spacing-lg); /* 24px */
+  box-shadow: none; /* explicitly no shadow per Apple HIG */
+}
