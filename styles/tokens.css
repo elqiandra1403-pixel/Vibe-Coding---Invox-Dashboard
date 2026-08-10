@@ -82,3 +82,28 @@
   --invox-z-toast:   400;
 }
 
+[data-theme="light"] {
+  /* ── Colors — Light Mode Mapped Tokens ─────────────────────────────────── */
+  --invox-color-primary:         #006BFF;
+  --invox-color-accent:          #52627F;
+  --invox-color-background:      #FAFAFA;
+  --invox-color-surface:         #FFFFFF;
+  --invox-color-border:          #E2E8F0;
+  --invox-color-text-primary:    #0F172A;
+  --invox-color-text-secondary:  #64748B;
+  --invox-color-success:         #079455;
+  --invox-color-warning:         #DC6903;
+  --invox-color-danger:          #D92D21;
+
+  --invox-color-ink:             #0F172A;
+  --invox-color-ink-muted-80:    #64748B;
+  --invox-color-ink-muted-48:    #94A3B8;
+  --invox-color-canvas:          #FAFAFA;
+  --invox-color-parchment:       #FFFFFF;
+  --invox-color-pearl:           #F1F5F9;
+  --invox-color-divider-soft:    #E2E8F0;
+  --invox-color-hairline:        #E2E8F0;
+  --invox-color-on-dark:         #FFFFFF;
+  --invox-color-muted-on-dark:   #94A3B8;
+}
+

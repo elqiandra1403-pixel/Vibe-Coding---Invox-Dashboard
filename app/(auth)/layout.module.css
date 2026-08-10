@@ -31,7 +31,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--invox-color-canvas);
+  background-color: var(--invox-color-canvas, #FAFAFA);
+  color: var(--invox-color-text-primary, #0F172A);
 }
 
 /* Left panel internal layout */
