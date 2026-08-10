@@ -6,6 +6,7 @@ import { Sidebar } from '@/components/layout/Sidebar';
 import { Header } from '@/components/layout/Header';
 import { CommandPalette } from '@/components/layout/CommandPalette';
 import { CreateInvoiceModal } from '@/components/features/invoices/CreateInvoiceModal';
+import { SignOutModal } from '@/components/features/auth/SignOutModal';
 import { ToastContainer } from '@/components/ui/Toast/Toast';
 import { useUiStore } from '@/stores/uiStore';
 import styles from './layout.module.css';
@@ -40,6 +41,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </div>
       <CommandPalette />
       <CreateInvoiceModal />
+      <SignOutModal />
       <ToastContainer />
     </div>
   );

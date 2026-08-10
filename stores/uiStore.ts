@@ -20,6 +20,7 @@ interface UiStore {
   userProfile: UserProfile;
   newInvoiceModalOpen: boolean;
   searchModalOpen: boolean;
+  signOutModalOpen: boolean;
   toasts: ToastItem[];
   toggleSidebar: () => void;
   setSidebarOpen: (open: boolean) => void;
@@ -28,6 +29,7 @@ interface UiStore {
   setUserProfile: (profile: Partial<UserProfile>) => void;
   setNewInvoiceModalOpen: (open: boolean) => void;
   setSearchModalOpen: (open: boolean) => void;
+  setSignOutModalOpen: (open: boolean) => void;
   addToast: (message: string, type?: ToastItem["type"]) => void;
   removeToast: (id: string) => void;
 }
@@ -43,6 +45,7 @@ export const useUiStore = create<UiStore>((set, get) => ({
   },
   newInvoiceModalOpen: false,
   searchModalOpen: false,
+  signOutModalOpen: false,
   toasts: [],
   toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
   setSidebarOpen: (sidebarOpen) => set({ sidebarOpen }),
@@ -71,6 +74,7 @@ export const useUiStore = create<UiStore>((set, get) => ({
     }),
   setNewInvoiceModalOpen: (newInvoiceModalOpen) => set({ newInvoiceModalOpen }),
   setSearchModalOpen: (searchModalOpen) => set({ searchModalOpen }),
+  setSignOutModalOpen: (signOutModalOpen) => set({ signOutModalOpen }),
   addToast: (message, type = "success") => {
     const id = Date.now().toString() + Math.random().toString(36).substring(2, 5);
     set((state) => ({ toasts: [...state.toasts, { id, message, type }] }));
