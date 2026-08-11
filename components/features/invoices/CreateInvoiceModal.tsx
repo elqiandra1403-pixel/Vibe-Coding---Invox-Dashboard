@@ -1,28 +1,38 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useUiStore } from '@/stores/uiStore';
 import { X, FilePlus, DollarSign, Calendar, User } from 'lucide-react';
+import { formatCurrency, parseAmount } from '@/utils/currency';
 import styles from './CreateInvoiceModal.module.css';
 
 export function CreateInvoiceModal() {
-  const { newInvoiceModalOpen, setNewInvoiceModalOpen, addToast } = useUiStore();
+  const { newInvoiceModalOpen, setNewInvoiceModalOpen, addToast, userProfile } = useUiStore();
   const [customer, setCustomer] = useState('');
   const [amount, setAmount] = useState('');
+  const [currency, setCurrency] = useState(userProfile?.currency || 'USD');
   const [dueDate, setDueDate] = useState('');
   const [description, setDescription] = useState('');
+
+  useEffect(() => {
+    if (userProfile?.currency) {
+      setCurrency(userProfile.currency);
+    }
+  }, [userProfile?.currency]);
 
   if (!newInvoiceModalOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!customer || !amount) {
-      addToast('Please provide a customer name and amount.', 'error');
+    const numericVal = parseAmount(amount);
+    if (!customer || !numericVal) {
+      addToast('Please provide a valid customer name and amount.', 'error');
       return;
     }
 
     const invId = `INV-2026-0${Math.floor(200 + Math.random() * 800)}`;
-    addToast(`Invoice ${invId} for ${customer} ($${amount}) created!`, 'success');
+    const formattedStr = formatCurrency(numericVal, currency);
+    addToast(`Invoice ${invId} for ${customer} (${formattedStr}) created!`, 'success');
     setNewInvoiceModalOpen(false);
     setCustomer('');
     setAmount('');
@@ -66,12 +76,12 @@ export function CreateInvoiceModal() {
 
           <div className={styles.row}>
             <div className={styles.inputGroup}>
-              <label className={styles.label}>AMOUNT ($ USD)</label>
+              <label className={styles.label}>AMOUNT</label>
               <div className={styles.inputWrapper}>
                 <DollarSign size={16} className={styles.fieldIcon} />
                 <input
                   type="number"
-                  step="0.01"
+                  step="any"
                   className={styles.input}
                   placeholder="0.00"
                   value={amount}
@@ -82,16 +92,30 @@ export function CreateInvoiceModal() {
             </div>
 
             <div className={styles.inputGroup}>
-              <label className={styles.label}>DUE DATE</label>
-              <div className={styles.inputWrapper}>
-                <Calendar size={16} className={styles.fieldIcon} />
-                <input
-                  type="date"
-                  className={styles.input}
-                  value={dueDate}
-                  onChange={(e) => setDueDate(e.target.value)}
-                />
-              </div>
+              <label className={styles.label}>CURRENCY</label>
+              <select
+                className={styles.input}
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+              >
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="IDR">IDR (Rp)</option>
+              </select>
+            </div>
+          </div>
+
+          <div className={styles.inputGroup}>
+            <label className={styles.label}>DUE DATE</label>
+            <div className={styles.inputWrapper}>
+              <Calendar size={16} className={styles.fieldIcon} />
+              <input
+                type="date"
+                className={styles.input}
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+              />
             </div>
           </div>
 

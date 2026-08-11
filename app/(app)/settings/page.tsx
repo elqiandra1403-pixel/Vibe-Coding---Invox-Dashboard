@@ -46,6 +46,12 @@ export default function SettingsPage() {
     addToast('Appearance updated to ' + modeLabel + ' mode', 'info');
   };
 
+  const handleCurrencyChange = (newCurrency: string) => {
+    setCurrency(newCurrency);
+    setUserProfile({ currency: newCurrency });
+    addToast(`Default currency updated to ${newCurrency}`, 'info');
+  };
+
   const handleToggle = (setter: (val: boolean) => void, current: boolean, label: string) => {
     const nextVal = !current;
     setter(nextVal);
@@ -114,7 +120,7 @@ export default function SettingsPage() {
                   <select 
                     className={styles.select}
                     value={currency}
-                    onChange={(e) => setCurrency(e.target.value)}
+                    onChange={(e) => handleCurrencyChange(e.target.value)}
                   >
                     <option value="USD">USD ($)</option>
                     <option value="EUR">EUR (€)</option>

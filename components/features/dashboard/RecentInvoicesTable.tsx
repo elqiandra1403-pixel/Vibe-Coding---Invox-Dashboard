@@ -4,7 +4,7 @@ import styles from '@/app/(app)/dashboard/dashboard.module.css';
 import compStyles from '@/app/(app)/dashboard/dashboard-components.module.css';
 import { ArrowRight, MoreHorizontal, CalendarX, X } from 'lucide-react';
 import { useDashboardStore } from '@/stores/dashboardStore';
-import { InvoiceActionMenu } from '@/components/features/invoices/InvoiceActionMenu';
+import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
 
 export function RecentInvoicesTable() {
   const router = useRouter();
@@ -66,7 +66,9 @@ export function RecentInvoicesTable() {
                   <td>{inv.customer}</td>
                   <td>{inv.issued}</td>
                   <td>{inv.due}</td>
-                  <td style={{fontWeight: 500}}>{inv.amount}</td>
+                  <td style={{fontWeight: 500}}>
+                    <CurrencyDisplay amount={inv.numericAmount ?? inv.amount} originalCurrency={inv.currency || 'USD'} />
+                  </td>
                   <td>
                     <span className={`${compStyles.statusBadge} ${compStyles[inv.statusClass]}`}>
                       <span className={compStyles.statusDot}></span>
@@ -74,7 +76,13 @@ export function RecentInvoicesTable() {
                     </span>
                   </td>
                   <td style={{textAlign: 'right', color: 'var(--invox-color-text-tertiary)'}}>
-                    <InvoiceActionMenu invoice={inv} />
+                    <button 
+                      style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: '4px' }}
+                      onClick={() => router.push('/invoices')}
+                      title="View invoice details"
+                    >
+                      <MoreHorizontal size={16} />
+                    </button>
                   </td>
                 </tr>
               ))}

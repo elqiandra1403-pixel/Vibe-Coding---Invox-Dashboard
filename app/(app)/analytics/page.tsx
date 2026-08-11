@@ -1,9 +1,14 @@
 'use client';
 
 import React from 'react';
+import { useUiStore } from '@/stores/uiStore';
+import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
+import { formatCompactCurrency } from '@/utils/currency';
 import styles from './analytics.module.css';
 
 export default function AnalyticsPage() {
+  const targetCurrency = useUiStore((state) => state.userProfile?.currency || 'USD');
+
   return (
     <div className={styles.container}>
       {/* Header */}
@@ -31,11 +36,21 @@ export default function AnalyticsPage() {
               <div className={styles.lineChartArea}>
                 <svg width="100%" height="100%" viewBox="0 0 800 220" preserveAspectRatio="none">
                   {/* Y-axis Labels */}
-                  <text x="5" y="25" fill="var(--invox-color-text-tertiary, #888)" fontSize="11">$120k</text>
-                  <text x="5" y="70" fill="var(--invox-color-text-tertiary, #888)" fontSize="11">$90k</text>
-                  <text x="5" y="115" fill="var(--invox-color-text-tertiary, #888)" fontSize="11">$60k</text>
-                  <text x="5" y="160" fill="var(--invox-color-text-tertiary, #888)" fontSize="11">$30k</text>
-                  <text x="5" y="205" fill="var(--invox-color-text-tertiary, #888)" fontSize="11">$0k</text>
+                  <text x="5" y="25" fill="var(--invox-color-text-tertiary, #888)" fontSize="11">
+                    {formatCompactCurrency(120000, targetCurrency)}
+                  </text>
+                  <text x="5" y="70" fill="var(--invox-color-text-tertiary, #888)" fontSize="11">
+                    {formatCompactCurrency(90000, targetCurrency)}
+                  </text>
+                  <text x="5" y="115" fill="var(--invox-color-text-tertiary, #888)" fontSize="11">
+                    {formatCompactCurrency(60000, targetCurrency)}
+                  </text>
+                  <text x="5" y="160" fill="var(--invox-color-text-tertiary, #888)" fontSize="11">
+                    {formatCompactCurrency(30000, targetCurrency)}
+                  </text>
+                  <text x="5" y="205" fill="var(--invox-color-text-tertiary, #888)" fontSize="11">
+                    {formatCompactCurrency(0, targetCurrency)}
+                  </text>
 
                   {/* Horizontal Gridlines */}
                   <line x1="45" y1="20" x2="800" y2="20" stroke="var(--invox-color-border)" strokeDasharray="4 4" opacity="0.6" />
@@ -166,12 +181,16 @@ export default function AnalyticsPage() {
           <div className={styles.metricCard}>
             <span className={styles.metricLabel}>Best month</span>
             <h2 className={styles.metricValue}>December</h2>
-            <span className={styles.metricSubtext}>$104k collected</span>
+            <span className={styles.metricSubtext}>
+              <CurrencyDisplay amount={104000} originalCurrency="USD" /> collected
+            </span>
           </div>
 
           <div className={styles.metricCard}>
             <span className={styles.metricLabel}>Avg. invoice size</span>
-            <h2 className={styles.metricValue}>$8,412</h2>
+            <h2 className={styles.metricValue}>
+              <CurrencyDisplay amount={8412} originalCurrency="USD" />
+            </h2>
             <span className={styles.metricSubtext}>+6.2% YoY</span>
           </div>
 
@@ -186,7 +205,7 @@ export default function AnalyticsPage() {
       {/* Footer */}
       <div className={styles.footer}>
         <span>© Invox 2026</span>
-        <span>All amounts in USD · Updated just now</span>
+        <span>All amounts in {targetCurrency} · Updated just now</span>
       </div>
     </div>
   );

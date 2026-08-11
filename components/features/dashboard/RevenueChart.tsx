@@ -2,13 +2,23 @@ import React from 'react';
 import styles from '@/app/(app)/dashboard/dashboard.module.css';
 import compStyles from '@/app/(app)/dashboard/dashboard-components.module.css';
 import { useDashboardStore, PERIOD_DATA_MAP } from '@/stores/dashboardStore';
+import { useUiStore } from '@/stores/uiStore';
+import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
+import { formatCompactCurrency } from '@/utils/currency';
 
 export function RevenueChart() {
   const selectedPeriod = useDashboardStore(state => state.selectedPeriod);
-  const revenueTotalFromStore = useDashboardStore(state => state.revenueTotal);
+  const numericTotalFromStore = useDashboardStore(state => state.numericRevenueTotal);
+  const targetCurrency = useUiStore(state => state.userProfile?.currency || 'USD');
   
   const periodData = PERIOD_DATA_MAP[selectedPeriod] || PERIOD_DATA_MAP['12m'];
-  const displayTotal = selectedPeriod === '12m' ? revenueTotalFromStore : periodData.revenueTotal;
+  const numericTotal = selectedPeriod === '12m' ? numericTotalFromStore : periodData.numericTotal;
+
+  // Generate dynamic Y-axis tick values based on maximum period revenue
+  const maxUSD = Math.max(numericTotal * 1.1, 100000);
+  const tick1 = Math.round(maxUSD * 0.9);
+  const tick2 = Math.round(maxUSD * 0.6);
+  const tick3 = Math.round(maxUSD * 0.3);
 
   return (
     <div className={styles.card}>
@@ -18,20 +28,22 @@ export function RevenueChart() {
           <h2 className={styles.cardValue}>Revenue overview</h2>
         </div>
       </div>
-      <div style={{fontSize: '34px', fontWeight: '600', marginBottom: '8px'}}>{displayTotal}</div>
+      <div style={{fontSize: '34px', fontWeight: '600', marginBottom: '8px'}}>
+        <CurrencyDisplay amount={numericTotal} originalCurrency="USD" />
+      </div>
       <div style={{display: 'flex', justifyContent: 'space-between', color: 'var(--invox-color-text-secondary)', fontSize: '12px'}}>
         <span>{periodData.revenueSubtitle}</span>
         <span style={{display: 'flex', alignItems: 'center', gap: '6px'}}><div style={{width: 8, height: 8, borderRadius: '50%', backgroundColor: '#3b82f6'}}></div> Collected</span>
       </div>
       
       <div className={compStyles.chartArea}>
-        {/* Mock Line Chart with Y-axis labels */}
+        {/* Dynamic Line Chart with converted Y-axis labels */}
         <svg width="100%" height="100%" viewBox="0 0 800 240" preserveAspectRatio="none">
           {/* Y-axis labels */}
-          <text x="10" y="44" fill="var(--invox-color-text-tertiary)" fontSize="10">$750k</text>
-          <text x="10" y="104" fill="var(--invox-color-text-tertiary)" fontSize="10">$500k</text>
-          <text x="10" y="164" fill="var(--invox-color-text-tertiary)" fontSize="10">$250k</text>
-          <text x="10" y="224" fill="var(--invox-color-text-tertiary)" fontSize="10">$0k</text>
+          <text x="5" y="44" fill="var(--invox-color-text-tertiary)" fontSize="10">{formatCompactCurrency(tick1, targetCurrency)}</text>
+          <text x="5" y="104" fill="var(--invox-color-text-tertiary)" fontSize="10">{formatCompactCurrency(tick2, targetCurrency)}</text>
+          <text x="5" y="164" fill="var(--invox-color-text-tertiary)" fontSize="10">{formatCompactCurrency(tick3, targetCurrency)}</text>
+          <text x="5" y="224" fill="var(--invox-color-text-tertiary)" fontSize="10">{formatCompactCurrency(0, targetCurrency)}</text>
 
           {/* Grid lines */}
           <line x1="50" y1="40" x2="800" y2="40" stroke="var(--invox-color-border)" strokeDasharray="4 4" />

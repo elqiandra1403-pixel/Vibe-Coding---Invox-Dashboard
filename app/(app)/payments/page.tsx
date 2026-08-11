@@ -3,6 +3,8 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Calendar, ChevronLeft, ChevronRight, CheckCircle2, Clock, AlertCircle, CalendarX, X } from 'lucide-react';
+import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
+import { useUiStore } from '@/stores/uiStore';
 import styles from './payments.module.css';
 
 export interface PaymentItem {
@@ -12,6 +14,8 @@ export interface PaymentItem {
   date: string;
   dayNum: string;
   amount: string;
+  numericAmount: number;
+  currency: string;
   status: 'Received' | 'Awaiting';
 }
 
@@ -33,23 +37,24 @@ const DATES = [
 ];
 
 const RECENT_PAYMENTS: PaymentItem[] = [
-  { id: 'pay-1', invoiceId: 'INV-2026-0200', customer: 'Sable & Co.', date: 'Aug 05', dayNum: '5', amount: '$1,200.00', status: 'Received' },
-  { id: 'pay-2', invoiceId: 'INV-2026-0199', customer: 'Northwind Studio', date: 'Aug 04', dayNum: '4', amount: '$2,171.00', status: 'Awaiting' },
-  { id: 'pay-3', invoiceId: 'INV-2026-0196', customer: 'Meridian Group', date: 'Aug 01', dayNum: '1', amount: '$5,084.00', status: 'Received' },
-  { id: 'pay-4', invoiceId: 'INV-2026-0195', customer: 'Cove Hospitality', date: 'Jul 31', dayNum: '31', amount: '$6,055.00', status: 'Received' },
-  { id: 'pay-5', invoiceId: 'INV-2026-0194', customer: 'Palette Studio', date: 'Jul 30', dayNum: '30', amount: '$7,026.00', status: 'Received' },
-  { id: 'pay-6', invoiceId: 'INV-2026-0193', customer: 'Lantern Works', date: 'Jul 29', dayNum: '29', amount: '$7,997.00', status: 'Awaiting' },
-  { id: 'pay-7', invoiceId: 'INV-2026-0190', customer: 'Sable & Co.', date: 'Jul 26', dayNum: '26', amount: '$10,910.00', status: 'Received' },
-  { id: 'pay-8', invoiceId: 'INV-2026-0189', customer: 'Northwind Studio', date: 'Jul 25', dayNum: '25', amount: '$11,881.00', status: 'Received' },
-  { id: 'pay-9', invoiceId: 'INV-2026-0188', customer: 'Halcyon Labs', date: 'Jul 24', dayNum: '24', amount: '$12,852.00', status: 'Received' },
-  { id: 'pay-10', invoiceId: 'INV-2026-0187', customer: 'Aperture Films', date: 'Jul 23', dayNum: '23', amount: '$13,823.00', status: 'Awaiting' },
-  { id: 'pay-11', invoiceId: 'INV-2026-0184', customer: 'Palette Studio', date: 'Jul 20', dayNum: '20', amount: '$16,736.00', status: 'Received' },
-  { id: 'pay-12', invoiceId: 'INV-2026-0183', customer: 'Lantern Works', date: 'Jul 19', dayNum: '19', amount: '$17,707.00', status: 'Received' },
+  { id: 'pay-1', invoiceId: 'INV-2026-0200', customer: 'Sable & Co.', date: 'Aug 05', dayNum: '5', amount: '$1,200.00', numericAmount: 1200, currency: 'USD', status: 'Received' },
+  { id: 'pay-2', invoiceId: 'INV-2026-0199', customer: 'Northwind Studio', date: 'Aug 04', dayNum: '4', amount: '$2,171.00', numericAmount: 2171, currency: 'USD', status: 'Awaiting' },
+  { id: 'pay-3', invoiceId: 'INV-2026-0196', customer: 'Meridian Group', date: 'Aug 01', dayNum: '1', amount: '$5,084.00', numericAmount: 5084, currency: 'USD', status: 'Received' },
+  { id: 'pay-4', invoiceId: 'INV-2026-0195', customer: 'Cove Hospitality', date: 'Jul 31', dayNum: '31', amount: '$6,055.00', numericAmount: 6055, currency: 'USD', status: 'Received' },
+  { id: 'pay-5', invoiceId: 'INV-2026-0194', customer: 'Palette Studio', date: 'Jul 30', dayNum: '30', amount: '$7,026.00', numericAmount: 7026, currency: 'USD', status: 'Received' },
+  { id: 'pay-6', invoiceId: 'INV-2026-0193', customer: 'Lantern Works', date: 'Jul 29', dayNum: '29', amount: '$7,997.00', numericAmount: 7997, currency: 'USD', status: 'Awaiting' },
+  { id: 'pay-7', invoiceId: 'INV-2026-0190', customer: 'Sable & Co.', date: 'Jul 26', dayNum: '26', amount: '$10,910.00', numericAmount: 10910, currency: 'USD', status: 'Received' },
+  { id: 'pay-8', invoiceId: 'INV-2026-0189', customer: 'Northwind Studio', date: 'Jul 25', dayNum: '25', amount: '$11,881.00', numericAmount: 11881, currency: 'USD', status: 'Received' },
+  { id: 'pay-9', invoiceId: 'INV-2026-0188', customer: 'Halcyon Labs', date: 'Jul 24', dayNum: '24', amount: '$12,852.00', numericAmount: 12852, currency: 'USD', status: 'Received' },
+  { id: 'pay-10', invoiceId: 'INV-2026-0187', customer: 'Aperture Films', date: 'Jul 23', dayNum: '23', amount: '$13,823.00', numericAmount: 13823, currency: 'USD', status: 'Awaiting' },
+  { id: 'pay-11', invoiceId: 'INV-2026-0184', customer: 'Palette Studio', date: 'Jul 20', dayNum: '20', amount: '$16,736.00', numericAmount: 16736, currency: 'USD', status: 'Received' },
+  { id: 'pay-12', invoiceId: 'INV-2026-0183', customer: 'Lantern Works', date: 'Jul 19', dayNum: '19', amount: '$17,707.00', numericAmount: 17707, currency: 'USD', status: 'Received' },
 ];
 
 export default function PaymentsPage() {
   const router = useRouter();
   const popoverRef = useRef<HTMLDivElement>(null);
+  const { userProfile } = useUiStore();
 
   const [selectedDateNum, setSelectedDateNum] = useState<string>('5');
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -210,7 +215,9 @@ export default function PaymentsPage() {
               <CheckCircle2 size={16} color="#22c55e" />
               <span className={styles.metricLabel}>Collected</span>
             </div>
-            <h2 className={styles.metricValue}>$89,451.00</h2>
+            <h2 className={styles.metricValue}>
+              <CurrencyDisplay amount={89451} originalCurrency="USD" />
+            </h2>
           </div>
 
           <div className={styles.metricCard}>
@@ -218,7 +225,9 @@ export default function PaymentsPage() {
               <Clock size={16} color="#3b82f6" />
               <span className={styles.metricLabel}>Pending</span>
             </div>
-            <h2 className={styles.metricValue}>$23,991.00</h2>
+            <h2 className={styles.metricValue}>
+              <CurrencyDisplay amount={23991} originalCurrency="USD" />
+            </h2>
           </div>
 
           <div className={styles.metricCard}>
@@ -226,7 +235,9 @@ export default function PaymentsPage() {
               <AlertCircle size={16} color="#ef4444" />
               <span className={styles.metricLabel}>At risk</span>
             </div>
-            <h2 className={styles.metricValue}>$78,340.00</h2>
+            <h2 className={styles.metricValue}>
+              <CurrencyDisplay amount={78340} originalCurrency="USD" />
+            </h2>
           </div>
         </div>
       </div>
@@ -307,7 +318,9 @@ export default function PaymentsPage() {
                   </div>
 
                   <div className={styles.paymentRight}>
-                    <div className={styles.amount}>{item.amount}</div>
+                    <div className={styles.amount}>
+                      <CurrencyDisplay amount={item.numericAmount} originalCurrency={item.currency} />
+                    </div>
                     <div className={`${styles.statusLabel} ${item.status === 'Received' ? styles.statusReceived : styles.statusAwaiting}`}>
                       {item.status}
                     </div>
@@ -331,7 +344,7 @@ export default function PaymentsPage() {
       {/* Footer */}
       <div className={styles.footer}>
         <span>© Invox 2026</span>
-        <span>All amounts in USD · Updated just now</span>
+        <span>All amounts in {userProfile.currency || 'USD'} · Updated just now</span>
       </div>
     </div>
   );
