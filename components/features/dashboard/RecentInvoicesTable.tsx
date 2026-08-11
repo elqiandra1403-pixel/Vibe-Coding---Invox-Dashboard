@@ -4,6 +4,7 @@ import styles from '@/app/(app)/dashboard/dashboard.module.css';
 import compStyles from '@/app/(app)/dashboard/dashboard-components.module.css';
 import { ArrowRight, MoreHorizontal, CalendarX, X } from 'lucide-react';
 import { useDashboardStore } from '@/stores/dashboardStore';
+import { InvoiceActionMenu } from '@/components/features/invoices/InvoiceActionMenu';
 
 export function RecentInvoicesTable() {
   const router = useRouter();
@@ -73,13 +74,7 @@ export function RecentInvoicesTable() {
                     </span>
                   </td>
                   <td style={{textAlign: 'right', color: 'var(--invox-color-text-tertiary)'}}>
-                    <button 
-                      style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: '4px' }}
-                      onClick={() => router.push('/invoices')}
-                      title="View invoice details"
-                    >
-                      <MoreHorizontal size={16} />
-                    </button>
+                    <InvoiceActionMenu invoice={inv} />
                   </td>
                 </tr>
               ))}
