@@ -63,14 +63,14 @@ export function DateBrowser() {
   }, [isPopoverOpen]);
 
   return (
-    <div className={compStyles.dateBrowser}>
+    <div className={compStyles.dateBrowser} style={{ position: 'relative', zIndex: isPopoverOpen ? 100 : 1 }}>
       <div className={compStyles.dateBrowserHeader}>
         <div className={compStyles.dateBrowserTitle}>
           PICK A DAY
           <h3>Browse by date</h3>
         </div>
 
-        <div className={compStyles.popoverWrapper} ref={popoverRef}>
+        <div className={compStyles.popoverWrapper} ref={popoverRef} style={{ position: 'relative', zIndex: 100 }}>
           <button 
             className={compStyles.calendarBtn}
             onClick={() => setIsPopoverOpen(!isPopoverOpen)}
@@ -85,7 +85,7 @@ export function DateBrowser() {
           </button>
 
           {isPopoverOpen && (
-            <div className={compStyles.calendarPopover}>
+            <div className={compStyles.calendarPopover} style={{ zIndex: 9999 }}>
               <div className={compStyles.popoverHeader}>
                 <span>FILTER BY DATE</span>
                 {selectedDateNum && (

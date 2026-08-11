@@ -171,7 +171,7 @@ export default function InvoicesPage() {
       </div>
 
       {/* Filter Card */}
-      <div className="apple-pop-up stagger-1">
+      <div className="apple-pop-up stagger-1" style={{ position: 'relative', zIndex: isPopoverOpen ? 100 : 1 }}>
         <div className={styles.filterCard}>
           <div className={styles.filterHeader}>
             <div className={styles.filterTitleGroup}>
@@ -179,7 +179,7 @@ export default function InvoicesPage() {
               <h3>Filter by date</h3>
             </div>
 
-            <div style={{ position: 'relative' }} ref={popoverRef}>
+            <div style={{ position: 'relative', zIndex: 100 }} ref={popoverRef}>
               <button 
                 className={styles.calendarBtn}
                 onClick={() => setIsPopoverOpen(!isPopoverOpen)}
@@ -205,7 +205,7 @@ export default function InvoicesPage() {
                     borderRadius: '12px',
                     padding: '16px',
                     boxShadow: '0 10px 30px rgba(0,0,0,0.35)',
-                    zIndex: 50,
+                    zIndex: 9999,
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', fontSize: '11px', fontWeight: 600, color: 'var(--invox-color-text-primary)' }}>
