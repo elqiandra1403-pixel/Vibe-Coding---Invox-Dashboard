@@ -156,13 +156,6 @@ export default function InvoicesPage() {
               Pick a day to see what was issued, or filter by status to focus on what needs attention.
             </p>
           </div>
-          <button 
-            className={styles.calendarBtn}
-            onClick={() => setIsPopoverOpen(!isPopoverOpen)}
-            title="Toggle date filter"
-          >
-            <Calendar size={16} />
-          </button>
         </div>
       </div>
 
