@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: var(--invox-space-xl);
+  gap: var(--invox-space-xl, 24px);
 }
 
 .headerSection {
@@ -14,75 +14,101 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--invox-color-text-secondary);
+  color: var(--invox-color-text-secondary, #888);
   font-weight: 500;
 }
 
 .title {
-  font-family: var(--invox-font-display);
-  font-size: var(--invox-text-xl);
+  font-family: var(--invox-font-display, inherit);
+  font-size: var(--invox-text-xl, 28px);
   font-weight: 700;
-  color: var(--invox-color-text-primary);
+  color: var(--invox-color-text-primary, #ffffff);
   margin: 0;
 }
 
 .subtitle {
-  font-size: var(--invox-text-sm);
-  color: var(--invox-color-text-secondary);
-  margin: 0;
-}
-
-/* Filter Card */
-.filterCard {
-  background-color: var(--invox-color-surface);
-  border: 1px solid var(--invox-color-border);
-  border-radius: var(--invox-radius-card);
-  padding: var(--invox-space-lg);
-  display: flex;
-  flex-direction: column;
-  gap: var(--invox-space-md);
-}
-
-.filterHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.filterTitleGroup h3 {
-  color: var(--invox-color-text-primary);
-  font-size: var(--invox-text-md);
+  font-size: var(--invox-text-sm, 14px);
+  color: var(--invox-color-text-secondary, #888);
   margin: 4px 0 0 0;
-  font-weight: 600;
 }
 
 .calendarBtn {
-  padding: var(--invox-space-xs) var(--invox-space-sm);
+  padding: 8px 12px;
   background: transparent;
-  border: 1px solid var(--invox-color-border);
-  border-radius: var(--invox-radius-pill);
-  color: var(--invox-color-text-secondary);
+  border: 1px solid var(--invox-color-border, #2a2a2a);
+  border-radius: var(--invox-radius-pill, 9999px);
+  color: var(--invox-color-text-secondary, #888);
   cursor: pointer;
   outline: none;
   appearance: none;
   -webkit-appearance: none;
-  transition: transform 150ms ease, background-color 150ms ease, color 150ms ease;
-  will-change: transform;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 150ms ease, background-color 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 
 .calendarBtn:hover {
-  color: var(--invox-color-text-primary);
-  border-color: var(--invox-color-text-secondary);
+  border-color: var(--invox-color-text-primary, #ffffff);
+  color: var(--invox-color-text-primary, #ffffff);
 }
 
 .calendarBtn:active {
   transform: scale(0.92);
 }
 
+/* Metric Cards */
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--invox-space-lg, 16px);
+}
+
+.metricCard {
+  background-color: var(--invox-color-surface, #161922);
+  border: 1px solid var(--invox-color-border, #2a2a2a);
+  border-radius: var(--invox-radius-card, 20px);
+  padding: var(--invox-space-lg, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--invox-space-xs, 4px);
+}
+
+.metricHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metricLabel {
+  font-size: var(--invox-text-xs, 12px);
+  color: var(--invox-color-text-secondary, #888);
+  font-weight: 500;
+}
+
+.metricValue {
+  font-family: var(--invox-font-display, inherit);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--invox-color-text-primary, #ffffff);
+  margin: 4px 0 0 0;
+}
+
+/* Timeline Filter Card */
+.timelineCard {
+  background-color: var(--invox-color-surface, #161922);
+  border: 1px solid var(--invox-color-border, #2a2a2a);
+  border-radius: var(--invox-radius-card, 20px);
+  padding: var(--invox-space-lg, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--invox-space-md, 16px);
+}
+
 .dateStrip {
   display: flex;
   align-items: center;
-  gap: var(--invox-space-sm, 10px);
+  gap: 8px;
   overflow-x: auto;
   padding: 4px 0;
   scrollbar-width: thin;
@@ -93,27 +119,27 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: 52px;
+  min-width: 50px;
   height: 64px;
-  padding: 8px 12px;
-  background-color: var(--invox-color-background, rgba(255, 255, 255, 0.03));
+  padding: 8px;
+  background-color: var(--invox-color-background, rgba(255, 255, 255, 0.02));
   border: 1px solid var(--invox-color-border, rgba(255, 255, 255, 0.08));
   border-radius: var(--invox-radius-md, 12px);
   cursor: pointer;
   outline: none;
   appearance: none;
   -webkit-appearance: none;
-  transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
-  will-change: transform;
+  position: relative;
+  transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease;
 }
 
 .dateItem:hover {
   border-color: var(--invox-color-text-secondary, #888);
-  background-color: rgba(255, 255, 255, 0.06);
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .dateItem:active {
-  transform: scale(0.92);
+  transform: scale(0.94);
 }
 
 .dateItem[data-active="true"] {
@@ -129,7 +155,7 @@
 }
 
 .dateDay {
-  font-size: var(--invox-text-micro, 10px);
+  font-size: 10px;
   color: var(--invox-color-text-secondary, #888);
   text-transform: uppercase;
   font-weight: 500;
@@ -137,38 +163,48 @@
 }
 
 .dateNum {
-  font-size: var(--invox-text-md, 16px);
+  font-size: 16px;
   font-weight: 600;
   color: var(--invox-color-text-primary, #ffffff);
+  margin-top: 2px;
+}
+
+.activeDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #3b82f6;
+  position: absolute;
+  bottom: 6px;
 }
 
 /* Status Pills */
 .statusPillsRow {
   display: flex;
   align-items: center;
-  gap: var(--invox-space-sm, 10px);
+  gap: 8px;
   margin-top: 4px;
+  flex-wrap: wrap;
 }
 
 .statusPill {
   background: transparent;
-  border: 1px solid var(--invox-color-border, rgba(255,255,255,0.08));
+  border: 1px solid var(--invox-color-border, rgba(255, 255, 255, 0.08));
   color: var(--invox-color-text-secondary, #888);
   padding: 6px 16px;
   border-radius: var(--invox-radius-pill, 9999px);
-  font-size: var(--invox-text-xs, 12px);
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   outline: none;
   appearance: none;
   -webkit-appearance: none;
   transition: transform 150ms ease, background-color 150ms ease, color 150ms ease, border-color 150ms ease;
-  will-change: transform;
 }
 
 .statusPill:hover {
-  color: var(--invox-color-text-primary);
-  border-color: var(--invox-color-text-secondary);
+  color: var(--invox-color-text-primary, #ffffff);
+  border-color: var(--invox-color-text-secondary, #888);
   background-color: rgba(255, 255, 255, 0.04);
 }
 
@@ -177,17 +213,17 @@
 }
 
 .statusPill[data-active="true"] {
-  background-color: var(--invox-color-text-primary);
-  color: var(--invox-color-background);
-  border-color: var(--invox-color-text-primary);
+  background-color: var(--invox-color-text-primary, #ffffff);
+  color: var(--invox-color-background, #121212);
+  border-color: var(--invox-color-text-primary, #ffffff);
 }
 
 /* Table Card */
 .tableCard {
-  background-color: var(--invox-color-surface);
-  border: 1px solid var(--invox-color-border);
-  border-radius: var(--invox-radius-card);
-  padding: var(--invox-space-lg);
+  background-color: var(--invox-color-surface, #161922);
+  border: 1px solid var(--invox-color-border, #2a2a2a);
+  border-radius: var(--invox-radius-card, 20px);
+  padding: var(--invox-space-lg, 20px);
   display: flex;
   flex-direction: column;
 }
@@ -196,7 +232,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: var(--invox-space-lg);
+  margin-bottom: var(--invox-space-lg, 20px);
 }
 
 .exportBtn {
@@ -204,19 +240,22 @@
   align-items: center;
   gap: 6px;
   background: transparent;
-  border: 1px solid var(--invox-color-border);
-  color: var(--invox-color-text-primary);
+  border: 1px solid var(--invox-color-border, #2a2a2a);
+  color: var(--invox-color-text-primary, #ffffff);
   padding: 8px 16px;
-  border-radius: var(--invox-radius-pill);
-  font-size: var(--invox-text-xs);
+  border-radius: var(--invox-radius-pill, 9999px);
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
   transition: transform 150ms ease, background-color 150ms ease, border-color 150ms ease;
-  will-change: transform;
 }
 
 .exportBtn:hover {
   background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--invox-color-text-secondary, #888);
 }
 
 .exportBtn:active {
@@ -224,7 +263,6 @@
 }
 
 .tableContainer {
-  width: 100%;
   overflow-x: auto;
 }
 
@@ -235,36 +273,48 @@
 }
 
 .table th {
-  padding: var(--invox-space-sm) 0;
-  font-size: var(--invox-text-micro);
-  color: var(--invox-color-text-secondary);
-  text-transform: uppercase;
+  font-size: 11px;
   font-weight: 500;
-  border-bottom: 1px solid var(--invox-color-border);
+  color: var(--invox-color-text-secondary, #888);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--invox-color-border, #2a2a2a);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .table td {
-  padding: var(--invox-space-md) 0;
-  font-size: var(--invox-text-sm);
-  color: var(--invox-color-text-primary);
-  border-bottom: 1px solid var(--invox-color-border);
+  padding: 14px 16px;
+  font-size: 14px;
+  color: var(--invox-color-text-primary, #ffffff);
+  border-bottom: 1px solid var(--invox-color-border, #2a2a2a);
 }
 
 .table tr:last-child td {
   border-bottom: none;
 }
 
+.table tbody tr {
+  transition: background-color 150ms ease;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Status Badges */
 .statusBadge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   padding: 4px 10px;
-  border-radius: var(--invox-radius-pill);
-  font-size: var(--invox-text-xs);
+  border-radius: var(--invox-radius-pill, 9999px);
+  font-size: 12px;
   font-weight: 500;
 }
 
 .statusDot {
+  width: 6px;
+  height: 64px;
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -274,94 +324,58 @@
   background-color: rgba(34, 197, 94, 0.1);
   color: #22c55e;
 }
-.statusPaid .statusDot { background-color: #22c55e; }
+
+.statusPaid .statusDot {
+  background-color: #22c55e;
+}
 
 .statusPending {
   background-color: rgba(59, 130, 246, 0.1);
   color: #3b82f6;
 }
-.statusPending .statusDot { background-color: #3b82f6; }
+
+.statusPending .statusDot {
+  background-color: #3b82f6;
+}
 
 .statusOverdue {
   background-color: rgba(239, 68, 68, 0.1);
   color: #ef4444;
 }
-.statusOverdue .statusDot { background-color: #ef4444; }
+
+.statusOverdue .statusDot {
+  background-color: #ef4444;
+}
 
 .statusDraft {
-  background-color: rgba(107, 114, 128, 0.1);
-  color: #9ca3af;
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--invox-color-text-secondary, #888);
 }
-.statusDraft .statusDot { background-color: #9ca3af; }
+
+.statusDraft .statusDot {
+  background-color: var(--invox-color-text-secondary, #888);
+}
 
 .actionBtn {
-  background: none;
+  background: transparent;
   border: none;
   color: var(--invox-color-text-tertiary, #888);
   cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
-  transition: transform 150ms ease, color 150ms ease;
-  will-change: transform;
+  padding: 6px;
+  border-radius: 6px;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: transform 150ms ease, color 150ms ease, background-color 150ms ease;
 }
 
 .actionBtn:hover {
-  color: var(--invox-color-text-primary);
+  color: var(--invox-color-text-primary, #ffffff);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .actionBtn:active {
   transform: scale(0.90);
-}
-
-/* Empty State */
-.emptyState {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 48px var(--invox-space-lg);
-  text-align: center;
-  color: var(--invox-color-text-secondary);
-}
-
-.emptyIcon {
-  color: var(--invox-color-text-tertiary, #888);
-  margin-bottom: var(--invox-space-sm);
-  opacity: 0.7;
-}
-
-.emptyTitle {
-  color: var(--invox-color-text-primary);
-  margin: 0 0 4px 0;
-  font-size: var(--invox-text-md);
-  font-weight: 600;
-}
-
-.emptySubtitle {
-  color: var(--invox-color-text-secondary);
-  margin: 0 0 var(--invox-space-md) 0;
-  font-size: var(--invox-text-xs);
-}
-
-.resetBtn {
-  background-color: var(--invox-color-text-primary);
-  color: var(--invox-color-background);
-  border: 1px solid var(--invox-color-text-primary);
-  padding: 8px 20px;
-  border-radius: var(--invox-radius-pill);
-  font-size: var(--invox-text-xs);
-  font-weight: 500;
-  cursor: pointer;
-  transition: transform 150ms ease, opacity 150ms ease;
-  will-change: transform;
-}
-
-.resetBtn:hover {
-  opacity: 0.9;
-}
-
-.resetBtn:active {
-  transform: scale(0.95);
 }
 
 /* Context Menu Popover */
@@ -418,4 +432,65 @@
   margin: 4px 0;
 }
 
+/* Empty State */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px var(--invox-space-lg, 20px);
+  text-align: center;
+  color: var(--invox-color-text-secondary, #888);
+}
 
+.emptyIcon {
+  color: var(--invox-color-text-tertiary, #888);
+  margin-bottom: var(--invox-space-sm, 8px);
+  opacity: 0.7;
+}
+
+.emptyTitle {
+  color: var(--invox-color-text-primary, #ffffff);
+  margin: 0 0 4px 0;
+  font-size: var(--invox-text-md, 16px);
+  font-weight: 600;
+}
+
+.emptySubtitle {
+  color: var(--invox-color-text-secondary, #888);
+  margin: 0 0 var(--invox-space-md, 16px) 0;
+  font-size: var(--invox-text-xs, 12px);
+}
+
+.resetBtn {
+  background-color: var(--invox-color-text-primary, #ffffff);
+  color: var(--invox-color-background, #121212);
+  border: 1px solid var(--invox-color-text-primary, #ffffff);
+  padding: 8px 20px;
+  border-radius: var(--invox-radius-pill, 9999px);
+  font-size: var(--invox-text-xs, 12px);
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 150ms ease, opacity 150ms ease;
+  will-change: transform;
+}
+
+.resetBtn:hover {
+  opacity: 0.9;
+}
+
+.resetBtn:active {
+  transform: scale(0.95);
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--invox-space-lg, 20px);
+  border-top: 1px solid var(--invox-color-border, #2a2a2a);
+  margin-top: var(--invox-space-lg, 20px);
+  font-size: 11px;
+  color: var(--invox-color-text-secondary, #888);
+}

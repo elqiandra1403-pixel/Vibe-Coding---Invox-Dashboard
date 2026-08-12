@@ -21,20 +21,20 @@ export interface InvoiceItem {
 }
 
 const DATES = [
-  { day: 'Wed', num: '23' },
-  { day: 'Thu', num: '24' },
-  { day: 'Fri', num: '25' },
-  { day: 'Sat', num: '26' },
-  { day: 'Sun', num: '27' },
-  { day: 'Mon', num: '28' },
-  { day: 'Tue', num: '29' },
-  { day: 'Wed', num: '30' },
-  { day: 'Thu', num: '31' },
-  { day: 'Fri', num: '1' },
-  { day: 'Sat', num: '2' },
-  { day: 'Sun', num: '3' },
-  { day: 'Mon', num: '4' },
-  { day: 'Tue', num: '5' },
+  { day: 'Thu', num: '23' },
+  { day: 'Fri', num: '24' },
+  { day: 'Sat', num: '25' },
+  { day: 'Sun', num: '26' },
+  { day: 'Mon', num: '27' },
+  { day: 'Tue', num: '28' },
+  { day: 'Wed', num: '29' },
+  { day: 'Thu', num: '30' },
+  { day: 'Fri', num: '31' },
+  { day: 'Sat', num: '1' },
+  { day: 'Sun', num: '2' },
+  { day: 'Mon', num: '3' },
+  { day: 'Tue', num: '4' },
+  { day: 'Wed', num: '5' },
 ];
 
 const ALL_INVOICES: InvoiceItem[] = [
@@ -71,20 +71,6 @@ export default function InvoicesPage() {
   const [selectedInvoiceModal, setSelectedInvoiceModal] = useState<InvoiceItem | null>(null);
 
   useEffect(() => {
-    const handleActionMenuClickOutside = (event: MouseEvent) => {
-      if (actionMenuRef.current && !actionMenuRef.current.contains(event.target as Node)) {
-        setOpenActionMenuId(null);
-      }
-    };
-    if (openActionMenuId) {
-      document.addEventListener('mousedown', handleActionMenuClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleActionMenuClickOutside);
-    };
-  }, [openActionMenuId]);
-
-  useEffect(() => {
     setMounted(true);
   }, []);
 
@@ -109,18 +95,25 @@ export default function InvoicesPage() {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleActionMenuClickOutside = (event: MouseEvent) => {
+      if (actionMenuRef.current && !actionMenuRef.current.contains(event.target as Node)) {
+        setOpenActionMenuId(null);
+      }
+    };
+    const handleCalendarClickOutside = (event: MouseEvent) => {
       if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
         setIsPopoverOpen(false);
       }
     };
-    if (isPopoverOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
+
+    document.addEventListener('mousedown', handleActionMenuClickOutside);
+    document.addEventListener('mousedown', handleCalendarClickOutside);
+
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousedown', handleActionMenuClickOutside);
+      document.removeEventListener('mousedown', handleCalendarClickOutside);
     };
-  }, [isPopoverOpen]);
+  }, [openActionMenuId, isPopoverOpen]);
 
   useEffect(() => {
     if (selectedInvoiceModal) {
@@ -159,138 +152,166 @@ export default function InvoicesPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    addToast('Exported CSV file successfully!', 'success');
   };
 
   return (
     <div className={styles.container}>
+      {/* Header Section */}
       <div className="apple-pop-up">
         <div className={styles.headerSection}>
           <div>
-            <span className={styles.kicker}>RESOURCE</span>
+            <span className={styles.kicker}>INVOICE MANAGEMENT</span>
             <h1 className={styles.title}>All invoices</h1>
             <p className={styles.subtitle}>
-              Pick a day to see what was issued, or filter by status to focus on what needs attention.
+              A complete log of issued, pending, and overdue invoices across all client accounts.
             </p>
           </div>
-          <button 
-            className={styles.calendarBtn}
-            onClick={() => setIsPopoverOpen(!isPopoverOpen)}
-            title="Toggle date filter"
-          >
-            <Calendar size={16} />
-          </button>
+
+          <div style={{ position: 'relative' }} ref={popoverRef}>
+            <button 
+              className={styles.calendarBtn}
+              onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+              title="Pick date from calendar"
+              style={{
+                backgroundColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'transparent',
+                color: isPopoverOpen || selectedDateNum ? 'var(--invox-color-background)' : 'var(--invox-color-text-secondary)',
+                borderColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'var(--invox-color-border)',
+              }}
+            >
+              <Calendar size={16} />
+            </button>
+
+            {isPopoverOpen && (
+              <div 
+                style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 8px)',
+                  right: 0,
+                  width: 280,
+                  backgroundColor: 'var(--invox-color-surface)',
+                  border: '1px solid var(--invox-color-border)',
+                  borderRadius: '12px',
+                  padding: '16px',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.35)',
+                  zIndex: 9999,
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', fontSize: '11px', fontWeight: 600, color: 'var(--invox-color-text-primary)' }}>
+                  <span>FILTER BY DATE</span>
+                  {(selectedDateNum || selectedStatus !== 'All') && (
+                    <button className={styles.statusPill} style={{ padding: '2px 8px', fontSize: '10px' }} onClick={handleClearFilter}>
+                      <X size={10} /> Clear
+                    </button>
+                  )}
+                </div>
+
+                <input 
+                  type="date"
+                  style={{
+                    width: '100%',
+                    padding: '8px 12px',
+                    backgroundColor: 'var(--invox-color-background)',
+                    border: '1px solid var(--invox-color-border)',
+                    borderRadius: '8px',
+                    color: 'var(--invox-color-text-primary)',
+                    fontSize: '13px',
+                    outline: 'none',
+                  }}
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      const dayNum = String(new Date(e.target.value).getDate());
+                      setSelectedDateNum(dayNum);
+                      setIsPopoverOpen(false);
+                    }
+                  }}
+                />
+
+                <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                  <div style={{ fontSize: '10px', color: 'var(--invox-color-text-secondary)', textTransform: 'uppercase', marginBottom: '2px' }}>
+                    Quick Presets
+                  </div>
+                  {[
+                    { label: 'All Invoices', val: '' },
+                    { label: 'Today (Aug 05)', val: '5' },
+                    { label: 'Yesterday (Aug 04)', val: '4' },
+                    { label: 'Aug 03', val: '3' },
+                    { label: 'Jul 31', val: '31' },
+                  ].map((preset) => (
+                    <button
+                      key={preset.label}
+                      onClick={() => {
+                        setSelectedDateNum(preset.val);
+                        setIsPopoverOpen(false);
+                      }}
+                      style={{
+                        background: selectedDateNum === preset.val ? 'rgba(255,255,255,0.1)' : 'transparent',
+                        border: 'none',
+                        color: selectedDateNum === preset.val ? 'var(--invox-color-text-primary)' : 'var(--invox-color-text-secondary)',
+                        textAlign: 'left',
+                        padding: '6px 8px',
+                        borderRadius: '6px',
+                        fontSize: '12px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Filter Card */}
-      <div className="apple-pop-up stagger-1" style={{ position: 'relative', zIndex: isPopoverOpen ? 100 : 1 }}>
-        <div className={styles.filterCard}>
-          <div className={styles.filterHeader}>
-            <div className={styles.filterTitleGroup}>
-              <span className={styles.kicker}>PICK A DAY</span>
-              <h3>Filter by date</h3>
+      {/* Top 3 Metric Cards */}
+      <div className="apple-pop-up stagger-1">
+        <div className={styles.metricsGrid}>
+          <div className={styles.metricCard}>
+            <div className={styles.metricHeader}>
+              <CheckCircle2 size={16} color="#22c55e" />
+              <span className={styles.metricLabel}>Paid</span>
             </div>
+            <h2 className={styles.metricValue}>
+              <CurrencyDisplay amount={42168} originalCurrency="USD" />
+            </h2>
+          </div>
 
-            <div style={{ position: 'relative', zIndex: 100 }} ref={popoverRef}>
-              <button 
-                className={styles.calendarBtn}
-                onClick={() => setIsPopoverOpen(!isPopoverOpen)}
-                title="Pick date from calendar"
-                style={{
-                  backgroundColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'transparent',
-                  color: isPopoverOpen || selectedDateNum ? 'var(--invox-color-background)' : 'var(--invox-color-text-secondary)',
-                  borderColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'var(--invox-color-border)',
-                }}
-              >
-                <Calendar size={16} />
-              </button>
-
-              {isPopoverOpen && (
-                <div 
-                  style={{
-                    position: 'absolute',
-                    top: 'calc(100% + 8px)',
-                    right: 0,
-                    width: 280,
-                    backgroundColor: 'var(--invox-color-surface)',
-                    border: '1px solid var(--invox-color-border)',
-                    borderRadius: '12px',
-                    padding: '16px',
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.35)',
-                    zIndex: 9999,
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', fontSize: '11px', fontWeight: 600, color: 'var(--invox-color-text-primary)' }}>
-                    <span>FILTER BY DATE</span>
-                    {(selectedDateNum || selectedStatus !== 'All') && (
-                      <button className={styles.statusPill} style={{ padding: '2px 8px', fontSize: '10px' }} onClick={handleClearFilter}>
-                        <X size={10} /> Clear
-                      </button>
-                    )}
-                  </div>
-
-                  <input 
-                    type="date"
-                    style={{
-                      width: '100%',
-                      padding: '8px 12px',
-                      backgroundColor: 'var(--invox-color-background)',
-                      border: '1px solid var(--invox-color-border)',
-                      borderRadius: '8px',
-                      color: 'var(--invox-color-text-primary)',
-                      fontSize: '13px',
-                      outline: 'none',
-                    }}
-                    onChange={(e) => {
-                      if (e.target.value) {
-                        const dayNum = String(new Date(e.target.value).getDate());
-                        setSelectedDateNum(dayNum);
-                        setIsPopoverOpen(false);
-                      }
-                    }}
-                  />
-
-                  <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <div style={{ fontSize: '10px', color: 'var(--invox-color-text-secondary)', textTransform: 'uppercase', marginBottom: '2px' }}>
-                      Quick Presets
-                    </div>
-                    {[
-                      { label: 'All Invoices', val: '' },
-                      { label: 'Today (Aug 05)', val: '5' },
-                      { label: 'Yesterday (Aug 04)', val: '4' },
-                      { label: 'Aug 03', val: '3' },
-                      { label: 'Jul 31', val: '31' },
-                    ].map((preset) => (
-                      <button
-                        key={preset.label}
-                        onClick={() => {
-                          setSelectedDateNum(preset.val);
-                          setIsPopoverOpen(false);
-                        }}
-                        style={{
-                          background: selectedDateNum === preset.val ? 'rgba(255,255,255,0.1)' : 'transparent',
-                          border: 'none',
-                          color: selectedDateNum === preset.val ? 'var(--invox-color-text-primary)' : 'var(--invox-color-text-secondary)',
-                          textAlign: 'left',
-                          padding: '6px 8px',
-                          borderRadius: '6px',
-                          fontSize: '12px',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        {preset.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+          <div className={styles.metricCard}>
+            <div className={styles.metricHeader}>
+              <Clock size={16} color="#3b82f6" />
+              <span className={styles.metricLabel}>Pending</span>
             </div>
+            <h2 className={styles.metricValue}>
+              <CurrencyDisplay amount={18495} originalCurrency="USD" />
+            </h2>
+          </div>
+
+          <div className={styles.metricCard}>
+            <div className={styles.metricHeader}>
+              <AlertCircle size={16} color="#ef4444" />
+              <span className={styles.metricLabel}>Overdue</span>
+            </div>
+            <h2 className={styles.metricValue}>
+              <CurrencyDisplay amount={24195} originalCurrency="USD" />
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      {/* Invoices Timeline Date Picker Card */}
+      <div className="apple-pop-up stagger-2">
+        <div className={styles.timelineCard}>
+          <div>
+            <span className={styles.kicker}>INVOICES TIMELINE</span>
+            <h3 className={styles.title} style={{ fontSize: '18px', marginTop: '2px' }}>Pick a day</h3>
           </div>
 
           <div className={styles.dateStrip}>
             <button 
               className={styles.calendarBtn} 
-              style={{border: 'none', padding: '4px', cursor: 'pointer'}}
+              style={{ border: 'none', padding: '4px', cursor: 'pointer' }}
               onClick={handlePrevDate}
               disabled={currentIndex <= 0}
             >
@@ -309,13 +330,14 @@ export default function InvoicesPage() {
                 >
                   <span className={styles.dateDay}>{date.day}</span>
                   <span className={styles.dateNum}>{date.num}</span>
+                  {isActive && <span className={styles.activeDot} />}
                 </button>
               );
             })}
 
             <button 
               className={styles.calendarBtn} 
-              style={{border: 'none', padding: '4px', cursor: 'pointer'}}
+              style={{ border: 'none', padding: '4px', cursor: 'pointer' }}
               onClick={handleNextDate}
               disabled={currentIndex < 0 || currentIndex >= DATES.length - 1}
             >
@@ -339,17 +361,18 @@ export default function InvoicesPage() {
       </div>
 
       {/* Invoices List Table Card */}
-      <div className="apple-pop-up stagger-2">
+      <div className="apple-pop-up stagger-3">
         <div className={styles.tableCard}>
           <div className={styles.tableHeaderBar}>
             <div>
               <span className={styles.kicker}>
                 {selectedStatus.toUpperCase()} {selectedDateNum ? `• DAY ${selectedDateNum}` : '• ALL TIME'}
               </span>
-              <h2 className={styles.title} style={{fontSize: '20px', marginTop: '2px'}}>
+              <h2 className={styles.title} style={{ fontSize: '20px', marginTop: '2px' }}>
                 {filteredInvoices.length} invoices
               </h2>
             </div>
+
             <button className={styles.exportBtn} onClick={handleExportCSV}>
               <Download size={14} />
               Export CSV
@@ -377,11 +400,11 @@ export default function InvoicesPage() {
                       onClick={() => setSelectedInvoiceModal(inv)}
                       style={{ cursor: 'pointer' }}
                     >
-                      <td style={{fontWeight: 500}}>{inv.id}</td>
+                      <td style={{ fontWeight: 500 }}>{inv.id}</td>
                       <td>{inv.customer}</td>
                       <td>{inv.issued}</td>
                       <td>{inv.due}</td>
-                      <td style={{fontWeight: 500}}>
+                      <td style={{ fontWeight: 500 }}>
                         <CurrencyDisplay 
                           amount={inv.numericAmount} 
                           originalCurrency={inv.currency} 
@@ -393,7 +416,7 @@ export default function InvoicesPage() {
                           {inv.status}
                         </span>
                       </td>
-                      <td style={{textAlign: 'right', position: 'relative'}} onClick={(e) => e.stopPropagation()}>
+                      <td style={{ textAlign: 'right', position: 'relative' }} onClick={(e) => e.stopPropagation()}>
                         <button 
                           className={styles.actionBtn}
                           onClick={() => setOpenActionMenuId(openActionMenuId === inv.id ? null : inv.id)}
@@ -622,6 +645,12 @@ export default function InvoicesPage() {
         </div>,
         document.body
       )}
+
+      {/* Footer */}
+      <div className={styles.footer}>
+        <span>© Invox 2026</span>
+        <span>All amounts in {userProfile.currency || 'USD'} · Updated just now</span>
+      </div>
     </div>
   );
 }
