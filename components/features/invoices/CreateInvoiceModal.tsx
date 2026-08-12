@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useUiStore } from '@/stores/uiStore';
 import { X, FilePlus, DollarSign, Calendar, User } from 'lucide-react';
 import { formatCurrency, parseAmount } from '@/utils/currency';
@@ -8,6 +9,7 @@ import styles from './CreateInvoiceModal.module.css';
 
 export function CreateInvoiceModal() {
   const { newInvoiceModalOpen, setNewInvoiceModalOpen, addToast, userProfile } = useUiStore();
+  const [mounted, setMounted] = useState(false);
   const [customer, setCustomer] = useState('');
   const [amount, setAmount] = useState('');
   const [currency, setCurrency] = useState(userProfile?.currency || 'USD');
@@ -15,12 +17,27 @@ export function CreateInvoiceModal() {
   const [description, setDescription] = useState('');
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (userProfile?.currency) {
       setCurrency(userProfile.currency);
     }
   }, [userProfile?.currency]);
 
-  if (!newInvoiceModalOpen) return null;
+  useEffect(() => {
+    if (newInvoiceModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [newInvoiceModalOpen]);
+
+  if (!newInvoiceModalOpen || !mounted) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +57,7 @@ export function CreateInvoiceModal() {
     setDescription('');
   };
 
-  return (
+  return createPortal(
     <div className={styles.overlay} onClick={() => setNewInvoiceModalOpen(false)}>
       <div className={styles.dialog} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
@@ -144,6 +161,7 @@ export function CreateInvoiceModal() {
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { LogOut, X, Loader2 } from 'lucide-react';
 import { useUiStore } from '@/stores/uiStore';
@@ -10,11 +11,27 @@ import styles from './SignOutModal.module.css';
 export function SignOutModal() {
   const router = useRouter();
   const { signOutModalOpen, setSignOutModalOpen, userProfile, addToast } = useUiStore();
+  const [mounted, setMounted] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
 
   const supabase = useMemo(() => createClient(), []);
 
-  if (!signOutModalOpen) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (signOutModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [signOutModalOpen]);
+
+  if (!signOutModalOpen || !mounted) return null;
 
   const handleConfirmSignOut = async () => {
     setIsSigningOut(true);
@@ -32,7 +49,7 @@ export function SignOutModal() {
     }
   };
 
-  return (
+  return createPortal(
     <div className={styles.overlay} onClick={() => setSignOutModalOpen(false)}>
       <div className={styles.dialog} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
@@ -96,6 +113,7 @@ export function SignOutModal() {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

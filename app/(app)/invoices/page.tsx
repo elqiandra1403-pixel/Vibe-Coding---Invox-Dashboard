@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { Calendar, ChevronLeft, ChevronRight, Download, MoreHorizontal, CalendarX, X, FileText, CheckCircle2, Clock, AlertCircle, Eye } from 'lucide-react';
 import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
@@ -61,10 +62,15 @@ export default function InvoicesPage() {
   const popoverRef = useRef<HTMLDivElement>(null);
   const { userProfile } = useUiStore();
   
+  const [mounted, setMounted] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<string>('All');
   const [selectedDateNum, setSelectedDateNum] = useState<string>('5');
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [selectedInvoiceModal, setSelectedInvoiceModal] = useState<InvoiceItem | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const currentIndex = DATES.findIndex(d => d.num === selectedDateNum);
 
@@ -99,6 +105,17 @@ export default function InvoicesPage() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isPopoverOpen]);
+
+  useEffect(() => {
+    if (selectedInvoiceModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedInvoiceModal]);
 
   const filteredInvoices = useMemo(() => {
     return ALL_INVOICES.filter(inv => {
@@ -393,8 +410,8 @@ export default function InvoicesPage() {
         </div>
       </div>
 
-      {/* Invoice Detail Modal — Dual Currency View */}
-      {selectedInvoiceModal && (
+      {/* Invoice Detail Modal — Dual Currency View (Portal to document.body for fixed positioning & scroll isolation) */}
+      {mounted && selectedInvoiceModal && createPortal(
         <div 
           style={{
             position: 'fixed',
@@ -404,8 +421,9 @@ export default function InvoicesPage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            zIndex: 9999,
+            zIndex: 99999,
             padding: '16px',
+            overscrollBehavior: 'contain',
           }}
           onClick={() => setSelectedInvoiceModal(null)}
         >
@@ -416,6 +434,8 @@ export default function InvoicesPage() {
               borderRadius: '20px',
               maxWidth: '520px',
               width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
               padding: '24px',
               boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
               display: 'flex',
@@ -526,7 +546,8 @@ export default function InvoicesPage() {
               Close
             </button>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
