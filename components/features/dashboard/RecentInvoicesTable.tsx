@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '@/app/(app)/dashboard/dashboard.module.css';
 import compStyles from '@/app/(app)/dashboard/dashboard-components.module.css';
-import { ArrowRight, MoreHorizontal, CalendarX, X } from 'lucide-react';
+import { ArrowRight, MoreHorizontal, CalendarX, X, Eye, Pencil, Copy, FileDown, Trash2 } from 'lucide-react';
 import { useDashboardStore } from '@/stores/dashboardStore';
+import { useUiStore } from '@/stores/uiStore';
 import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
 
 export function RecentInvoicesTable() {
@@ -11,6 +12,24 @@ export function RecentInvoicesTable() {
   const invoices = useDashboardStore(state => state.recentInvoices);
   const selectedDateNum = useDashboardStore(state => state.selectedDateNum);
   const setSelectedDateNum = useDashboardStore(state => state.setSelectedDateNum);
+  const { addToast } = useUiStore();
+
+  const [openActionMenuId, setOpenActionMenuId] = useState<string | null>(null);
+  const actionMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleActionMenuClickOutside = (event: MouseEvent) => {
+      if (actionMenuRef.current && !actionMenuRef.current.contains(event.target as Node)) {
+        setOpenActionMenuId(null);
+      }
+    };
+    if (openActionMenuId) {
+      document.addEventListener('mousedown', handleActionMenuClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleActionMenuClickOutside);
+    };
+  }, [openActionMenuId]);
 
   const displayInvoices = React.useMemo(() => {
     if (!selectedDateNum) return invoices;
@@ -75,14 +94,70 @@ export function RecentInvoicesTable() {
                       {inv.status}
                     </span>
                   </td>
-                  <td style={{textAlign: 'right', color: 'var(--invox-color-text-tertiary)'}}>
+                  <td style={{textAlign: 'right', position: 'relative', color: 'var(--invox-color-text-tertiary)'}} onClick={(e) => e.stopPropagation()}>
                     <button 
                       style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: '4px' }}
-                      onClick={() => router.push('/invoices')}
-                      title="View invoice details"
+                      onClick={() => setOpenActionMenuId(openActionMenuId === inv.id ? null : inv.id)}
+                      title="More actions"
                     >
                       <MoreHorizontal size={16} />
                     </button>
+
+                    {openActionMenuId === inv.id && (
+                      <div ref={actionMenuRef} className={compStyles.menuPopover}>
+                        <button
+                          className={compStyles.menuItem}
+                          onClick={() => {
+                            router.push('/invoices');
+                            setOpenActionMenuId(null);
+                          }}
+                        >
+                          <Eye size={14} /> View invoice
+                        </button>
+
+                        <button
+                          className={compStyles.menuItem}
+                          onClick={() => {
+                            addToast(`Editing invoice ${inv.id}`, 'info');
+                            setOpenActionMenuId(null);
+                          }}
+                        >
+                          <Pencil size={14} /> Edit invoice
+                        </button>
+
+                        <button
+                          className={compStyles.menuItem}
+                          onClick={() => {
+                            addToast(`Duplicated invoice ${inv.id}`, 'success');
+                            setOpenActionMenuId(null);
+                          }}
+                        >
+                          <Copy size={14} /> Duplicate invoice
+                        </button>
+
+                        <button
+                          className={compStyles.menuItem}
+                          onClick={() => {
+                            addToast(`Downloading PDF for ${inv.id}`, 'info');
+                            setOpenActionMenuId(null);
+                          }}
+                        >
+                          <FileDown size={14} /> Download PDF
+                        </button>
+
+                        <div className={compStyles.menuDivider} />
+
+                        <button
+                          className={`${compStyles.menuItem} ${compStyles.deleteMenuItem}`}
+                          onClick={() => {
+                            addToast(`Invoice ${inv.id} deleted`, 'error');
+                            setOpenActionMenuId(null);
+                          }}
+                        >
+                          <Trash2 size={14} /> Delete invoice
+                        </button>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -91,10 +166,13 @@ export function RecentInvoicesTable() {
         ) : (
           <div className={compStyles.emptyState}>
             <CalendarX size={36} className={compStyles.emptyIcon} />
-            <h4>No invoices found for Day {selectedDateNum}</h4>
-            <p>There are no invoices recorded on this date. Try choosing another day or clear the filter.</p>
-            <button className={compStyles.resetBtn} onClick={() => setSelectedDateNum('')}>
-              Show all invoices
+            <h4>No invoices found for this date</h4>
+            <p>There are no invoices recorded for Day {selectedDateNum}.</p>
+            <button 
+              onClick={() => setSelectedDateNum('')}
+              className={compStyles.resetBtn}
+            >
+              Clear date filter
             </button>
           </div>
         )}

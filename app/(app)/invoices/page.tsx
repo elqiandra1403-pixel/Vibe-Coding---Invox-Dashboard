@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { Calendar, ChevronLeft, ChevronRight, Download, MoreHorizontal, CalendarX, X, FileText, CheckCircle2, Clock, AlertCircle, Eye } from 'lucide-react';
+import { Calendar, ChevronLeft, ChevronRight, Download, MoreHorizontal, CalendarX, X, FileText, CheckCircle2, Clock, AlertCircle, Eye, Pencil, Copy, FileDown, Trash2 } from 'lucide-react';
 import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
 import { useUiStore } from '@/stores/uiStore';
 import styles from './invoices.module.css';
@@ -60,13 +60,29 @@ const ALL_INVOICES: InvoiceItem[] = [
 export default function InvoicesPage() {
   const router = useRouter();
   const popoverRef = useRef<HTMLDivElement>(null);
-  const { userProfile } = useUiStore();
+  const actionMenuRef = useRef<HTMLDivElement>(null);
+  const { userProfile, addToast } = useUiStore();
   
   const [mounted, setMounted] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<string>('All');
   const [selectedDateNum, setSelectedDateNum] = useState<string>('5');
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [openActionMenuId, setOpenActionMenuId] = useState<string | null>(null);
   const [selectedInvoiceModal, setSelectedInvoiceModal] = useState<InvoiceItem | null>(null);
+
+  useEffect(() => {
+    const handleActionMenuClickOutside = (event: MouseEvent) => {
+      if (actionMenuRef.current && !actionMenuRef.current.contains(event.target as Node)) {
+        setOpenActionMenuId(null);
+      }
+    };
+    if (openActionMenuId) {
+      document.addEventListener('mousedown', handleActionMenuClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleActionMenuClickOutside);
+    };
+  }, [openActionMenuId]);
 
   useEffect(() => {
     setMounted(true);
@@ -156,6 +172,13 @@ export default function InvoicesPage() {
               Pick a day to see what was issued, or filter by status to focus on what needs attention.
             </p>
           </div>
+          <button 
+            className={styles.calendarBtn}
+            onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+            title="Toggle date filter"
+          >
+            <Calendar size={16} />
+          </button>
         </div>
       </div>
 
@@ -369,14 +392,70 @@ export default function InvoicesPage() {
                           {inv.status}
                         </span>
                       </td>
-                      <td style={{textAlign: 'right'}} onClick={(e) => e.stopPropagation()}>
+                      <td style={{textAlign: 'right', position: 'relative'}} onClick={(e) => e.stopPropagation()}>
                         <button 
                           className={styles.actionBtn}
-                          onClick={() => setSelectedInvoiceModal(inv)}
-                          title="View Details"
+                          onClick={() => setOpenActionMenuId(openActionMenuId === inv.id ? null : inv.id)}
+                          title="More actions"
                         >
-                          <Eye size={16} />
+                          <MoreHorizontal size={16} />
                         </button>
+
+                        {openActionMenuId === inv.id && (
+                          <div ref={actionMenuRef} className={styles.menuPopover}>
+                            <button
+                              className={styles.menuItem}
+                              onClick={() => {
+                                setSelectedInvoiceModal(inv);
+                                setOpenActionMenuId(null);
+                              }}
+                            >
+                              <Eye size={14} /> View invoice
+                            </button>
+
+                            <button
+                              className={styles.menuItem}
+                              onClick={() => {
+                                addToast(`Editing invoice ${inv.id}`, 'info');
+                                setOpenActionMenuId(null);
+                              }}
+                            >
+                              <Pencil size={14} /> Edit invoice
+                            </button>
+
+                            <button
+                              className={styles.menuItem}
+                              onClick={() => {
+                                addToast(`Duplicated invoice ${inv.id}`, 'success');
+                                setOpenActionMenuId(null);
+                              }}
+                            >
+                              <Copy size={14} /> Duplicate invoice
+                            </button>
+
+                            <button
+                              className={styles.menuItem}
+                              onClick={() => {
+                                addToast(`Downloading PDF for ${inv.id}`, 'info');
+                                setOpenActionMenuId(null);
+                              }}
+                            >
+                              <FileDown size={14} /> Download PDF
+                            </button>
+
+                            <div className={styles.menuDivider} />
+
+                            <button
+                              className={`${styles.menuItem} ${styles.deleteMenuItem}`}
+                              onClick={() => {
+                                addToast(`Invoice ${inv.id} deleted`, 'error');
+                                setOpenActionMenuId(null);
+                              }}
+                            >
+                              <Trash2 size={14} /> Delete invoice
+                            </button>
+                          </div>
+                        )}
                       </td>
                     </tr>
                   ))}
