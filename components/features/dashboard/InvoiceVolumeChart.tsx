@@ -30,6 +30,12 @@ export function InvoiceVolumeChart() {
               height={bar * 1.5}
               fill="var(--invox-color-border-border-gray-border-secondary, #2A303C)"
               rx="4"
+              style={{
+                transformOrigin: 'bottom',
+                transformBox: 'fill-box',
+                animation: 'barGrow 700ms cubic-bezier(0.16, 1, 0.3, 1) both',
+                animationDelay: `${i * 45}ms`,
+              }}
             />
           ))}
         </svg>

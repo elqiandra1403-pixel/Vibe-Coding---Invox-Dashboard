@@ -65,6 +65,11 @@ export default function AnalyticsPage() {
                     fill="none" 
                     stroke="#4f5f7e" 
                     strokeWidth="2.5" 
+                    style={{
+                      strokeDasharray: 1200,
+                      strokeDashoffset: 0,
+                      animation: 'linePathDraw 1.4s cubic-bezier(0.16, 1, 0.3, 1) both',
+                    }}
                   />
 
                   {/* Curve 2: Collected (Lower curve) */}
@@ -73,6 +78,11 @@ export default function AnalyticsPage() {
                     fill="none" 
                     stroke="#6b7e9c" 
                     strokeWidth="2.5" 
+                    style={{
+                      strokeDasharray: 1200,
+                      strokeDashoffset: 0,
+                      animation: 'linePathDraw 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both',
+                    }}
                   />
                 </svg>
               </div>
@@ -92,7 +102,7 @@ export default function AnalyticsPage() {
               </div>
 
               <div className={styles.donutArea}>
-                <svg className={styles.donutSvg} viewBox="0 0 160 160">
+                <svg className={styles.donutSvg} viewBox="0 0 160 160" style={{ animation: 'donutScaleEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) both', transformOrigin: 'center' }}>
                   <circle
                     cx="80"
                     cy="80"

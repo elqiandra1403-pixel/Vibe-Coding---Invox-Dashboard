@@ -37,8 +37,8 @@ export function RevenueChart() {
       </div>
       
       <div className={compStyles.chartArea}>
-        {/* Dynamic Line Chart with converted Y-axis labels */}
-        <svg width="100%" height="100%" viewBox="0 0 800 240" preserveAspectRatio="none">
+        {/* Dynamic Line Chart with converted Y-axis labels and smooth entrance drawing animation */}
+        <svg key={selectedPeriod} width="100%" height="100%" viewBox="0 0 800 240" preserveAspectRatio="none">
           {/* Y-axis labels */}
           <text x="5" y="44" fill="var(--invox-color-text-tertiary)" fontSize="10">{formatCompactCurrency(tick1, targetCurrency)}</text>
           <text x="5" y="104" fill="var(--invox-color-text-tertiary)" fontSize="10">{formatCompactCurrency(tick2, targetCurrency)}</text>
@@ -51,19 +51,27 @@ export function RevenueChart() {
           <line x1="50" y1="160" x2="800" y2="160" stroke="var(--invox-color-border)" strokeDasharray="4 4" />
           <line x1="50" y1="220" x2="800" y2="220" stroke="var(--invox-color-border)" strokeDasharray="4 4" />
           
-          {/* Line */}
+          {/* Line Path Draw Animation */}
           <path 
             d={periodData.pathD} 
             fill="none" 
             stroke="#3b82f6" 
             strokeWidth="3" 
+            style={{
+              strokeDasharray: 1200,
+              strokeDashoffset: 0,
+              animation: 'linePathDraw 1.2s cubic-bezier(0.16, 1, 0.3, 1) both',
+            }}
           />
           
-          {/* Gradient Fill under line */}
+          {/* Gradient Fill Fade-In Animation */}
           <path 
             d={`${periodData.pathD} L 800 240 L 50 240 Z`} 
             fill="url(#gradient)" 
             opacity="0.2"
+            style={{
+              animation: 'fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both',
+            }}
           />
           
           <defs>
