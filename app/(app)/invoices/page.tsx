@@ -199,18 +199,6 @@ export default function InvoicesPage() {
               Pick a day to see what was issued, or filter by status to focus on what needs attention.
             </p>
           </div>
-          <button 
-            className={styles.calendarBtn}
-            onClick={() => setIsPopoverOpen(!isPopoverOpen)}
-            title="Toggle date filter"
-            style={{
-              backgroundColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'transparent',
-              color: isPopoverOpen || selectedDateNum ? 'var(--invox-color-background)' : 'var(--invox-color-text-secondary)',
-              borderColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'var(--invox-color-border)',
-            }}
-          >
-            <Calendar size={16} />
-          </button>
         </div>
       </div>
 
