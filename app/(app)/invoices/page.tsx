@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { Calendar, ChevronLeft, ChevronRight, Download, MoreHorizontal, CalendarX, X, FileText, CheckCircle2, Clock, AlertCircle, Eye, Pencil, Copy, FileDown, Trash2 } from 'lucide-react';
+import { Calendar, ChevronLeft, ChevronRight, Download, MoreHorizontal, CalendarX, X, CheckCircle2, Clock, AlertCircle, Eye, Pencil, Copy, FileDown, Trash2 } from 'lucide-react';
 import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
 import { useUiStore } from '@/stores/uiStore';
 import styles from './invoices.module.css';
@@ -100,20 +100,27 @@ export default function InvoicesPage() {
         setOpenActionMenuId(null);
       }
     };
-    const handleCalendarClickOutside = (event: MouseEvent) => {
+    if (openActionMenuId) {
+      document.addEventListener('mousedown', handleActionMenuClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleActionMenuClickOutside);
+    };
+  }, [openActionMenuId]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
         setIsPopoverOpen(false);
       }
     };
-
-    document.addEventListener('mousedown', handleActionMenuClickOutside);
-    document.addEventListener('mousedown', handleCalendarClickOutside);
-
+    if (isPopoverOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
     return () => {
-      document.removeEventListener('mousedown', handleActionMenuClickOutside);
-      document.removeEventListener('mousedown', handleCalendarClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [openActionMenuId, isPopoverOpen]);
+  }, [isPopoverOpen]);
 
   useEffect(() => {
     if (selectedInvoiceModal) {
@@ -152,19 +159,18 @@ export default function InvoicesPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    addToast('Exported CSV file successfully!', 'success');
   };
 
   return (
     <div className={styles.container}>
-      {/* Header Section */}
+      {/* Header */}
       <div className="apple-pop-up">
         <div className={styles.headerSection}>
           <div>
-            <span className={styles.kicker}>INVOICE MANAGEMENT</span>
-            <h1 className={styles.title}>All invoices</h1>
+            <span className={styles.kicker}>INVOICES</span>
+            <h1 className={styles.title}>Money in, at a glance</h1>
             <p className={styles.subtitle}>
-              A complete log of issued, pending, and overdue invoices across all client accounts.
+              Pick a day to inspect every invoice issued or expected.
             </p>
           </div>
 
@@ -267,34 +273,34 @@ export default function InvoicesPage() {
 
       {/* Top 3 Metric Cards */}
       <div className="apple-pop-up stagger-1">
-        <div className={styles.metricsGrid}>
-          <div className={styles.metricCard}>
-            <div className={styles.metricHeader}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
+          <div style={{ backgroundColor: 'var(--invox-color-surface)', border: '1px solid var(--invox-color-border)', borderRadius: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <CheckCircle2 size={16} color="#22c55e" />
-              <span className={styles.metricLabel}>Paid</span>
+              <span style={{ fontSize: '12px', color: 'var(--invox-color-text-secondary)', fontWeight: 500 }}>Collected</span>
             </div>
-            <h2 className={styles.metricValue}>
-              <CurrencyDisplay amount={42168} originalCurrency="USD" />
+            <h2 style={{ fontSize: '26px', fontWeight: 700, margin: '4px 0 0 0', color: 'var(--invox-color-text-primary)' }}>
+              <CurrencyDisplay amount={89451} originalCurrency="USD" />
             </h2>
           </div>
 
-          <div className={styles.metricCard}>
-            <div className={styles.metricHeader}>
+          <div style={{ backgroundColor: 'var(--invox-color-surface)', border: '1px solid var(--invox-color-border)', borderRadius: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <Clock size={16} color="#3b82f6" />
-              <span className={styles.metricLabel}>Pending</span>
+              <span style={{ fontSize: '12px', color: 'var(--invox-color-text-secondary)', fontWeight: 500 }}>Pending</span>
             </div>
-            <h2 className={styles.metricValue}>
-              <CurrencyDisplay amount={18495} originalCurrency="USD" />
+            <h2 style={{ fontSize: '26px', fontWeight: 700, margin: '4px 0 0 0', color: 'var(--invox-color-text-primary)' }}>
+              <CurrencyDisplay amount={23991} originalCurrency="USD" />
             </h2>
           </div>
 
-          <div className={styles.metricCard}>
-            <div className={styles.metricHeader}>
+          <div style={{ backgroundColor: 'var(--invox-color-surface)', border: '1px solid var(--invox-color-border)', borderRadius: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               <AlertCircle size={16} color="#ef4444" />
-              <span className={styles.metricLabel}>Overdue</span>
+              <span style={{ fontSize: '12px', color: 'var(--invox-color-text-secondary)', fontWeight: 500 }}>At risk</span>
             </div>
-            <h2 className={styles.metricValue}>
-              <CurrencyDisplay amount={24195} originalCurrency="USD" />
+            <h2 style={{ fontSize: '26px', fontWeight: 700, margin: '4px 0 0 0', color: 'var(--invox-color-text-primary)' }}>
+              <CurrencyDisplay amount={78340} originalCurrency="USD" />
             </h2>
           </div>
         </div>
@@ -302,16 +308,16 @@ export default function InvoicesPage() {
 
       {/* Invoices Timeline Date Picker Card */}
       <div className="apple-pop-up stagger-2">
-        <div className={styles.timelineCard}>
+        <div style={{ backgroundColor: 'var(--invox-color-surface)', border: '1px solid var(--invox-color-border)', borderRadius: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
-            <span className={styles.kicker}>INVOICES TIMELINE</span>
+            <span className={styles.kicker}>INVOICE TIMELINE</span>
             <h3 className={styles.title} style={{ fontSize: '18px', marginTop: '2px' }}>Pick a day</h3>
           </div>
 
           <div className={styles.dateStrip}>
             <button 
               className={styles.calendarBtn} 
-              style={{ border: 'none', padding: '4px', cursor: 'pointer' }}
+              style={{border: 'none', padding: '4px', cursor: 'pointer'}}
               onClick={handlePrevDate}
               disabled={currentIndex <= 0}
             >
@@ -321,8 +327,7 @@ export default function InvoicesPage() {
             {DATES.map((date, idx) => {
               const isActive = selectedDateNum === date.num;
               return (
-                <button
-                  type="button" 
+                <div 
                   key={idx} 
                   className={styles.dateItem} 
                   data-active={isActive}
@@ -330,32 +335,18 @@ export default function InvoicesPage() {
                 >
                   <span className={styles.dateDay}>{date.day}</span>
                   <span className={styles.dateNum}>{date.num}</span>
-                  {isActive && <span className={styles.activeDot} />}
-                </button>
+                </div>
               );
             })}
 
             <button 
               className={styles.calendarBtn} 
-              style={{ border: 'none', padding: '4px', cursor: 'pointer' }}
+              style={{border: 'none', padding: '4px', cursor: 'pointer'}}
               onClick={handleNextDate}
               disabled={currentIndex < 0 || currentIndex >= DATES.length - 1}
             >
               <ChevronRight size={20} />
             </button>
-          </div>
-
-          <div className={styles.statusPillsRow}>
-            {['All', 'Paid', 'Pending', 'Overdue', 'Draft'].map((status) => (
-              <button
-                key={status}
-                className={styles.statusPill}
-                data-active={selectedStatus === status}
-                onClick={() => setSelectedStatus(status)}
-              >
-                {status}
-              </button>
-            ))}
           </div>
         </div>
       </div>
@@ -366,17 +357,32 @@ export default function InvoicesPage() {
           <div className={styles.tableHeaderBar}>
             <div>
               <span className={styles.kicker}>
-                {selectedStatus.toUpperCase()} {selectedDateNum ? `• DAY ${selectedDateNum}` : '• ALL TIME'}
+                LAST ACTIVITY {selectedDateNum && `• DAY ${selectedDateNum}`}
               </span>
-              <h2 className={styles.title} style={{ fontSize: '20px', marginTop: '2px' }}>
-                {filteredInvoices.length} invoices
+              <h2 className={styles.title} style={{fontSize: '20px', marginTop: '2px'}}>
+                Recent invoices ({filteredInvoices.length})
               </h2>
             </div>
 
-            <button className={styles.exportBtn} onClick={handleExportCSV}>
-              <Download size={14} />
-              Export CSV
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div className={styles.statusPillsRow}>
+                {['All', 'Paid', 'Pending', 'Overdue', 'Draft'].map((status) => (
+                  <button
+                    key={status}
+                    className={styles.statusPill}
+                    data-active={selectedStatus === status}
+                    onClick={() => setSelectedStatus(status)}
+                  >
+                    {status}
+                  </button>
+                ))}
+              </div>
+
+              <button className={styles.exportBtn} onClick={handleExportCSV}>
+                <Download size={14} />
+                Export CSV
+              </button>
+            </div>
           </div>
 
           <div className={styles.tableContainer}>
@@ -396,15 +402,15 @@ export default function InvoicesPage() {
                 <tbody>
                   {filteredInvoices.map((inv) => (
                     <tr 
-                      key={inv.id} 
+                      key={inv.id}
                       onClick={() => setSelectedInvoiceModal(inv)}
                       style={{ cursor: 'pointer' }}
                     >
-                      <td style={{ fontWeight: 500 }}>{inv.id}</td>
+                      <td style={{fontWeight: 500}}>{inv.id}</td>
                       <td>{inv.customer}</td>
                       <td>{inv.issued}</td>
                       <td>{inv.due}</td>
-                      <td style={{ fontWeight: 500 }}>
+                      <td style={{fontWeight: 500}}>
                         <CurrencyDisplay 
                           amount={inv.numericAmount} 
                           originalCurrency={inv.currency} 
@@ -416,7 +422,7 @@ export default function InvoicesPage() {
                           {inv.status}
                         </span>
                       </td>
-                      <td style={{ textAlign: 'right', position: 'relative' }} onClick={(e) => e.stopPropagation()}>
+                      <td style={{textAlign: 'right', position: 'relative'}} onClick={(e) => e.stopPropagation()}>
                         <button 
                           className={styles.actionBtn}
                           onClick={() => setOpenActionMenuId(openActionMenuId === inv.id ? null : inv.id)}
@@ -645,12 +651,6 @@ export default function InvoicesPage() {
         </div>,
         document.body
       )}
-
-      {/* Footer */}
-      <div className={styles.footer}>
-        <span>© Invox 2026</span>
-        <span>All amounts in {userProfile.currency || 'USD'} · Updated just now</span>
-      </div>
     </div>
   );
 }
