@@ -263,7 +263,8 @@ export default function PaymentsPage() {
             {DATES.map((date, idx) => {
               const isActive = selectedDateNum === date.num;
               return (
-                <div 
+                <button
+                  type="button" 
                   key={idx} 
                   className={styles.dateItem} 
                   data-active={isActive}
@@ -271,7 +272,7 @@ export default function PaymentsPage() {
                 >
                   <span className={styles.dateDay}>{date.day}</span>
                   <span className={styles.dateNum}>{date.num}</span>
-                </div>
+                </button>
               );
             })}
 

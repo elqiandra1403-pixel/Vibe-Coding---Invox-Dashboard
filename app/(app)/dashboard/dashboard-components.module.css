@@ -168,6 +168,10 @@
   border-radius: var(--invox-radius-pill);
   color: var(--invox-color-text-secondary);
   cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: inherit;
   transition: transform 150ms ease, background-color 150ms ease, color 150ms ease;
   will-change: transform;
 }
@@ -193,6 +197,12 @@
   border-radius: var(--invox-radius-md);
   cursor: pointer;
   border: 1px solid transparent;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: inherit;
+  background: transparent;
+  padding: 0;
   transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease;
   will-change: transform;
 }

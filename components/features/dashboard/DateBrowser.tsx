@@ -157,16 +157,16 @@ export function DateBrowser() {
         {DATES.map((date, idx) => {
           const isActive = selectedDateNum === date.num;
           return (
-            <div 
+            <button
+              type="button" 
               key={idx} 
               className={compStyles.dateItem} 
               data-active={isActive}
-              onClick={() => setSelectedDateNum(date.num)}
-              style={{ cursor: 'pointer' }}
+              onClick={() => setSelectedDateNum(selectedDateNum === date.num ? '' : date.num)}
             >
               <span className={compStyles.dateDay}>{date.day}</span>
               <span className={compStyles.dateNum}>{date.num}</span>
-            </div>
+            </button>
           );
         })}
 

@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
-import { Calendar, ChevronLeft, ChevronRight, Download, MoreHorizontal, CalendarX, X, CheckCircle2, Clock, AlertCircle, Eye, Pencil, Copy, FileDown, Trash2 } from 'lucide-react';
+import { Calendar, ChevronLeft, ChevronRight, Download, MoreHorizontal, CalendarX, X, Eye, Pencil, Copy, FileDown, Trash2 } from 'lucide-react';
 import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
 import { useUiStore } from '@/stores/uiStore';
 import styles from './invoices.module.css';
@@ -21,20 +21,20 @@ export interface InvoiceItem {
 }
 
 const DATES = [
-  { day: 'Thu', num: '23' },
-  { day: 'Fri', num: '24' },
-  { day: 'Sat', num: '25' },
-  { day: 'Sun', num: '26' },
-  { day: 'Mon', num: '27' },
-  { day: 'Tue', num: '28' },
-  { day: 'Wed', num: '29' },
-  { day: 'Thu', num: '30' },
-  { day: 'Fri', num: '31' },
-  { day: 'Sat', num: '1' },
-  { day: 'Sun', num: '2' },
-  { day: 'Mon', num: '3' },
-  { day: 'Tue', num: '4' },
-  { day: 'Wed', num: '5' },
+  { day: 'Wed', num: '23' },
+  { day: 'Thu', num: '24' },
+  { day: 'Fri', num: '25' },
+  { day: 'Sat', num: '26' },
+  { day: 'Sun', num: '27' },
+  { day: 'Mon', num: '28' },
+  { day: 'Tue', num: '29' },
+  { day: 'Wed', num: '30' },
+  { day: 'Thu', num: '31' },
+  { day: 'Fri', num: '1' },
+  { day: 'Sat', num: '2' },
+  { day: 'Sun', num: '3' },
+  { day: 'Mon', num: '4' },
+  { day: 'Tue', num: '5' },
 ];
 
 const ALL_INVOICES: InvoiceItem[] = [
@@ -45,9 +45,9 @@ const ALL_INVOICES: InvoiceItem[] = [
   { id: 'INV-2026-0196', customer: 'Meridian Group', issued: 'Aug 01', due: 'Aug 15', amount: '$5,084.00', numericAmount: 5084, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
   { id: 'INV-2026-0195', customer: 'Cove Hospitality', issued: 'Jul 31', due: 'Aug 14', amount: '€5,500.00', numericAmount: 5500, currency: 'EUR', status: 'Paid', statusClass: 'statusPaid' },
   { id: 'INV-2026-0194', customer: 'Palette Studio', issued: 'Jul 30', due: 'Aug 13', amount: '£6,200.00', numericAmount: 6200, currency: 'GBP', status: 'Paid', statusClass: 'statusPaid' },
-  { id: 'INV-2026-0193', customer: 'Loom Works', issued: 'Jul 29', due: 'Aug 12', amount: 'Rp128.000.000', numericAmount: 128000000, currency: 'IDR', status: 'Pending', statusClass: 'statusPending' },
-  { id: 'INV-2026-0192', customer: 'Fleet & Oak', issued: 'Jul 28', due: 'Aug 11', amount: '$8,969.00', numericAmount: 8969, currency: 'USD', status: 'Overdue', statusClass: 'statusOverdue' },
-  { id: 'INV-2026-0191', customer: 'Vera Dynamics', issued: 'Jul 27', due: 'Aug 10', amount: '$9,940.00', numericAmount: 9940, currency: 'USD', status: 'Draft', statusClass: 'statusDraft' },
+  { id: 'INV-2026-0193', customer: 'Lantern Works', issued: 'Jul 29', due: 'Aug 12', amount: 'Rp128.000.000', numericAmount: 128000000, currency: 'IDR', status: 'Pending', statusClass: 'statusPending' },
+  { id: 'INV-2026-0192', customer: 'Rivet & Oak', issued: 'Jul 28', due: 'Aug 11', amount: '$8,969.00', numericAmount: 8969, currency: 'USD', status: 'Overdue', statusClass: 'statusOverdue' },
+  { id: 'INV-2026-0191', customer: 'Vireo Analytics', issued: 'Jul 27', due: 'Aug 10', amount: '$9,940.00', numericAmount: 9940, currency: 'USD', status: 'Draft', statusClass: 'statusDraft' },
   { id: 'INV-2026-0190', customer: 'Sable & Co.', issued: 'Jul 26', due: 'Aug 09', amount: '$10,911.00', numericAmount: 10911, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
   { id: 'INV-2026-0189', customer: 'Northwind Studio', issued: 'Jul 25', due: 'Aug 08', amount: '$11,882.00', numericAmount: 11882, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
   { id: 'INV-2026-0188', customer: 'Halcyon Labs', issued: 'Jul 24', due: 'Aug 07', amount: '$12,853.00', numericAmount: 12853, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
@@ -55,6 +55,31 @@ const ALL_INVOICES: InvoiceItem[] = [
   { id: 'INV-2026-0186', customer: 'Meridian Group', issued: 'Jul 22', due: 'Aug 05', amount: '$14,795.00', numericAmount: 14795, currency: 'USD', status: 'Overdue', statusClass: 'statusOverdue' },
   { id: 'INV-2026-0185', customer: 'Cove Hospitality', issued: 'Jul 21', due: 'Aug 04', amount: '$15,766.00', numericAmount: 15766, currency: 'USD', status: 'Draft', statusClass: 'statusDraft' },
   { id: 'INV-2026-0184', customer: 'Palette Studio', issued: 'Jul 20', due: 'Aug 03', amount: '$16,737.00', numericAmount: 16737, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0183', customer: 'Lantern Works', issued: 'Jul 19', due: 'Aug 02', amount: '$17,708.00', numericAmount: 17708, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0182', customer: 'Rivet & Oak', issued: 'Jul 18', due: 'Aug 01', amount: '$18,679.00', numericAmount: 18679, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0181', customer: 'Vireo Analytics', issued: 'Jul 17', due: 'Jul 31', amount: '$19,650.00', numericAmount: 19650, currency: 'USD', status: 'Pending', statusClass: 'statusPending' },
+  { id: 'INV-2026-0180', customer: 'Sable & Co.', issued: 'Jul 16', due: 'Jul 30', amount: '$20,621.00', numericAmount: 20621, currency: 'USD', status: 'Overdue', statusClass: 'statusOverdue' },
+  { id: 'INV-2026-0179', customer: 'Northwind Studio', issued: 'Jul 15', due: 'Jul 29', amount: '$21,592.00', numericAmount: 21592, currency: 'USD', status: 'Draft', statusClass: 'statusDraft' },
+  { id: 'INV-2026-0178', customer: 'Halcyon Labs', issued: 'Jul 14', due: 'Jul 28', amount: '$22,563.00', numericAmount: 22563, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0177', customer: 'Aperture Films', issued: 'Jul 13', due: 'Jul 27', amount: '$1,520.00', numericAmount: 1520, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0176', customer: 'Meridian Group', issued: 'Jul 12', due: 'Jul 26', amount: '$2,464.00', numericAmount: 2464, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0175', customer: 'Cove Hospitality', issued: 'Jul 11', due: 'Jul 25', amount: '$3,415.00', numericAmount: 3415, currency: 'USD', status: 'Pending', statusClass: 'statusPending' },
+  { id: 'INV-2026-0174', customer: 'Palette Studio', issued: 'Jul 10', due: 'Jul 24', amount: '$4,410.00', numericAmount: 4410, currency: 'USD', status: 'Overdue', statusClass: 'statusOverdue' },
+  { id: 'INV-2026-0173', customer: 'Lantern Works', issued: 'Jul 09', due: 'Jul 23', amount: '$5,417.00', numericAmount: 5417, currency: 'USD', status: 'Draft', statusClass: 'statusDraft' },
+  { id: 'INV-2026-0172', customer: 'Rivet & Oak', issued: 'Jul 08', due: 'Jul 22', amount: '$6,510.00', numericAmount: 6510, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0171', customer: 'Vireo Analytics', issued: 'Jul 07', due: 'Jul 21', amount: '$7,615.00', numericAmount: 7615, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0170', customer: 'Sable & Co.', issued: 'Jul 06', due: 'Jul 20', amount: '$8,720.00', numericAmount: 8720, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0169', customer: 'Northwind Studio', issued: 'Jul 05', due: 'Jul 19', amount: '$9,830.00', numericAmount: 9830, currency: 'USD', status: 'Pending', statusClass: 'statusPending' },
+  { id: 'INV-2026-0168', customer: 'Halcyon Labs', issued: 'Jul 04', due: 'Jul 18', amount: '$10,970.00', numericAmount: 10970, currency: 'USD', status: 'Overdue', statusClass: 'statusOverdue' },
+  { id: 'INV-2026-0167', customer: 'Aperture Films', issued: 'Jul 03', due: 'Jul 17', amount: '$11,200.00', numericAmount: 11200, currency: 'USD', status: 'Draft', statusClass: 'statusDraft' },
+  { id: 'INV-2026-0166', customer: 'Meridian Group', issued: 'Jul 02', due: 'Jul 16', amount: '$12,314.00', numericAmount: 12314, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0165', customer: 'Cove Hospitality', issued: 'Jul 01', due: 'Jul 15', amount: '$13,425.00', numericAmount: 13425, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0164', customer: 'Palette Studio', issued: 'Jun 30', due: 'Jul 14', amount: '$14,535.00', numericAmount: 14535, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0163', customer: 'Lantern Works', issued: 'Jun 29', due: 'Jul 13', amount: '$15,640.00', numericAmount: 15640, currency: 'USD', status: 'Pending', statusClass: 'statusPending' },
+  { id: 'INV-2026-0162', customer: 'Rivet & Oak', issued: 'Jun 28', due: 'Jul 12', amount: '$16,750.00', numericAmount: 16750, currency: 'USD', status: 'Overdue', statusClass: 'statusOverdue' },
+  { id: 'INV-2026-0161', customer: 'Vireo Analytics', issued: 'Jun 27', due: 'Jul 11', amount: '$17,860.00', numericAmount: 17860, currency: 'USD', status: 'Draft', statusClass: 'statusDraft' },
+  { id: 'INV-2026-0160', customer: 'Sable & Co.', issued: 'Jun 26', due: 'Jul 10', amount: '$18,970.00', numericAmount: 18970, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
+  { id: 'INV-2026-0159', customer: 'Northwind Studio', issued: 'Jun 25', due: 'Jul 09', amount: '$19,081.00', numericAmount: 19081, currency: 'USD', status: 'Paid', statusClass: 'statusPaid' },
 ];
 
 export default function InvoicesPage() {
@@ -65,10 +90,24 @@ export default function InvoicesPage() {
   
   const [mounted, setMounted] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState<string>('All');
-  const [selectedDateNum, setSelectedDateNum] = useState<string>('5');
+  const [selectedDateNum, setSelectedDateNum] = useState<string>('');
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [openActionMenuId, setOpenActionMenuId] = useState<string | null>(null);
   const [selectedInvoiceModal, setSelectedInvoiceModal] = useState<InvoiceItem | null>(null);
+
+  useEffect(() => {
+    const handleActionMenuClickOutside = (event: MouseEvent) => {
+      if (actionMenuRef.current && !actionMenuRef.current.contains(event.target as Node)) {
+        setOpenActionMenuId(null);
+      }
+    };
+    if (openActionMenuId) {
+      document.addEventListener('mousedown', handleActionMenuClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleActionMenuClickOutside);
+    };
+  }, [openActionMenuId]);
 
   useEffect(() => {
     setMounted(true);
@@ -93,20 +132,6 @@ export default function InvoicesPage() {
     setSelectedStatus('All');
     setIsPopoverOpen(false);
   };
-
-  useEffect(() => {
-    const handleActionMenuClickOutside = (event: MouseEvent) => {
-      if (actionMenuRef.current && !actionMenuRef.current.contains(event.target as Node)) {
-        setOpenActionMenuId(null);
-      }
-    };
-    if (openActionMenuId) {
-      document.addEventListener('mousedown', handleActionMenuClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleActionMenuClickOutside);
-    };
-  }, [openActionMenuId]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -159,159 +184,139 @@ export default function InvoicesPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    addToast(`Exported ${filteredInvoices.length} invoices to CSV`, 'success');
   };
 
   return (
     <div className={styles.container}>
-      {/* Header */}
+      {/* Header Section */}
       <div className="apple-pop-up">
         <div className={styles.headerSection}>
           <div>
             <span className={styles.kicker}>INVOICES</span>
-            <h1 className={styles.title}>Money in, at a glance</h1>
+            <h1 className={styles.title}>All invoices</h1>
             <p className={styles.subtitle}>
-              Pick a day to inspect every invoice issued or expected.
+              Pick a day to see what was issued, or filter by status to focus on what needs attention.
             </p>
           </div>
+          <button 
+            className={styles.calendarBtn}
+            onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+            title="Toggle date filter"
+            style={{
+              backgroundColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'transparent',
+              color: isPopoverOpen || selectedDateNum ? 'var(--invox-color-background)' : 'var(--invox-color-text-secondary)',
+              borderColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'var(--invox-color-border)',
+            }}
+          >
+            <Calendar size={16} />
+          </button>
+        </div>
+      </div>
 
-          <div style={{ position: 'relative' }} ref={popoverRef}>
-            <button 
-              className={styles.calendarBtn}
-              onClick={() => setIsPopoverOpen(!isPopoverOpen)}
-              title="Pick date from calendar"
-              style={{
-                backgroundColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'transparent',
-                color: isPopoverOpen || selectedDateNum ? 'var(--invox-color-background)' : 'var(--invox-color-text-secondary)',
-                borderColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'var(--invox-color-border)',
-              }}
-            >
-              <Calendar size={16} />
-            </button>
+      {/* Top Filter Card */}
+      <div className="apple-pop-up stagger-1" style={{ position: 'relative', zIndex: isPopoverOpen ? 100 : 1 }}>
+        <div className={styles.filterCard}>
+          <div className={styles.filterHeader}>
+            <div className={styles.filterTitleGroup}>
+              <span className={styles.kicker}>TOP FILTERS</span>
+              <h3>Filter by date</h3>
+            </div>
 
-            {isPopoverOpen && (
-              <div 
+            <div style={{ position: 'relative', zIndex: 100 }} ref={popoverRef}>
+              <button 
+                className={styles.calendarBtn}
+                onClick={() => setIsPopoverOpen(!isPopoverOpen)}
+                title="Pick date from calendar"
                 style={{
-                  position: 'absolute',
-                  top: 'calc(100% + 8px)',
-                  right: 0,
-                  width: 280,
-                  backgroundColor: 'var(--invox-color-surface)',
-                  border: '1px solid var(--invox-color-border)',
-                  borderRadius: '12px',
-                  padding: '16px',
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.35)',
-                  zIndex: 9999,
+                  backgroundColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'transparent',
+                  color: isPopoverOpen || selectedDateNum ? 'var(--invox-color-background)' : 'var(--invox-color-text-secondary)',
+                  borderColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'var(--invox-color-border)',
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', fontSize: '11px', fontWeight: 600, color: 'var(--invox-color-text-primary)' }}>
-                  <span>FILTER BY DATE</span>
-                  {(selectedDateNum || selectedStatus !== 'All') && (
-                    <button className={styles.statusPill} style={{ padding: '2px 8px', fontSize: '10px' }} onClick={handleClearFilter}>
-                      <X size={10} /> Clear
-                    </button>
-                  )}
-                </div>
+                <Calendar size={16} />
+              </button>
 
-                <input 
-                  type="date"
+              {isPopoverOpen && (
+                <div 
                   style={{
-                    width: '100%',
-                    padding: '8px 12px',
-                    backgroundColor: 'var(--invox-color-background)',
+                    position: 'absolute',
+                    top: 'calc(100% + 8px)',
+                    right: 0,
+                    width: 280,
+                    backgroundColor: 'var(--invox-color-surface)',
                     border: '1px solid var(--invox-color-border)',
-                    borderRadius: '8px',
-                    color: 'var(--invox-color-text-primary)',
-                    fontSize: '13px',
-                    outline: 'none',
+                    borderRadius: '12px',
+                    padding: '16px',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.35)',
+                    zIndex: 9999,
                   }}
-                  onChange={(e) => {
-                    if (e.target.value) {
-                      const dayNum = String(new Date(e.target.value).getDate());
-                      setSelectedDateNum(dayNum);
-                      setIsPopoverOpen(false);
-                    }
-                  }}
-                />
-
-                <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <div style={{ fontSize: '10px', color: 'var(--invox-color-text-secondary)', textTransform: 'uppercase', marginBottom: '2px' }}>
-                    Quick Presets
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', fontSize: '11px', fontWeight: 600, color: 'var(--invox-color-text-primary)' }}>
+                    <span>FILTER BY DATE</span>
+                    {(selectedDateNum || selectedStatus !== 'All') && (
+                      <button className={styles.statusPill} style={{ padding: '2px 8px', fontSize: '10px' }} onClick={handleClearFilter}>
+                        <X size={10} /> Clear
+                      </button>
+                    )}
                   </div>
-                  {[
-                    { label: 'All Invoices', val: '' },
-                    { label: 'Today (Aug 05)', val: '5' },
-                    { label: 'Yesterday (Aug 04)', val: '4' },
-                    { label: 'Aug 03', val: '3' },
-                    { label: 'Jul 31', val: '31' },
-                  ].map((preset) => (
-                    <button
-                      key={preset.label}
-                      onClick={() => {
-                        setSelectedDateNum(preset.val);
+
+                  <input 
+                    type="date"
+                    style={{
+                      width: '100%',
+                      padding: '8px 12px',
+                      backgroundColor: 'var(--invox-color-background)',
+                      border: '1px solid var(--invox-color-border)',
+                      borderRadius: '8px',
+                      color: 'var(--invox-color-text-primary)',
+                      fontSize: '13px',
+                      outline: 'none',
+                    }}
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        const dayNum = String(new Date(e.target.value).getDate());
+                        setSelectedDateNum(dayNum);
                         setIsPopoverOpen(false);
-                      }}
-                      style={{
-                        background: selectedDateNum === preset.val ? 'rgba(255,255,255,0.1)' : 'transparent',
-                        border: 'none',
-                        color: selectedDateNum === preset.val ? 'var(--invox-color-text-primary)' : 'var(--invox-color-text-secondary)',
-                        textAlign: 'left',
-                        padding: '6px 8px',
-                        borderRadius: '6px',
-                        fontSize: '12px',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      {preset.label}
-                    </button>
-                  ))}
+                      }
+                    }}
+                  />
+
+                  <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <div style={{ fontSize: '10px', color: 'var(--invox-color-text-secondary)', textTransform: 'uppercase', marginBottom: '2px' }}>
+                      Quick Presets
+                    </div>
+                    {[
+                      { label: 'All Invoices', val: '' },
+                      { label: 'Today (Aug 05)', val: '5' },
+                      { label: 'Yesterday (Aug 04)', val: '4' },
+                      { label: 'Aug 03', val: '3' },
+                      { label: 'Jul 31', val: '31' },
+                    ].map((preset) => (
+                      <button
+                        key={preset.label}
+                        onClick={() => {
+                          setSelectedDateNum(preset.val);
+                          setIsPopoverOpen(false);
+                        }}
+                        style={{
+                          background: selectedDateNum === preset.val ? 'rgba(255,255,255,0.1)' : 'transparent',
+                          border: 'none',
+                          color: selectedDateNum === preset.val ? 'var(--invox-color-text-primary)' : 'var(--invox-color-text-secondary)',
+                          textAlign: 'left',
+                          padding: '6px 8px',
+                          borderRadius: '6px',
+                          fontSize: '12px',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Top 3 Metric Cards */}
-      <div className="apple-pop-up stagger-1">
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
-          <div style={{ backgroundColor: 'var(--invox-color-surface)', border: '1px solid var(--invox-color-border)', borderRadius: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <CheckCircle2 size={16} color="#22c55e" />
-              <span style={{ fontSize: '12px', color: 'var(--invox-color-text-secondary)', fontWeight: 500 }}>Collected</span>
+              )}
             </div>
-            <h2 style={{ fontSize: '26px', fontWeight: 700, margin: '4px 0 0 0', color: 'var(--invox-color-text-primary)' }}>
-              <CurrencyDisplay amount={89451} originalCurrency="USD" />
-            </h2>
-          </div>
-
-          <div style={{ backgroundColor: 'var(--invox-color-surface)', border: '1px solid var(--invox-color-border)', borderRadius: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Clock size={16} color="#3b82f6" />
-              <span style={{ fontSize: '12px', color: 'var(--invox-color-text-secondary)', fontWeight: 500 }}>Pending</span>
-            </div>
-            <h2 style={{ fontSize: '26px', fontWeight: 700, margin: '4px 0 0 0', color: 'var(--invox-color-text-primary)' }}>
-              <CurrencyDisplay amount={23991} originalCurrency="USD" />
-            </h2>
-          </div>
-
-          <div style={{ backgroundColor: 'var(--invox-color-surface)', border: '1px solid var(--invox-color-border)', borderRadius: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <AlertCircle size={16} color="#ef4444" />
-              <span style={{ fontSize: '12px', color: 'var(--invox-color-text-secondary)', fontWeight: 500 }}>At risk</span>
-            </div>
-            <h2 style={{ fontSize: '26px', fontWeight: 700, margin: '4px 0 0 0', color: 'var(--invox-color-text-primary)' }}>
-              <CurrencyDisplay amount={78340} originalCurrency="USD" />
-            </h2>
-          </div>
-        </div>
-      </div>
-
-      {/* Invoices Timeline Date Picker Card */}
-      <div className="apple-pop-up stagger-2">
-        <div style={{ backgroundColor: 'var(--invox-color-surface)', border: '1px solid var(--invox-color-border)', borderRadius: '20px', padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div>
-            <span className={styles.kicker}>INVOICE TIMELINE</span>
-            <h3 className={styles.title} style={{ fontSize: '18px', marginTop: '2px' }}>Pick a day</h3>
           </div>
 
           <div className={styles.dateStrip}>
@@ -348,41 +353,38 @@ export default function InvoicesPage() {
               <ChevronRight size={20} />
             </button>
           </div>
+
+          <div className={styles.statusPillsRow}>
+            {['All', 'Paid', 'Pending', 'Overdue', 'Draft'].map((status) => (
+              <button
+                key={status}
+                className={styles.statusPill}
+                data-active={selectedStatus === status}
+                onClick={() => setSelectedStatus(status)}
+              >
+                {status}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Invoices List Table Card */}
-      <div className="apple-pop-up stagger-3">
+      <div className="apple-pop-up stagger-2">
         <div className={styles.tableCard}>
           <div className={styles.tableHeaderBar}>
             <div>
               <span className={styles.kicker}>
-                LAST ACTIVITY {selectedDateNum && `• DAY ${selectedDateNum}`}
+                {selectedDateNum ? `DAY ${selectedDateNum}` : 'ALL TIME'}
               </span>
               <h2 className={styles.title} style={{fontSize: '20px', marginTop: '2px'}}>
-                Recent invoices ({filteredInvoices.length})
+                {filteredInvoices.length} invoices
               </h2>
             </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <div className={styles.statusPillsRow}>
-                {['All', 'Paid', 'Pending', 'Overdue', 'Draft'].map((status) => (
-                  <button
-                    key={status}
-                    className={styles.statusPill}
-                    data-active={selectedStatus === status}
-                    onClick={() => setSelectedStatus(status)}
-                  >
-                    {status}
-                  </button>
-                ))}
-              </div>
-
-              <button className={styles.exportBtn} onClick={handleExportCSV}>
-                <Download size={14} />
-                Export CSV
-              </button>
-            </div>
+            <button className={styles.exportBtn} onClick={handleExportCSV}>
+              <Download size={14} />
+              Export CSV
+            </button>
           </div>
 
           <div className={styles.tableContainer}>
@@ -402,7 +404,7 @@ export default function InvoicesPage() {
                 <tbody>
                   {filteredInvoices.map((inv) => (
                     <tr 
-                      key={inv.id}
+                      key={inv.id} 
                       onClick={() => setSelectedInvoiceModal(inv)}
                       style={{ cursor: 'pointer' }}
                     >
@@ -510,6 +512,12 @@ export default function InvoicesPage() {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Footer */}
+      <div className={styles.footer}>
+        <span>© Invox 2026</span>
+        <span>{filteredInvoices.length} SHOWING · UPDATED JUST NOW</span>
       </div>
 
       {/* Invoice Detail Modal — Dual Currency View (Portal to document.body for fixed positioning & scroll isolation) */}

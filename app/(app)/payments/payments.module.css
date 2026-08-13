@@ -103,9 +103,8 @@
 .dateStrip {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  width: 100%;
+  gap: var(--invox-space-md);
+  margin-top: var(--invox-space-xs);
 }
 
 .dateItem {
@@ -113,20 +112,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex: 1;
-  max-width: 48px;
-  height: 60px;
-  border-radius: 14px;
+  width: 48px;
+  height: 64px;
+  border-radius: var(--invox-radius-md);
   cursor: pointer;
-  border: 1px solid var(--invox-color-border, rgba(255, 255, 255, 0.08));
-  background-color: rgba(255, 255, 255, 0.02);
-  transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
+  border: 1px solid transparent;
+  transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease;
   will-change: transform;
 }
 
 .dateItem:hover {
-  border-color: rgba(255, 255, 255, 0.25);
-  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--invox-color-border);
 }
 
 .dateItem:active {
@@ -134,42 +130,25 @@
 }
 
 .dateItem[data-active="true"] {
-  background-color: #FFFFFF !important;
-  border-color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2);
+  background-color: var(--invox-color-text-primary);
+  color: var(--invox-color-background);
 }
 
-.dateItem[data-active="true"] .dateDay {
-  color: #0F172A !important;
-  font-weight: 700;
-}
-
+.dateItem[data-active="true"] .dateDay,
 .dateItem[data-active="true"] .dateNum {
-  color: #0F172A !important;
-  font-weight: 800;
-  position: relative;
-}
-
-.dateItem[data-active="true"] .dateNum::after {
-  content: ' •';
-  color: #3b82f6;
-  font-weight: 900;
-  font-size: 14px;
+  color: var(--invox-color-background);
 }
 
 .dateDay {
-  font-size: 10px;
-  color: var(--invox-color-text-secondary, #888);
+  font-size: var(--invox-text-micro);
+  color: var(--invox-color-text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 600;
 }
 
 .dateNum {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--invox-color-text-primary, #FFF);
-  line-height: 1.2;
+  font-size: var(--invox-text-md);
+  font-weight: 600;
+  color: var(--invox-color-text-primary);
 }
 
 /* Payments List Card */
