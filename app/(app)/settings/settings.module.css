@@ -238,28 +238,40 @@ input:checked + .slider:before {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: var(--invox-space-md);
-  background-color: var(--invox-color-background);
-  border: 1px solid var(--invox-color-border);
-  border-radius: var(--invox-radius-md);
+  gap: 10px;
+  padding: 24px 16px;
+  background-color: var(--invox-color-background, #11141b);
+  border: 1px solid var(--invox-color-border, #232a36);
+  border-radius: 14px;
   cursor: pointer;
-  font-size: var(--invox-text-xs);
-  color: var(--invox-color-text-secondary);
-  transition: border-color 150ms ease, background-color 150ms ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--invox-color-text-primary, #ffffff);
+  transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.themeCard:hover {
+  border-color: #3b495e;
 }
 
 .themeCard[data-active="true"] {
-  border-color: #384c66;
-  background-color: rgba(56, 76, 102, 0.1);
-  color: var(--invox-color-text-primary);
+  border: 1px solid #4f617d;
+  background-color: #161b24;
+  color: #7b91b0;
 }
 
 .checkBadge {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  color: #384c66;
+  top: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #4f617d;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Workspace Info */

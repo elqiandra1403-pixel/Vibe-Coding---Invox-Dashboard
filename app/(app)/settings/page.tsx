@@ -2,7 +2,7 @@
 // Invox Settings Page - Updated
 
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, CheckCircle2, ShieldCheck, Sparkles } from 'lucide-react';
+import { Sun, Moon, Check, ShieldCheck, Sparkles } from 'lucide-react';
 import { useUiStore } from '@/stores/uiStore';
 import styles from './settings.module.css';
 
@@ -199,7 +199,11 @@ export default function SettingsPage() {
                 onClick={() => handleThemeChange('light')}
                 style={{ cursor: 'pointer' }}
               >
-                {theme === 'light' && <CheckCircle2 size={14} className={styles.checkBadge} />}
+                {theme === 'light' && (
+                  <div className={styles.checkBadge}>
+                    <Check size={11} strokeWidth={3} />
+                  </div>
+                )}
                 <Sun size={20} />
                 <span>Light</span>
               </div>
@@ -210,7 +214,11 @@ export default function SettingsPage() {
                 onClick={() => handleThemeChange('dark')}
                 style={{ cursor: 'pointer' }}
               >
-                {theme === 'dark' && <CheckCircle2 size={14} className={styles.checkBadge} />}
+                {theme === 'dark' && (
+                  <div className={styles.checkBadge}>
+                    <Check size={11} strokeWidth={3} />
+                  </div>
+                )}
                 <Moon size={20} />
                 <span>Dark</span>
               </div>
