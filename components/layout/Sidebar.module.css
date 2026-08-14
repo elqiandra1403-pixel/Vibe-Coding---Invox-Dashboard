@@ -1,6 +1,6 @@
 .sidebar {
   width: 260px;
-  background-color: var(--invox-color-background, #121212);
+  background-color: var(--invox-color-background, #14161B);
   border-right: 1px solid var(--invox-color-border, #2a2a2a);
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
   top: 0;
   left: 0;
   bottom: 0;
-  z-index: var(--invox-z-nav, 1000);
+  z-index: 99999;
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
@@ -18,13 +18,13 @@
   transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Mobile backdrop overlay (clean dark tint without screen blur) */
+/* Mobile backdrop overlay (light transparent tint for background content only) */
 .backdrop {
   display: none;
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 99990;
   animation: fadeIn 180ms ease-out both;
 }
 
@@ -45,7 +45,7 @@
 
   .mobileOpen {
     transform: translateX(0) !important;
-    box-shadow: 0 0 32px rgba(0, 0, 0, 0.6);
+    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.7);
   }
 }
 

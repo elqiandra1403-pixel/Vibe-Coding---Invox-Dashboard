@@ -29,6 +29,7 @@ const NAV_ITEMS = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const { userProfile, setSignOutModalOpen, mobileMenuOpen, setMobileMenuOpen } = useUiStore();
 
   const initials = (userProfile.name || 'User')
@@ -38,13 +39,14 @@ export function Sidebar() {
     .toUpperCase()
     .slice(0, 2);
 
-  const handleNavClick = () => {
+  const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
+    router.push(href);
   };
 
   return (
     <>
-      {/* Mobile Drawer Overlay Backdrop (NO BLUR, clean dark tint) */}
+      {/* Mobile Drawer Overlay Backdrop */}
       {mobileMenuOpen && (
         <div 
           className={styles.backdrop} 
@@ -63,16 +65,21 @@ export function Sidebar() {
             const isActive = pathname === item.href;
             const Icon = item.icon;
             return (
-              <Link 
+              <button 
                 key={item.name} 
-                href={item.href} 
                 className={styles.navLink}
                 data-active={isActive}
-                onClick={handleNavClick}
+                onClick={() => handleNavClick(item.href)}
+                style={{
+                  textAlign: 'left',
+                  cursor: 'pointer',
+                  width: '100%',
+                  border: 'none',
+                }}
               >
                 <Icon className={styles.navIcon} />
                 <span className={styles.navText}>{item.name}</span>
-              </Link>
+              </button>
             );
           })}
         </nav>
