@@ -16,6 +16,7 @@ export interface ToastItem {
 
 interface UiStore {
   sidebarOpen: boolean;
+  mobileMenuOpen: boolean;
   theme: "light" | "dark";
   userProfile: UserProfile;
   newInvoiceModalOpen: boolean;
@@ -24,6 +25,8 @@ interface UiStore {
   toasts: ToastItem[];
   toggleSidebar: () => void;
   setSidebarOpen: (open: boolean) => void;
+  toggleMobileMenu: () => void;
+  setMobileMenuOpen: (open: boolean) => void;
   setTheme: (theme: "light" | "dark") => void;
   toggleTheme: () => void;
   setUserProfile: (profile: Partial<UserProfile>) => void;
@@ -36,6 +39,7 @@ interface UiStore {
 
 export const useUiStore = create<UiStore>((set, get) => ({
   sidebarOpen: true,
+  mobileMenuOpen: false,
   theme: "dark",
   userProfile: {
     name: "Elqi",
@@ -49,6 +53,8 @@ export const useUiStore = create<UiStore>((set, get) => ({
   toasts: [],
   toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
   setSidebarOpen: (sidebarOpen) => set({ sidebarOpen }),
+  toggleMobileMenu: () => set((s) => ({ mobileMenuOpen: !s.mobileMenuOpen })),
+  setMobileMenuOpen: (mobileMenuOpen) => set({ mobileMenuOpen }),
   setTheme: (theme) => {
     if (typeof window !== "undefined") {
       document.documentElement.setAttribute("data-theme", theme);

@@ -8,7 +8,7 @@ import styles from './Header.module.css';
 
 export function Header() {
   const router = useRouter();
-  const { theme, toggleTheme, setSearchModalOpen, setNewInvoiceModalOpen, addToast, toggleSidebar } = useUiStore();
+  const { theme, toggleTheme, setSearchModalOpen, setNewInvoiceModalOpen, addToast, toggleMobileMenu } = useUiStore();
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(2);
   const notifRef = useRef<HTMLDivElement>(null);
@@ -40,7 +40,7 @@ export function Header() {
       <div className={styles.headerLeft}>
         <button 
           className={styles.mobileMenuBtn}
-          onClick={toggleSidebar}
+          onClick={toggleMobileMenu}
           aria-label="Toggle mobile menu"
           title="Toggle Navigation Menu"
         >

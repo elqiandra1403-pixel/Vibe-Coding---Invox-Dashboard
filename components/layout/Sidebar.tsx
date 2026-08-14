@@ -29,7 +29,7 @@ const NAV_ITEMS = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { userProfile, setSignOutModalOpen, sidebarOpen, setSidebarOpen } = useUiStore();
+  const { userProfile, setSignOutModalOpen, mobileMenuOpen, setMobileMenuOpen } = useUiStore();
 
   const initials = (userProfile.name || 'User')
     .split(' ')
@@ -39,22 +39,20 @@ export function Sidebar() {
     .slice(0, 2);
 
   const handleNavClick = () => {
-    if (typeof window !== 'undefined' && window.innerWidth <= 1024) {
-      setSidebarOpen(false);
-    }
+    setMobileMenuOpen(false);
   };
 
   return (
     <>
-      {/* Mobile Drawer Overlay Backdrop */}
-      {sidebarOpen && (
+      {/* Mobile Drawer Overlay Backdrop (NO BLUR, clean dark tint) */}
+      {mobileMenuOpen && (
         <div 
           className={styles.backdrop} 
-          onClick={() => setSidebarOpen(false)}
+          onClick={() => setMobileMenuOpen(false)}
         />
       )}
 
-      <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
+      <aside className={`${styles.sidebar} ${mobileMenuOpen ? styles.mobileOpen : ''}`}>
         <div className={styles.logo}>
           <div className={styles.logoIcon}>iv</div>
           Invox
