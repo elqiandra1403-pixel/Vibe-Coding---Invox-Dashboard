@@ -167,7 +167,7 @@ export function Header() {
           onClick={() => setNewInvoiceModalOpen(true)}
         >
           <Plus size={16} />
-          New invoice
+          <span className={styles.btnText}>New invoice</span>
         </button>
       </div>
     </header>

@@ -251,7 +251,7 @@
     display: inline-flex;
   }
   .searchContainer {
-    width: 240px;
+    width: 220px;
   }
 }
 
@@ -259,25 +259,39 @@
 @media (max-width: 768px) {
   .header {
     height: 64px;
-    padding: 0 16px;
+    padding: 0 12px;
+    gap: 8px;
+  }
+  .headerLeft {
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
   }
   .searchContainer {
-    width: 160px;
+    width: 100%;
+    max-width: 160px;
+    flex: 1;
+    min-width: 0;
   }
   .searchInput {
     font-size: 12px;
-    padding-left: 32px;
+    padding: 6px 12px 6px 30px;
   }
-  .newInvoiceButton span {
+  .actions {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .btnText {
     display: none;
   }
   .newInvoiceButton {
-    padding: 8px 12px;
+    padding: 8px;
+    border-radius: 50%;
   }
   .notifPopover {
     width: calc(100vw - 32px);
-    max-width: 320px;
-    right: -40px;
+    max-width: 300px;
+    right: -20px;
   }
 }
 

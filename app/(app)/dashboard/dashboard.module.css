@@ -202,15 +202,24 @@
     align-items: flex-start;
     gap: 12px;
   }
+  .greetingTitle {
+    font-size: 24px;
+    line-height: 1.25;
+  }
+  .greetingSubtitle {
+    font-size: 13px;
+  }
   .metricCardsGrid {
     grid-template-columns: 1fr;
   }
   .timeFilters {
     overflow-x: auto;
     max-width: 100%;
+    width: 100%;
   }
   .timeFilterBtn {
     padding: 6px 12px;
     font-size: 11px;
+    flex-shrink: 0;
   }
 }
