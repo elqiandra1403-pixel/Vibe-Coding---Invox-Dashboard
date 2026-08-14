@@ -217,11 +217,11 @@
   border-radius: 50%;
 }
 
-input:checked + .slider {
-  background-color: #384c66;
+.switch input:checked + .slider {
+  background-color: #3b82f6;
 }
 
-input:checked + .slider:before {
+.switch input:checked + .slider:before {
   transform: translateX(20px);
 }
 

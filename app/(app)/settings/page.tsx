@@ -25,6 +25,20 @@ export default function SettingsPage() {
     setEmail(userProfile.email);
     setCompany(userProfile.company);
     setCurrency(userProfile.currency);
+
+    if (typeof window !== 'undefined') {
+      const savedNotifsStr = localStorage.getItem('invox-notifications');
+      if (savedNotifsStr) {
+        try {
+          const notifs = JSON.parse(savedNotifsStr);
+          if (typeof notifs.emailPayment === 'boolean') setEmailPayment(notifs.emailPayment);
+          if (typeof notifs.overdueReminders === 'boolean') setOverdueReminders(notifs.overdueReminders);
+          if (typeof notifs.weeklyDigest === 'boolean') setWeeklyDigest(notifs.weeklyDigest);
+        } catch (err) {
+          // ignore
+        }
+      }
+    }
   }, [userProfile]);
 
   const handleSave = (e: React.FormEvent) => {
@@ -52,11 +66,27 @@ export default function SettingsPage() {
     addToast(`Default currency updated to ${newCurrency}`, 'info');
   };
 
-  const handleToggle = (setter: (val: boolean) => void, current: boolean, label: string) => {
+  const handleToggle = (
+    key: 'emailPayment' | 'overdueReminders' | 'weeklyDigest',
+    setter: (val: boolean) => void,
+    current: boolean,
+    label: string
+  ) => {
     const nextVal = !current;
     setter(nextVal);
-    const statusLabel = nextVal ? 'enabled' : 'disabled';
-    addToast(label + ' ' + statusLabel, 'info');
+
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('invox-notifications');
+      const notifs = saved ? JSON.parse(saved) : { emailPayment: true, overdueReminders: true, weeklyDigest: false };
+      notifs[key] = nextVal;
+      localStorage.setItem('invox-notifications', JSON.stringify(notifs));
+    }
+
+    if (nextVal) {
+      addToast(`Notification "${label}" turned ON`, 'success');
+    } else {
+      addToast(`Notification "${label}" turned OFF`, 'info');
+    }
   };
 
   return (
@@ -150,7 +180,7 @@ export default function SettingsPage() {
                   <input 
                     type="checkbox" 
                     checked={emailPayment} 
-                    onChange={() => handleToggle(setEmailPayment, emailPayment, 'Payment emails')} 
+                    onChange={() => handleToggle('emailPayment', setEmailPayment, emailPayment, 'Payment emails')} 
                   />
                   <span className={styles.slider}></span>
                 </label>
@@ -162,7 +192,7 @@ export default function SettingsPage() {
                   <input 
                     type="checkbox" 
                     checked={overdueReminders} 
-                    onChange={() => handleToggle(setOverdueReminders, overdueReminders, 'Overdue reminders')} 
+                    onChange={() => handleToggle('overdueReminders', setOverdueReminders, overdueReminders, 'Overdue reminders')} 
                   />
                   <span className={styles.slider}></span>
                 </label>
@@ -174,7 +204,7 @@ export default function SettingsPage() {
                   <input 
                     type="checkbox" 
                     checked={weeklyDigest} 
-                    onChange={() => handleToggle(setWeeklyDigest, weeklyDigest, 'Weekly digest')} 
+                    onChange={() => handleToggle('weeklyDigest', setWeeklyDigest, weeklyDigest, 'Weekly digest')} 
                   />
                   <span className={styles.slider}></span>
                 </label>
