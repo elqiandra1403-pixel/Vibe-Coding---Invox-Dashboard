@@ -408,5 +408,33 @@
   letter-spacing: 0.5px;
 }
 
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 768px) {
+  .headerSection {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .filterHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .statusPillsRow {
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .statusPill {
+    flex-shrink: 0;
+  }
+  .tableHeaderBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
 
 

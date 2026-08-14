@@ -10,11 +10,48 @@
   top: 0;
   left: 0;
   bottom: 0;
-  z-index: var(--invox-z-nav, 100);
+  z-index: var(--invox-z-nav, 1000);
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Mobile backdrop overlay */
+.backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  animation: fadeIn 200ms ease-out both;
+}
+
+.signOutButton:active {
+  transform: scale(0.96);
+}
+
+/* Tablet & Mobile Responsiveness (Drawer slide-in) */
+@media (max-width: 1024px) {
+  .backdrop {
+    display: block;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: none;
+  }
+
+  .sidebarOpen {
+    transform: translateX(0);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+  }
+
+  .sidebarClosed {
+    transform: translateX(-100%);
+  }
 }
 
 .sidebar::-webkit-scrollbar {

@@ -2,13 +2,13 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, Sun, Moon, Bell, Plus, CheckCircle2, AlertCircle, Send, FileText } from 'lucide-react';
+import { Search, Sun, Moon, Bell, Plus, CheckCircle2, AlertCircle, Send, FileText, Menu } from 'lucide-react';
 import { useUiStore } from '@/stores/uiStore';
 import styles from './Header.module.css';
 
 export function Header() {
   const router = useRouter();
-  const { theme, toggleTheme, setSearchModalOpen, setNewInvoiceModalOpen, addToast } = useUiStore();
+  const { theme, toggleTheme, setSearchModalOpen, setNewInvoiceModalOpen, addToast, toggleSidebar } = useUiStore();
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(2);
   const notifRef = useRef<HTMLDivElement>(null);
@@ -37,18 +37,29 @@ export function Header() {
 
   return (
     <header className={styles.header}>
-      <div 
-        className={styles.searchContainer}
-        onClick={() => setSearchModalOpen(true)}
-      >
-        <Search className={styles.searchIcon} />
-        <input 
-          type="text" 
-          placeholder="Search invoices, customers (⌘K)" 
-          className={styles.searchInput}
-          readOnly
-          style={{ cursor: 'pointer' }}
-        />
+      <div className={styles.headerLeft}>
+        <button 
+          className={styles.mobileMenuBtn}
+          onClick={toggleSidebar}
+          aria-label="Toggle mobile menu"
+          title="Toggle Navigation Menu"
+        >
+          <Menu size={20} />
+        </button>
+
+        <div 
+          className={styles.searchContainer}
+          onClick={() => setSearchModalOpen(true)}
+        >
+          <Search className={styles.searchIcon} />
+          <input 
+            type="text" 
+            placeholder="Search invoices, customers (⌘K)" 
+            className={styles.searchInput}
+            readOnly
+            style={{ cursor: 'pointer' }}
+          />
+        </div>
       </div>
 
       <div className={styles.actions}>

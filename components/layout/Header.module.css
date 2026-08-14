@@ -11,6 +11,29 @@
   z-index: var(--invox-z-raised, 10);
 }
 
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobileMenuBtn {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--invox-color-border);
+  color: var(--invox-color-text-primary);
+  padding: 8px;
+  border-radius: var(--invox-radius-sm, 8px);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 150ms ease;
+}
+
+.mobileMenuBtn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
 .searchContainer {
   position: relative;
   width: 320px;
@@ -220,5 +243,41 @@
 
 .viewAllNotifsLink:active {
   transform: scale(0.96);
+}
+
+/* Tablet Responsiveness */
+@media (max-width: 1024px) {
+  .mobileMenuBtn {
+    display: inline-flex;
+  }
+  .searchContainer {
+    width: 240px;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .header {
+    height: 64px;
+    padding: 0 16px;
+  }
+  .searchContainer {
+    width: 160px;
+  }
+  .searchInput {
+    font-size: 12px;
+    padding-left: 32px;
+  }
+  .newInvoiceButton span {
+    display: none;
+  }
+  .newInvoiceButton {
+    padding: 8px 12px;
+  }
+  .notifPopover {
+    width: calc(100vw - 32px);
+    max-width: 320px;
+    right: -40px;
+  }
 }
 

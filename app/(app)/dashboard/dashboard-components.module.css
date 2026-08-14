@@ -494,3 +494,16 @@
   margin: 4px 0;
 }
 
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .dateStrip {
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .calendarPopover {
+    width: calc(100vw - 32px);
+    right: -12px;
+  }
+}
+

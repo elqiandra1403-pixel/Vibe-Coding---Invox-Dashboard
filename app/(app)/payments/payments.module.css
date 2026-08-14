@@ -306,3 +306,25 @@
   font-size: var(--invox-text-micro);
   color: var(--invox-color-text-secondary);
 }
+
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 768px) {
+  .headerSection {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+  .dateStrip {
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .footer {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+}

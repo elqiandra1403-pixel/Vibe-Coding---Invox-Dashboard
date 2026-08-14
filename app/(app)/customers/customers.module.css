@@ -171,3 +171,15 @@
   font-size: var(--invox-text-micro);
   color: var(--invox-color-text-secondary);
 }
+
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 768px) {
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+  .footer {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+}

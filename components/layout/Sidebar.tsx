@@ -29,7 +29,7 @@ const NAV_ITEMS = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { userProfile, setSignOutModalOpen } = useUiStore();
+  const { userProfile, setSignOutModalOpen, sidebarOpen, setSidebarOpen } = useUiStore();
 
   const initials = (userProfile.name || 'User')
     .split(' ')
@@ -38,44 +38,61 @@ export function Sidebar() {
     .toUpperCase()
     .slice(0, 2);
 
+  const handleNavClick = () => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 1024) {
+      setSidebarOpen(false);
+    }
+  };
+
   return (
-    <aside className={styles.sidebar}>
-      <div className={styles.logo}>
-        <div className={styles.logoIcon}>iv</div>
-        Invox
-      </div>
+    <>
+      {/* Mobile Drawer Overlay Backdrop */}
+      {sidebarOpen && (
+        <div 
+          className={styles.backdrop} 
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
 
-      <nav className={styles.nav}>
-        {NAV_ITEMS.map((item) => {
-          const isActive = pathname === item.href;
-          const Icon = item.icon;
-          return (
-            <Link 
-              key={item.name} 
-              href={item.href} 
-              className={styles.navLink}
-              data-active={isActive}
-            >
-              <Icon className={styles.navIcon} />
-              {item.name}
-            </Link>
-          );
-        })}
-      </nav>
-
-      <div className={styles.footer}>
-        <div className={styles.userProfile}>
-          <div className={styles.avatar}>{initials}</div>
-          <div className={styles.userInfo}>
-            <span className={styles.userName}>{userProfile.name}</span>
-            <span className={styles.userEmail}>{userProfile.email}</span>
-          </div>
+      <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
+        <div className={styles.logo}>
+          <div className={styles.logoIcon}>iv</div>
+          Invox
         </div>
-        <button className={styles.signOutButton} onClick={() => setSignOutModalOpen(true)}>
-          <LogOut size={14} />
-          Sign out
-        </button>
-      </div>
-    </aside>
+
+        <nav className={styles.nav}>
+          {NAV_ITEMS.map((item) => {
+            const isActive = pathname === item.href;
+            const Icon = item.icon;
+            return (
+              <Link 
+                key={item.name} 
+                href={item.href} 
+                className={styles.navLink}
+                data-active={isActive}
+                onClick={handleNavClick}
+              >
+                <Icon className={styles.navIcon} />
+                <span className={styles.navText}>{item.name}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className={styles.footer}>
+          <div className={styles.userProfile}>
+            <div className={styles.avatar}>{initials}</div>
+            <div className={styles.userInfo}>
+              <span className={styles.userName}>{userProfile.name}</span>
+              <span className={styles.userEmail}>{userProfile.email}</span>
+            </div>
+          </div>
+          <button className={styles.signOutButton} onClick={() => setSignOutModalOpen(true)}>
+            <LogOut size={14} />
+            <span className={styles.signOutText}>Sign out</span>
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }
