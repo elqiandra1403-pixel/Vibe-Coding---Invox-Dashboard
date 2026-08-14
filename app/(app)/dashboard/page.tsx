@@ -24,23 +24,23 @@ export default function DashboardPage() {
         <GreetingSection />
       </div>
       
-      <div className="apple-pop-up stagger-1">
-        <MetricCards />
-      </div>
-      
-      <div className="apple-pop-up stagger-2">
-        <DateBrowser />
-      </div>
-
       <div className={styles.row}>
-        <div className={`${styles.col8} apple-pop-up stagger-3`}>
+        <div className={`${styles.col8} apple-pop-up stagger-1`}>
           <RevenueChart />
           <InvoiceVolumeChart />
         </div>
-        <div className={`${styles.col4} apple-pop-up stagger-4`}>
+        <div className={`${styles.col4} apple-pop-up stagger-2`}>
           <PaymentSuccessChart />
           <RecentActivity />
         </div>
+      </div>
+
+      <div className="apple-pop-up stagger-3">
+        <MetricCards />
+      </div>
+      
+      <div className="apple-pop-up stagger-4">
+        <DateBrowser />
       </div>
 
       <div className="apple-pop-up stagger-5">
