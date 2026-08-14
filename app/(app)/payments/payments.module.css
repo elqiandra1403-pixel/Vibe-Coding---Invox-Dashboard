@@ -307,8 +307,28 @@
   color: var(--invox-color-text-secondary);
 }
 
+/* Calendar Popover */
+.calendarPopover {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 280px;
+  background-color: var(--invox-color-surface);
+  border: 1px solid var(--invox-color-border);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.65);
+  z-index: 99999;
+}
+
 /* Mobile & Tablet Responsiveness */
 @media (max-width: 768px) {
+  .calendarPopover {
+    left: 0;
+    right: auto;
+    width: calc(100vw - 32px);
+    max-width: 280px;
+  }
   .headerSection {
     flex-direction: column;
     align-items: flex-start;

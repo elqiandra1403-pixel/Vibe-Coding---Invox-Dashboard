@@ -125,20 +125,7 @@ export default function PaymentsPage() {
             </button>
 
             {isPopoverOpen && (
-              <div 
-                style={{
-                  position: 'absolute',
-                  top: 'calc(100% + 8px)',
-                  right: 0,
-                  width: 280,
-                  backgroundColor: 'var(--invox-color-surface)',
-                  border: '1px solid var(--invox-color-border)',
-                  borderRadius: '12px',
-                  padding: '16px',
-                  boxShadow: '0 12px 40px rgba(0,0,0,0.65)',
-                  zIndex: 99999,
-                }}
-              >
+              <div className={styles.calendarPopover}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', fontSize: '11px', fontWeight: 600, color: 'var(--invox-color-text-primary)' }}>
                   <span>FILTER BY DATE</span>
                   {selectedDateNum && (
