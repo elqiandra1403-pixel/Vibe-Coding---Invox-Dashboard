@@ -252,27 +252,6 @@ export default function SettingsPage() {
                 <span className={styles.workspaceVal}>Monthly</span>
               </div>
             </div>
-
-            <button
-              onClick={() => addToast('Workspace plan is currently at Studio tier', 'info')}
-              style={{
-                marginTop: '12px',
-                padding: '8px 12px',
-                backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid var(--invox-color-border)',
-                borderRadius: '8px',
-                color: 'var(--invox-color-text-primary)',
-                fontSize: '12px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '6px',
-                transition: 'background-color 150ms ease',
-              }}
-            >
-              <ShieldCheck size={14} /> Manage Seats & Plan
-            </button>
           </div>
         </div>
       </div>
