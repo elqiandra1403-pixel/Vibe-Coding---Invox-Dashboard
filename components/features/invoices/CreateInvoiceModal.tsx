@@ -111,7 +111,7 @@ export function CreateInvoiceModal() {
             <div className={styles.inputGroup}>
               <label className={styles.label}>CURRENCY</label>
               <select
-                className={styles.input}
+                className={styles.select}
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
               >
