@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Calendar, ChevronLeft, ChevronRight, Download, MoreHorizontal, CalendarX, X, Eye, Pencil, Copy, FileDown, Trash2 } from 'lucide-react';
 import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
 import { useUiStore } from '@/stores/uiStore';
+import { EditInvoiceModal, EditableInvoice } from '@/components/features/invoices/EditInvoiceModal';
 import styles from './invoices.module.css';
 
 export interface InvoiceItem {
@@ -89,11 +90,116 @@ export default function InvoicesPage() {
   const { userProfile, addToast } = useUiStore();
   
   const [mounted, setMounted] = useState(false);
+  const [invoicesList, setInvoicesList] = useState<InvoiceItem[]>(ALL_INVOICES);
   const [selectedStatus, setSelectedStatus] = useState<string>('All');
   const [selectedDateNum, setSelectedDateNum] = useState<string>('');
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [openActionMenuId, setOpenActionMenuId] = useState<string | null>(null);
   const [selectedInvoiceModal, setSelectedInvoiceModal] = useState<InvoiceItem | null>(null);
+  const [editingInvoice, setEditingInvoice] = useState<EditableInvoice | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('invox-invoices');
+      if (saved) {
+        try {
+          setInvoicesList(JSON.parse(saved));
+        } catch (err) {
+          setInvoicesList(ALL_INVOICES);
+        }
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleCreated = (e: Event) => {
+      const customEvt = e as CustomEvent<InvoiceItem>;
+      if (customEvt.detail) {
+        setInvoicesList(prev => {
+          const updated = [customEvt.detail, ...prev];
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('invox-invoices', JSON.stringify(updated));
+          }
+          return updated;
+        });
+      }
+    };
+    window.addEventListener('invox-invoice-created', handleCreated);
+    return () => window.removeEventListener('invox-invoice-created', handleCreated);
+  }, []);
+
+  const updateInvoicesList = (newList: InvoiceItem[]) => {
+    setInvoicesList(newList);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('invox-invoices', JSON.stringify(newList));
+    }
+  };
+
+  const handleEditInvoice = (inv: InvoiceItem) => {
+    setEditingInvoice({
+      id: inv.id,
+      customer: inv.customer,
+      amount: inv.numericAmount,
+      currency: inv.currency,
+      due: inv.due,
+      status: inv.status
+    });
+    setIsEditModalOpen(true);
+    setOpenActionMenuId(null);
+  };
+
+  const handleSaveEditedInvoice = (updatedInv: EditableInvoice) => {
+    const getStatusClass = (st: string) => {
+      switch (st) {
+        case 'Paid': return 'statusPaid';
+        case 'Pending': return 'statusPending';
+        case 'Overdue': return 'statusOverdue';
+        default: return 'statusDraft';
+      }
+    };
+
+    const newList = invoicesList.map(item => {
+      if (item.id === updatedInv.id) {
+        return {
+          ...item,
+          customer: updatedInv.customer,
+          numericAmount: updatedInv.amount,
+          currency: updatedInv.currency,
+          due: updatedInv.due,
+          status: updatedInv.status,
+          statusClass: getStatusClass(updatedInv.status)
+        };
+      }
+      return item;
+    });
+
+    updateInvoicesList(newList);
+    setIsEditModalOpen(false);
+    setEditingInvoice(null);
+    addToast(`Invoice ${updatedInv.id} updated successfully!`, 'success');
+  };
+
+  const handleDuplicateInvoice = (inv: InvoiceItem) => {
+    const dupId = `INV-2026-0${Math.floor(300 + Math.random() * 600)}`;
+    const duplicated: InvoiceItem = {
+      ...inv,
+      id: dupId,
+      status: 'Draft',
+      statusClass: 'statusDraft'
+    };
+    updateInvoicesList([duplicated, ...invoicesList]);
+    setOpenActionMenuId(null);
+    addToast(`Duplicated invoice as ${dupId}`, 'success');
+  };
+
+  const handleDeleteInvoice = (id: string) => {
+    const newList = invoicesList.filter(inv => inv.id !== id);
+    updateInvoicesList(newList);
+    setOpenActionMenuId(null);
+    addToast(`Invoice ${id} deleted successfully`, 'info');
+  };
 
   useEffect(() => {
     const handleActionMenuClickOutside = (event: MouseEvent) => {
@@ -159,7 +265,7 @@ export default function InvoicesPage() {
   }, [selectedInvoiceModal]);
 
   const filteredInvoices = useMemo(() => {
-    return ALL_INVOICES.filter(inv => {
+    return invoicesList.filter(inv => {
       if (selectedStatus !== 'All' && inv.status !== selectedStatus) {
         return false;
       }
@@ -171,7 +277,7 @@ export default function InvoicesPage() {
       }
       return true;
     });
-  }, [selectedStatus, selectedDateNum]);
+  }, [invoicesList, selectedStatus, selectedDateNum]);
 
   const handleExportCSV = () => {
     const headers = ['Invoice,Customer,Issued,Due,Amount,Status'];
@@ -435,20 +541,14 @@ export default function InvoicesPage() {
 
                             <button
                               className={styles.menuItem}
-                              onClick={() => {
-                                addToast(`Editing invoice ${inv.id}`, 'info');
-                                setOpenActionMenuId(null);
-                              }}
+                              onClick={() => handleEditInvoice(inv)}
                             >
                               <Pencil size={14} /> Edit invoice
                             </button>
 
                             <button
                               className={styles.menuItem}
-                              onClick={() => {
-                                addToast(`Duplicated invoice ${inv.id}`, 'success');
-                                setOpenActionMenuId(null);
-                              }}
+                              onClick={() => handleDuplicateInvoice(inv)}
                             >
                               <Copy size={14} /> Duplicate invoice
                             </button>
@@ -467,10 +567,7 @@ export default function InvoicesPage() {
 
                             <button
                               className={`${styles.menuItem} ${styles.deleteMenuItem}`}
-                              onClick={() => {
-                                addToast(`Invoice ${inv.id} deleted`, 'error');
-                                setOpenActionMenuId(null);
-                              }}
+                              onClick={() => handleDeleteInvoice(inv.id)}
                             >
                               <Trash2 size={14} /> Delete invoice
                             </button>
@@ -647,6 +744,14 @@ export default function InvoicesPage() {
         </div>,
         document.body
       )}
+
+      {/* Edit Invoice Modal */}
+      <EditInvoiceModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        invoice={editingInvoice}
+        onSave={handleSaveEditedInvoice}
+      />
     </div>
   );
 }

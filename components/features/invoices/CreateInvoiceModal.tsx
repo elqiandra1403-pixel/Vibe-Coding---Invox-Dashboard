@@ -49,6 +49,23 @@ export function CreateInvoiceModal() {
 
     const invId = `INV-2026-0${Math.floor(200 + Math.random() * 800)}`;
     const formattedStr = formatCurrency(numericVal, currency);
+
+    const newInvoice = {
+      id: invId,
+      customer,
+      issued: 'Aug 14',
+      due: dueDate ? dueDate : 'Aug 28',
+      amount: formattedStr,
+      numericAmount: numericVal,
+      currency,
+      status: 'Pending' as const,
+      statusClass: 'statusPending'
+    };
+
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('invox-invoice-created', { detail: newInvoice }));
+    }
+
     addToast(`Invoice ${invId} for ${customer} (${formattedStr}) created!`, 'success');
     setNewInvoiceModalOpen(false);
     setCustomer('');
