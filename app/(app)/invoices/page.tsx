@@ -354,29 +354,16 @@ export default function InvoicesPage() {
                 onClick={() => setIsPopoverOpen(!isPopoverOpen)}
                 title="Pick date from calendar"
                 style={{
-                  backgroundColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'transparent',
-                  color: isPopoverOpen || selectedDateNum ? 'var(--invox-color-background)' : 'var(--invox-color-text-secondary)',
-                  borderColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'var(--invox-color-border)',
+                  backgroundColor: isPopoverOpen ? 'var(--invox-color-text-primary)' : 'transparent',
+                  color: isPopoverOpen ? 'var(--invox-color-background)' : 'var(--invox-color-text-secondary)',
+                  borderColor: isPopoverOpen ? 'var(--invox-color-text-primary)' : 'var(--invox-color-border)',
                 }}
               >
                 <Calendar size={16} />
               </button>
 
               {isPopoverOpen && (
-                <div 
-                  style={{
-                    position: 'absolute',
-                    top: 'calc(100% + 8px)',
-                    right: 0,
-                    width: 280,
-                    backgroundColor: 'var(--invox-color-surface)',
-                    border: '1px solid var(--invox-color-border)',
-                    borderRadius: '12px',
-                    padding: '16px',
-                    boxShadow: '0 10px 30px rgba(0,0,0,0.35)',
-                    zIndex: 9999,
-                  }}
-                >
+                <div className={styles.calendarPopover}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', fontSize: '11px', fontWeight: 600, color: 'var(--invox-color-text-primary)' }}>
                     <span>FILTER BY DATE</span>
                     {(selectedDateNum || selectedStatus !== 'All') && (
