@@ -90,10 +90,10 @@ export function InvoiceVolumeChart() {
                 style={{
                   transformOrigin: 'bottom',
                   transformBox: 'fill-box',
-                  animation: 'barGrow 1.8s cubic-bezier(0.16, 1, 0.3, 1) both',
-                  animationDelay: `${i * 80}ms`,
+                  animation: 'barGrow 1.5s cubic-bezier(0.32, 0.72, 0, 1) both',
+                  animationDelay: `${i * 50}ms`,
                   cursor: 'pointer',
-                  transition: 'fill 200ms ease, filter 200ms ease',
+                  transition: 'fill 150ms ease, filter 150ms ease',
                   filter: isHovered ? 'drop-shadow(0 0 10px rgba(255, 255, 255, 0.6))' : 'none',
                 }}
               />

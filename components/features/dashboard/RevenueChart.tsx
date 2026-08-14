@@ -143,13 +143,13 @@ export function RevenueChart() {
             d={periodData.pathD} 
             fill="none" 
             stroke="#3b82f6" 
-            strokeWidth="3.5" 
+            strokeWidth="3" 
             strokeLinecap="round"
             strokeLinejoin="round"
             style={{
               strokeDasharray: 1200,
               strokeDashoffset: 0,
-              animation: 'linePathDraw 2.4s cubic-bezier(0.16, 1, 0.3, 1) both',
+              animation: 'linePathDraw 1.5s cubic-bezier(0.32, 0.72, 0, 1) both',
             }}
           />
           
@@ -157,9 +157,9 @@ export function RevenueChart() {
           <path 
             d={`${periodData.pathD} L 800 240 L 50 240 Z`} 
             fill="url(#gradient)" 
-            opacity="0.25"
+            opacity="0.2"
             style={{
-              animation: 'fadeIn 2.0s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both',
+              animation: 'fadeIn 1.5s cubic-bezier(0.32, 0.72, 0, 1) 0.3s both',
             }}
           />
 

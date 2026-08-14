@@ -93,7 +93,7 @@
   will-change: opacity, transform;
 }
 
-/* Chart Animations - Ultra Smooth, Luxurious & Slowed Down (Apple HIG Easing) */
+/* Chart Animations - Apple HIG Smooth Easing (1.5s cubic-bezier(0.32, 0.72, 0, 1)) */
 
 /* 1. Line Path Draw Keyframes */
 @keyframes linePathDraw {
@@ -111,8 +111,8 @@
     transform: scaleY(0);
     opacity: 0;
   }
-  50% {
-    opacity: 0.7;
+  60% {
+    opacity: 0.8;
   }
   100% {
     transform: scaleY(1);
@@ -123,7 +123,7 @@
 /* 3. Donut Entrance Keyframes */
 @keyframes donutScaleEntrance {
   0% {
-    transform: scale(0.82) rotate(-45deg);
+    transform: scale(0.85) rotate(-30deg);
     opacity: 0;
   }
   100% {
@@ -139,7 +139,7 @@
     filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.6));
   }
   50% {
-    transform: scale(1.25);
+    transform: scale(1.2);
     filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.9));
   }
   100% {
@@ -152,7 +152,7 @@
 @keyframes tooltipPop {
   0% {
     opacity: 0;
-    transform: translate(-50%, -100%) scale(0.90);
+    transform: translate(-50%, -100%) scale(0.92);
   }
   100% {
     opacity: 1;
@@ -161,6 +161,7 @@
 }
 
 .chart-tooltip-pop {
-  animation: tooltipPop 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: tooltipPop 200ms cubic-bezier(0.16, 1, 0.32, 1) both;
+  will-change: transform, opacity;
 }
 
