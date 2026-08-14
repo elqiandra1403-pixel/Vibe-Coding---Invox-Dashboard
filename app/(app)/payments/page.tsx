@@ -100,7 +100,7 @@ export default function PaymentsPage() {
   return (
     <div className={styles.container}>
       {/* Header */}
-      <div className="apple-pop-up">
+      <div className="apple-pop-up" style={{ position: 'relative', zIndex: 1000 }}>
         <div className={styles.headerSection}>
           <div>
             <span className={styles.kicker}>PAYMENTS</span>
@@ -110,7 +110,7 @@ export default function PaymentsPage() {
             </p>
           </div>
 
-          <div style={{ position: 'relative' }} ref={popoverRef}>
+          <div style={{ position: 'relative', zIndex: 1001 }} ref={popoverRef}>
             <button 
               className={styles.calendarBtn}
               onClick={() => setIsPopoverOpen(!isPopoverOpen)}
@@ -135,8 +135,8 @@ export default function PaymentsPage() {
                   border: '1px solid var(--invox-color-border)',
                   borderRadius: '12px',
                   padding: '16px',
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.35)',
-                  zIndex: 50,
+                  boxShadow: '0 12px 40px rgba(0,0,0,0.65)',
+                  zIndex: 99999,
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', fontSize: '11px', fontWeight: 600, color: 'var(--invox-color-text-primary)' }}>
