@@ -1,0 +1,237 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+}
+
+.modal {
+  background-color: var(--invox-color-surface, #161b24);
+  border: 1px solid var(--invox-color-border, #2a3240);
+  border-radius: 18px;
+  width: 100%;
+  max-width: 520px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  animation: applePopUp 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4f617d 0%, #384c66 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.headerMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.kicker {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--invox-color-text-secondary, #8b9bb4);
+  font-weight: 600;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--invox-color-text-primary, #ffffff);
+  margin: 0;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  color: var(--invox-color-text-secondary, #8b9bb4);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 150ms ease, background-color 150ms ease;
+}
+
+.closeBtn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Stats Row */
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1.3fr;
+  gap: 12px;
+}
+
+.statCard {
+  background-color: var(--invox-color-background, #11141b);
+  border: 1px solid var(--invox-color-border, #242c38);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statLabel {
+  font-size: 11px;
+  color: var(--invox-color-text-secondary, #8b9bb4);
+  font-weight: 500;
+}
+
+.statVal {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--invox-color-text-primary, #ffffff);
+}
+
+/* Invoices List */
+.invoiceList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: 250px;
+  overflow-y: auto;
+  border: 1px solid var(--invox-color-border, #242c38);
+  border-radius: 12px;
+  background-color: var(--invox-color-background, #11141b);
+}
+
+.invoiceItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--invox-color-border, #242c38);
+}
+
+.invoiceItem:last-child {
+  border-bottom: none;
+}
+
+.invoiceMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.invoiceCode {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--invox-color-text-primary, #ffffff);
+}
+
+.invoiceDueDate {
+  font-size: 11px;
+  color: var(--invox-color-text-secondary, #8b9bb4);
+}
+
+.invoiceRight {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.invoiceAmount {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--invox-color-text-primary, #ffffff);
+}
+
+.badgePaid {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badgePending {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badgeDraft {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #a0aec0;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badgeOverdue {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.doneBtn {
+  background-color: #384c66;
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 150ms ease, opacity 150ms ease;
+}
+
+.doneBtn:hover {
+  opacity: 0.9;
+}
+
+.doneBtn:active {
+  transform: scale(0.95);
+}
