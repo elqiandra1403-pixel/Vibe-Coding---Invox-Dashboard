@@ -116,9 +116,9 @@ export default function PaymentsPage() {
               onClick={() => setIsPopoverOpen(!isPopoverOpen)}
               title="Pick date from calendar"
               style={{
-                backgroundColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'transparent',
-                color: isPopoverOpen || selectedDateNum ? 'var(--invox-color-background)' : 'var(--invox-color-text-secondary)',
-                borderColor: isPopoverOpen || selectedDateNum ? 'var(--invox-color-text-primary)' : 'var(--invox-color-border)',
+                backgroundColor: isPopoverOpen ? 'var(--invox-color-text-primary)' : 'transparent',
+                color: isPopoverOpen ? 'var(--invox-color-background)' : 'var(--invox-color-text-secondary)',
+                borderColor: isPopoverOpen ? 'var(--invox-color-text-primary)' : 'var(--invox-color-border)',
               }}
             >
               <Calendar size={16} />
