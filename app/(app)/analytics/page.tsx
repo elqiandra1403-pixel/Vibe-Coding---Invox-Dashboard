@@ -153,29 +153,33 @@ export default function AnalyticsPage() {
                   <line x1="45" y1="155" x2="800" y2="155" stroke="var(--invox-color-border)" strokeDasharray="4 4" opacity="0.6" />
                   <line x1="45" y1="200" x2="800" y2="200" stroke="var(--invox-color-border)" strokeDasharray="4 4" opacity="0.6" />
 
-                  {/* Curve 1: Sent (Upper curve) - Smooth 1.8s path draw */}
+                  {/* Curve 1: Sent (Upper curve) - Smooth 2.4s path draw */}
                   <path 
                     d="M 45,170 C 80,150 110,155 150,160 C 190,165 220,130 260,135 C 300,140 330,110 370,115 C 410,120 440,95 480,100 C 520,105 550,115 590,95 C 630,75 660,80 700,75 C 740,70 760,50 780,35" 
                     fill="none" 
                     stroke="#4f5f7e" 
-                    strokeWidth="2.5" 
+                    strokeWidth="3" 
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     style={{
                       strokeDasharray: 1200,
                       strokeDashoffset: 0,
-                      animation: 'linePathDraw 1.8s cubic-bezier(0.22, 1, 0.36, 1) both',
+                      animation: 'linePathDraw 2.4s cubic-bezier(0.16, 1, 0.3, 1) both',
                     }}
                   />
 
-                  {/* Curve 2: Collected (Lower curve) - Smooth 1.8s path draw */}
+                  {/* Curve 2: Collected (Lower curve) - Smooth 2.4s path draw */}
                   <path 
                     d="M 45,185 C 80,165 110,170 150,175 C 190,180 220,145 260,150 C 300,155 330,125 370,130 C 410,135 440,110 480,115 C 520,120 550,130 590,110 C 630,90 660,95 700,90 C 740,85 760,65 780,50" 
                     fill="none" 
                     stroke="#6b7e9c" 
-                    strokeWidth="2.5" 
+                    strokeWidth="3" 
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     style={{
                       strokeDasharray: 1200,
                       strokeDashoffset: 0,
-                      animation: 'linePathDraw 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both',
+                      animation: 'linePathDraw 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both',
                     }}
                   />
 
@@ -260,7 +264,7 @@ export default function AnalyticsPage() {
                   </div>
                 )}
 
-                <svg className={styles.donutSvg} viewBox="0 0 160 160" style={{ animation: 'donutScaleEntrance 1.4s cubic-bezier(0.22, 1, 0.36, 1) both', transformOrigin: 'center' }}>
+                <svg className={styles.donutSvg} viewBox="0 0 160 160" style={{ animation: 'donutScaleEntrance 2.0s cubic-bezier(0.16, 1, 0.3, 1) both', transformOrigin: 'center' }}>
                   <circle
                     cx="80"
                     cy="80"

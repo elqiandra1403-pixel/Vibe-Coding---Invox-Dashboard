@@ -93,7 +93,7 @@
   will-change: opacity, transform;
 }
 
-/* Chart Animations - Ultra Smooth & Slowed Down (Apple HIG Easing) */
+/* Chart Animations - Ultra Smooth, Luxurious & Slowed Down (Apple HIG Easing) */
 
 /* 1. Line Path Draw Keyframes */
 @keyframes linePathDraw {
@@ -109,7 +109,10 @@
 @keyframes barGrow {
   0% {
     transform: scaleY(0);
-    opacity: 0.2;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.7;
   }
   100% {
     transform: scaleY(1);
@@ -120,7 +123,7 @@
 /* 3. Donut Entrance Keyframes */
 @keyframes donutScaleEntrance {
   0% {
-    transform: scale(0.88) rotate(-90deg);
+    transform: scale(0.82) rotate(-45deg);
     opacity: 0;
   }
   100% {
@@ -129,11 +132,27 @@
   }
 }
 
+/* Hover Dot Gentle Pulse */
+@keyframes dotPulse {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.6));
+  }
+  50% {
+    transform: scale(1.25);
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.9));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 4px rgba(59, 130, 246, 0.6));
+  }
+}
+
 /* Tooltip Fade Pop-In */
 @keyframes tooltipPop {
   0% {
     opacity: 0;
-    transform: translate(-50%, -100%) scale(0.92);
+    transform: translate(-50%, -100%) scale(0.90);
   }
   100% {
     opacity: 1;
@@ -142,6 +161,6 @@
 }
 
 .chart-tooltip-pop {
-  animation: tooltipPop 200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: tooltipPop 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
