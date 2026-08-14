@@ -95,6 +95,8 @@ export default function InvoicesPage() {
   const [selectedDateNum, setSelectedDateNum] = useState<string>('');
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [openActionMenuId, setOpenActionMenuId] = useState<string | null>(null);
+  const [activeInvoiceForMenu, setActiveInvoiceForMenu] = useState<InvoiceItem | null>(null);
+  const [actionMenuPos, setActionMenuPos] = useState<{ top: number; right: number } | null>(null);
   const [selectedInvoiceModal, setSelectedInvoiceModal] = useState<InvoiceItem | null>(null);
   const [editingInvoice, setEditingInvoice] = useState<EditableInvoice | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -137,6 +139,25 @@ export default function InvoicesPage() {
     }
   };
 
+  const handleOpenMenu = (e: React.MouseEvent<HTMLButtonElement>, inv: InvoiceItem) => {
+    e.stopPropagation();
+    if (openActionMenuId === inv.id) {
+      setOpenActionMenuId(null);
+      setActiveInvoiceForMenu(null);
+      setActionMenuPos(null);
+    } else {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const popoverHeight = 220;
+      const top = spaceBelow < popoverHeight ? rect.top - popoverHeight - 4 : rect.bottom + 4;
+      const right = window.innerWidth - rect.right;
+      
+      setActionMenuPos({ top, right });
+      setActiveInvoiceForMenu(inv);
+      setOpenActionMenuId(inv.id);
+    }
+  };
+
   const handleEditInvoice = (inv: InvoiceItem) => {
     setEditingInvoice({
       id: inv.id,
@@ -148,6 +169,8 @@ export default function InvoicesPage() {
     });
     setIsEditModalOpen(true);
     setOpenActionMenuId(null);
+    setActiveInvoiceForMenu(null);
+    setActionMenuPos(null);
   };
 
   const handleSaveEditedInvoice = (updatedInv: EditableInvoice) => {
@@ -191,6 +214,8 @@ export default function InvoicesPage() {
     };
     updateInvoicesList([duplicated, ...invoicesList]);
     setOpenActionMenuId(null);
+    setActiveInvoiceForMenu(null);
+    setActionMenuPos(null);
     addToast(`Duplicated invoice as ${dupId}`, 'success');
   };
 
@@ -198,20 +223,26 @@ export default function InvoicesPage() {
     const newList = invoicesList.filter(inv => inv.id !== id);
     updateInvoicesList(newList);
     setOpenActionMenuId(null);
+    setActiveInvoiceForMenu(null);
+    setActionMenuPos(null);
     addToast(`Invoice ${id} deleted successfully`, 'info');
   };
 
   useEffect(() => {
-    const handleActionMenuClickOutside = (event: MouseEvent) => {
+    const handleActionMenuClickOutside = (event: Event) => {
       if (actionMenuRef.current && !actionMenuRef.current.contains(event.target as Node)) {
         setOpenActionMenuId(null);
+        setActiveInvoiceForMenu(null);
+        setActionMenuPos(null);
       }
     };
     if (openActionMenuId) {
       document.addEventListener('mousedown', handleActionMenuClickOutside);
+      window.addEventListener('scroll', handleActionMenuClickOutside, true);
     }
     return () => {
       document.removeEventListener('mousedown', handleActionMenuClickOutside);
+      window.removeEventListener('scroll', handleActionMenuClickOutside, true);
     };
   }, [openActionMenuId]);
 
@@ -518,61 +549,14 @@ export default function InvoicesPage() {
                           {inv.status}
                         </span>
                       </td>
-                      <td style={{textAlign: 'right', position: 'relative'}} onClick={(e) => e.stopPropagation()}>
+                      <td style={{textAlign: 'right'}} onClick={(e) => e.stopPropagation()}>
                         <button 
                           className={styles.actionBtn}
-                          onClick={() => setOpenActionMenuId(openActionMenuId === inv.id ? null : inv.id)}
+                          onClick={(e) => handleOpenMenu(e, inv)}
                           title="More actions"
                         >
                           <MoreHorizontal size={16} />
                         </button>
-
-                        {openActionMenuId === inv.id && (
-                          <div ref={actionMenuRef} className={styles.menuPopover}>
-                            <button
-                              className={styles.menuItem}
-                              onClick={() => {
-                                setSelectedInvoiceModal(inv);
-                                setOpenActionMenuId(null);
-                              }}
-                            >
-                              <Eye size={14} /> View invoice
-                            </button>
-
-                            <button
-                              className={styles.menuItem}
-                              onClick={() => handleEditInvoice(inv)}
-                            >
-                              <Pencil size={14} /> Edit invoice
-                            </button>
-
-                            <button
-                              className={styles.menuItem}
-                              onClick={() => handleDuplicateInvoice(inv)}
-                            >
-                              <Copy size={14} /> Duplicate invoice
-                            </button>
-
-                            <button
-                              className={styles.menuItem}
-                              onClick={() => {
-                                addToast(`Downloading PDF for ${inv.id}`, 'info');
-                                setOpenActionMenuId(null);
-                              }}
-                            >
-                              <FileDown size={14} /> Download PDF
-                            </button>
-
-                            <div className={styles.menuDivider} />
-
-                            <button
-                              className={`${styles.menuItem} ${styles.deleteMenuItem}`}
-                              onClick={() => handleDeleteInvoice(inv.id)}
-                            >
-                              <Trash2 size={14} /> Delete invoice
-                            </button>
-                          </div>
-                        )}
                       </td>
                     </tr>
                   ))}
@@ -752,6 +736,69 @@ export default function InvoicesPage() {
         invoice={editingInvoice}
         onSave={handleSaveEditedInvoice}
       />
+
+      {/* Floating Action Menu Popover (Portal to document.body to prevent table overflow clipping) */}
+      {mounted && openActionMenuId && activeInvoiceForMenu && actionMenuPos && createPortal(
+        <div 
+          ref={actionMenuRef} 
+          className={styles.menuPopover}
+          style={{
+            position: 'fixed',
+            top: `${actionMenuPos.top}px`,
+            right: `${actionMenuPos.right}px`,
+            zIndex: 999999,
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <button
+            className={styles.menuItem}
+            onClick={() => {
+              setSelectedInvoiceModal(activeInvoiceForMenu);
+              setOpenActionMenuId(null);
+              setActiveInvoiceForMenu(null);
+              setActionMenuPos(null);
+            }}
+          >
+            <Eye size={14} /> View invoice
+          </button>
+
+          <button
+            className={styles.menuItem}
+            onClick={() => handleEditInvoice(activeInvoiceForMenu)}
+          >
+            <Pencil size={14} /> Edit invoice
+          </button>
+
+          <button
+            className={styles.menuItem}
+            onClick={() => handleDuplicateInvoice(activeInvoiceForMenu)}
+          >
+            <Copy size={14} /> Duplicate invoice
+          </button>
+
+          <button
+            className={styles.menuItem}
+            onClick={() => {
+              addToast(`Downloading PDF for ${activeInvoiceForMenu.id}`, 'info');
+              setOpenActionMenuId(null);
+              setActiveInvoiceForMenu(null);
+              setActionMenuPos(null);
+            }}
+          >
+            <FileDown size={14} /> Download PDF
+          </button>
+
+          <div className={styles.menuDivider} />
+
+          <button
+            className={`${styles.menuItem} ${styles.deleteMenuItem}`}
+            onClick={() => handleDeleteInvoice(activeInvoiceForMenu.id)}
+          >
+            <Trash2 size={14} /> Delete invoice
+          </button>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }
