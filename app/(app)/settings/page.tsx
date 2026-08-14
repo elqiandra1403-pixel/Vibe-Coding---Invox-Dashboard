@@ -69,10 +69,9 @@ export default function SettingsPage() {
   const handleToggle = (
     key: 'emailPayment' | 'overdueReminders' | 'weeklyDigest',
     setter: (val: boolean) => void,
-    current: boolean,
+    nextVal: boolean,
     label: string
   ) => {
-    const nextVal = !current;
     setter(nextVal);
 
     if (typeof window !== 'undefined') {
@@ -179,8 +178,9 @@ export default function SettingsPage() {
                 <label className={styles.switch}>
                   <input 
                     type="checkbox" 
+                    className={styles.toggleInput}
                     checked={emailPayment} 
-                    onChange={() => handleToggle('emailPayment', setEmailPayment, emailPayment, 'Payment emails')} 
+                    onChange={(e) => handleToggle('emailPayment', setEmailPayment, e.target.checked, 'Payment emails')} 
                   />
                   <span className={styles.slider}></span>
                 </label>
@@ -191,8 +191,9 @@ export default function SettingsPage() {
                 <label className={styles.switch}>
                   <input 
                     type="checkbox" 
+                    className={styles.toggleInput}
                     checked={overdueReminders} 
-                    onChange={() => handleToggle('overdueReminders', setOverdueReminders, overdueReminders, 'Overdue reminders')} 
+                    onChange={(e) => handleToggle('overdueReminders', setOverdueReminders, e.target.checked, 'Overdue reminders')} 
                   />
                   <span className={styles.slider}></span>
                 </label>
@@ -203,8 +204,9 @@ export default function SettingsPage() {
                 <label className={styles.switch}>
                   <input 
                     type="checkbox" 
+                    className={styles.toggleInput}
                     checked={weeklyDigest} 
-                    onChange={() => handleToggle('weeklyDigest', setWeeklyDigest, weeklyDigest, 'Weekly digest')} 
+                    onChange={(e) => handleToggle('weeklyDigest', setWeeklyDigest, e.target.checked, 'Weekly digest')} 
                   />
                   <span className={styles.slider}></span>
                 </label>

@@ -187,10 +187,11 @@
   height: 24px;
 }
 
-.switch input {
+.toggleInput {
   opacity: 0;
   width: 0;
   height: 0;
+  position: absolute;
 }
 
 .slider {
@@ -200,8 +201,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--invox-color-border);
-  transition: .2s;
+  background-color: var(--invox-color-border, #2a2a2a);
+  transition: background-color 200ms ease;
   border-radius: 24px;
 }
 
@@ -213,16 +214,16 @@
   left: 3px;
   bottom: 3px;
   background-color: white;
-  transition: .2s;
+  transition: transform 200ms ease;
   border-radius: 50%;
 }
 
-.switch input:checked + .slider {
-  background-color: #3b82f6;
+.toggleInput:checked + .slider {
+  background-color: #3b82f6 !important;
 }
 
-.switch input:checked + .slider:before {
-  transform: translateX(20px);
+.toggleInput:checked + .slider:before {
+  transform: translateX(20px) !important;
 }
 
 /* Appearance Theme Switcher */
