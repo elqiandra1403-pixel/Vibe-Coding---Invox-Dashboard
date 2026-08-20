@@ -20,7 +20,7 @@ export default function DashboardPage() {
   }, [refreshData]);
   return (
     <div className={styles.container}>
-      <div className="apple-pop-up">
+      <div className="apple-pop-up" style={{ position: 'relative', zIndex: 100000 }}>
         <GreetingSection />
       </div>
       
@@ -39,11 +39,11 @@ export default function DashboardPage() {
         <MetricCards />
       </div>
       
-      <div className="apple-pop-up stagger-4">
+      <div className="apple-pop-up stagger-4" style={{ position: 'relative', zIndex: 99999 }}>
         <DateBrowser />
       </div>
 
-      <div className="apple-pop-up stagger-5">
+      <div className="apple-pop-up stagger-5" style={{ position: 'relative', zIndex: 1 }}>
         <RecentInvoicesTable />
       </div>
       

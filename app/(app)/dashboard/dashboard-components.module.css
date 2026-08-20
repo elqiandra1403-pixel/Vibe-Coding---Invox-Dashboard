@@ -120,13 +120,24 @@
   color: var(--invox-color-primary);
   background: none;
   border: none;
-  padding: 0;
+  padding: 4px 8px;
+  border-radius: 6px;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 4px;
-  transition: transform 150ms ease, opacity 150ms ease;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: transform 150ms ease, background-color 150ms ease, opacity 150ms ease;
   will-change: transform;
+}
+
+.viewAll:hover {
+  background-color: rgba(59, 130, 246, 0.08);
+}
+
+.viewAllHeader {
+  margin-top: 0 !important;
 }
 
 .viewAll:active {

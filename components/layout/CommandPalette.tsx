@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { useUiStore } from '@/stores/uiStore';
 import { Search, FileText, Users, CreditCard, Settings, Sun, Moon, Plus, X, ArrowRight } from 'lucide-react';
@@ -25,7 +26,12 @@ export function CommandPalette() {
   const router = useRouter();
   const { searchModalOpen, setSearchModalOpen, toggleTheme, setNewInvoiceModalOpen, addToast } = useUiStore();
   const [query, setQuery] = useState('');
+  const [mounted, setMounted] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -48,7 +54,7 @@ export function CommandPalette() {
     }
   }, [searchModalOpen]);
 
-  if (!searchModalOpen) return null;
+  if (!searchModalOpen || !mounted) return null;
 
   const filtered = COMMAND_ITEMS.filter((item) =>
     item.title.toLowerCase().includes(query.toLowerCase()) ||
@@ -67,21 +73,21 @@ export function CommandPalette() {
     }
   };
 
-  return (
+  return createPortal(
     <div className={styles.overlay} onClick={() => setSearchModalOpen(false)}>
       <div className={styles.dialog} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <Search size={18} className={styles.searchIcon} />
+          <Search size={16} className={styles.searchIcon} />
           <input
             ref={inputRef}
             type="text"
             className={styles.input}
-            placeholder="Type a command or search invoices, customers..."
+            placeholder="Type a command or search..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           <button className={styles.closeBtn} onClick={() => setSearchModalOpen(false)}>
-            <X size={16} />
+            <X size={14} />
           </button>
         </div>
 
@@ -95,10 +101,10 @@ export function CommandPalette() {
                   className={styles.item}
                   onClick={() => handleSelect(item)}
                 >
-                  <Icon size={16} className={styles.itemIcon} />
+                  <Icon size={15} className={styles.itemIcon} />
                   <span className={styles.itemTitle}>{item.title}</span>
                   <span className={styles.itemCategory}>{item.category}</span>
-                  <ArrowRight size={14} className={styles.itemArrow} />
+                  <ArrowRight size={13} className={styles.itemArrow} />
                 </div>
               );
             })
@@ -112,6 +118,7 @@ export function CommandPalette() {
           <span>Invox Quick Command</span>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

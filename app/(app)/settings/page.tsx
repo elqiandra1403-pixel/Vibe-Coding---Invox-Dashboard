@@ -7,16 +7,12 @@ import { useUiStore } from '@/stores/uiStore';
 import styles from './settings.module.css';
 
 export default function SettingsPage() {
-  const { userProfile, setUserProfile, theme, setTheme, addToast } = useUiStore();
+  const { userProfile, setUserProfile, theme, setTheme, addToast, notificationSettings, setNotificationSettings } = useUiStore();
 
   const [fullName, setFullName] = useState(userProfile.name);
   const [email, setEmail] = useState(userProfile.email);
   const [company, setCompany] = useState(userProfile.company);
   const [currency, setCurrency] = useState(userProfile.currency);
-
-  const [emailPayment, setEmailPayment] = useState(true);
-  const [overdueReminders, setOverdueReminders] = useState(true);
-  const [weeklyDigest, setWeeklyDigest] = useState(false);
 
   const [isSaved, setIsSaved] = useState(false);
 
@@ -25,20 +21,6 @@ export default function SettingsPage() {
     setEmail(userProfile.email);
     setCompany(userProfile.company);
     setCurrency(userProfile.currency);
-
-    if (typeof window !== 'undefined') {
-      const savedNotifsStr = localStorage.getItem('invox-notifications');
-      if (savedNotifsStr) {
-        try {
-          const notifs = JSON.parse(savedNotifsStr);
-          if (typeof notifs.emailPayment === 'boolean') setEmailPayment(notifs.emailPayment);
-          if (typeof notifs.overdueReminders === 'boolean') setOverdueReminders(notifs.overdueReminders);
-          if (typeof notifs.weeklyDigest === 'boolean') setWeeklyDigest(notifs.weeklyDigest);
-        } catch (err) {
-          // ignore
-        }
-      }
-    }
   }, [userProfile]);
 
   const handleSave = (e: React.FormEvent) => {
@@ -67,24 +49,15 @@ export default function SettingsPage() {
   };
 
   const handleToggle = (
-    key: 'emailPayment' | 'overdueReminders' | 'weeklyDigest',
-    setter: (val: boolean) => void,
+    key: keyof typeof notificationSettings,
     nextVal: boolean,
     label: string
   ) => {
-    setter(nextVal);
+    setNotificationSettings({ [key]: nextVal });
 
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('invox-notifications');
-      const notifs = saved ? JSON.parse(saved) : { emailPayment: true, overdueReminders: true, weeklyDigest: false };
-      notifs[key] = nextVal;
-      localStorage.setItem('invox-notifications', JSON.stringify(notifs));
-    }
-
+    // ONLY show toast when turning ON; turning OFF should be quiet and smooth
     if (nextVal) {
       addToast(`Notification "${label}" turned ON`, 'success');
-    } else {
-      addToast(`Notification "${label}" turned OFF`, 'info');
     }
   };
 
@@ -173,40 +146,61 @@ export default function SettingsPage() {
             </div>
 
             <div className={styles.toggleList}>
-              <div className={styles.toggleRow}>
-                <span className={styles.toggleLabel}>Email me when a payment lands</span>
+              <div className={styles.toggleRow} style={{ paddingBottom: '14px', marginBottom: '4px', borderBottom: '1px solid var(--invox-color-border)' }}>
+                <div>
+                  <span className={styles.toggleLabel} style={{ fontWeight: 600 }}>Allow all notifications</span>
+                  <div style={{ fontSize: '11px', color: 'var(--invox-color-text-tertiary, #888)', marginTop: '2px' }}>
+                    Master switch for in-app alerts and digest updates
+                  </div>
+                </div>
                 <label className={styles.switch}>
                   <input 
                     type="checkbox" 
                     className={styles.toggleInput}
-                    checked={emailPayment} 
-                    onChange={(e) => handleToggle('emailPayment', setEmailPayment, e.target.checked, 'Payment emails')} 
+                    checked={notificationSettings.allowNotifications} 
+                    onChange={(e) => handleToggle('allowNotifications', e.target.checked, 'All notifications')} 
                   />
                   <span className={styles.slider}></span>
                 </label>
               </div>
 
               <div className={styles.toggleRow}>
-                <span className={styles.toggleLabel}>Automatic reminders for overdue invoices</span>
+                <span className={styles.toggleLabel} style={{ opacity: notificationSettings.allowNotifications ? 1 : 0.5 }}>Email me when a payment lands</span>
                 <label className={styles.switch}>
                   <input 
                     type="checkbox" 
                     className={styles.toggleInput}
-                    checked={overdueReminders} 
-                    onChange={(e) => handleToggle('overdueReminders', setOverdueReminders, e.target.checked, 'Overdue reminders')} 
+                    disabled={!notificationSettings.allowNotifications}
+                    checked={notificationSettings.allowNotifications && notificationSettings.emailPayment} 
+                    onChange={(e) => handleToggle('emailPayment', e.target.checked, 'Payment emails')} 
                   />
                   <span className={styles.slider}></span>
                 </label>
               </div>
 
               <div className={styles.toggleRow}>
-                <span className={styles.toggleLabel}>Weekly digest every Monday</span>
+                <span className={styles.toggleLabel} style={{ opacity: notificationSettings.allowNotifications ? 1 : 0.5 }}>Automatic reminders for overdue invoices</span>
                 <label className={styles.switch}>
                   <input 
                     type="checkbox" 
                     className={styles.toggleInput}
-                    checked={weeklyDigest} 
-                    onChange={(e) => handleToggle('weeklyDigest', setWeeklyDigest, e.target.checked, 'Weekly digest')} 
+                    disabled={!notificationSettings.allowNotifications}
+                    checked={notificationSettings.allowNotifications && notificationSettings.overdueReminders} 
+                    onChange={(e) => handleToggle('overdueReminders', e.target.checked, 'Overdue reminders')} 
+                  />
+                  <span className={styles.slider}></span>
+                </label>
+              </div>
+
+              <div className={styles.toggleRow}>
+                <span className={styles.toggleLabel} style={{ opacity: notificationSettings.allowNotifications ? 1 : 0.5 }}>Weekly digest every Monday</span>
+                <label className={styles.switch}>
+                  <input 
+                    type="checkbox" 
+                    className={styles.toggleInput}
+                    disabled={!notificationSettings.allowNotifications}
+                    checked={notificationSettings.allowNotifications && notificationSettings.weeklyDigest} 
+                    onChange={(e) => handleToggle('weeklyDigest', e.target.checked, 'Weekly digest')} 
                   />
                   <span className={styles.slider}></span>
                 </label>

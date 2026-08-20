@@ -42,11 +42,11 @@ export function RecentInvoicesTable() {
   return (
     <div className={styles.card} style={{paddingBottom: '8px'}}>
       <div className={styles.cardHeader}>
-        <div>
-          <h3 className={styles.cardTitle}>
-            LATEST ACTIVITY {selectedDateNum && `• FILTERED BY DAY ${selectedDateNum}`}
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <h3 className={styles.cardTitle} style={{ margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            LATEST ACTIVITY {selectedDateNum && `• DAY ${selectedDateNum}`}
           </h3>
-          <h2 className={styles.cardValue} style={{fontSize: '20px', display: 'flex', alignItems: 'center', gap: '8px'}}>
+          <h2 className={styles.cardValue} style={{fontSize: '20px', display: 'flex', alignItems: 'center', gap: '8px', marginTop: '2px'}}>
             Recent Invoices
             {selectedDateNum && (
               <button 
@@ -59,8 +59,8 @@ export function RecentInvoicesTable() {
             )}
           </h2>
         </div>
-        <button className={compStyles.viewAll} onClick={() => router.push('/invoices')}>
-          View all <ArrowRight size={14} />
+        <button className={`${compStyles.viewAll} ${compStyles.viewAllHeader}`} onClick={() => router.push('/invoices')}>
+          <span>View all</span> <ArrowRight size={14} />
         </button>
       </div>
 

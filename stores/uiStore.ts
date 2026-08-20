@@ -8,17 +8,52 @@ export interface UserProfile {
   currency: string;
 }
 
+export interface NotificationSettings {
+  allowNotifications: boolean;
+  emailPayment: boolean;
+  overdueReminders: boolean;
+  weeklyDigest: boolean;
+}
+
 export interface ToastItem {
   id: string;
   message: string;
   type: "success" | "info" | "warning" | "error";
 }
 
+const DEFAULT_NOTIFICATIONS: NotificationSettings = {
+  allowNotifications: true,
+  emailPayment: true,
+  overdueReminders: true,
+  weeklyDigest: false,
+};
+
+const getInitialNotificationSettings = (): NotificationSettings => {
+  if (typeof window !== "undefined") {
+    const saved = localStorage.getItem("invox-notifications");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        return {
+          allowNotifications: parsed.allowNotifications ?? true,
+          emailPayment: parsed.emailPayment ?? true,
+          overdueReminders: parsed.overdueReminders ?? true,
+          weeklyDigest: parsed.weeklyDigest ?? false,
+        };
+      } catch (err) {
+        // ignore
+      }
+    }
+  }
+  return DEFAULT_NOTIFICATIONS;
+};
+
 interface UiStore {
   sidebarOpen: boolean;
   mobileMenuOpen: boolean;
   theme: "light" | "dark";
   userProfile: UserProfile;
+  notificationSettings: NotificationSettings;
   newInvoiceModalOpen: boolean;
   searchModalOpen: boolean;
   signOutModalOpen: boolean;
@@ -30,6 +65,7 @@ interface UiStore {
   setTheme: (theme: "light" | "dark") => void;
   toggleTheme: () => void;
   setUserProfile: (profile: Partial<UserProfile>) => void;
+  setNotificationSettings: (settings: Partial<NotificationSettings>) => void;
   setNewInvoiceModalOpen: (open: boolean) => void;
   setSearchModalOpen: (open: boolean) => void;
   setSignOutModalOpen: (open: boolean) => void;
@@ -47,6 +83,7 @@ export const useUiStore = create<UiStore>((set, get) => ({
     company: "Aperture Films",
     currency: "USD",
   },
+  notificationSettings: DEFAULT_NOTIFICATIONS,
   newInvoiceModalOpen: false,
   searchModalOpen: false,
   signOutModalOpen: false,
@@ -78,10 +115,22 @@ export const useUiStore = create<UiStore>((set, get) => ({
       }
       return { userProfile: updated };
     }),
+  setNotificationSettings: (newSettings) =>
+    set((state) => {
+      const updated = { ...state.notificationSettings, ...newSettings };
+      if (typeof window !== "undefined") {
+        localStorage.setItem("invox-notifications", JSON.stringify(updated));
+      }
+      return { notificationSettings: updated };
+    }),
   setNewInvoiceModalOpen: (newInvoiceModalOpen) => set({ newInvoiceModalOpen }),
   setSearchModalOpen: (searchModalOpen) => set({ searchModalOpen }),
   setSignOutModalOpen: (signOutModalOpen) => set({ signOutModalOpen }),
   addToast: (message, type = "success") => {
+    const { allowNotifications } = get().notificationSettings;
+    if (!allowNotifications && type !== "error") {
+      return;
+    }
     const id = Date.now().toString() + Math.random().toString(36).substring(2, 5);
     set((state) => ({ toasts: [...state.toasts, { id, message, type }] }));
     setTimeout(() => {

@@ -7,6 +7,7 @@ import { Calendar, ChevronLeft, ChevronRight, Download, MoreHorizontal, Calendar
 import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
 import { useUiStore } from '@/stores/uiStore';
 import { EditInvoiceModal, EditableInvoice } from '@/components/features/invoices/EditInvoiceModal';
+import { CalendarPopover } from '@/components/shared/CalendarPopover';
 import styles from './invoices.module.css';
 
 export interface InvoiceItem {
@@ -85,7 +86,7 @@ const ALL_INVOICES: InvoiceItem[] = [
 
 export default function InvoicesPage() {
   const router = useRouter();
-  const popoverRef = useRef<HTMLDivElement>(null);
+  const calendarBtnRef = useRef<HTMLButtonElement>(null);
   const actionMenuRef = useRef<HTMLDivElement>(null);
   const { userProfile, addToast } = useUiStore();
   
@@ -271,20 +272,6 @@ export default function InvoicesPage() {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-        setIsPopoverOpen(false);
-      }
-    };
-    if (isPopoverOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isPopoverOpen]);
-
-  useEffect(() => {
     if (selectedInvoiceModal) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -340,7 +327,7 @@ export default function InvoicesPage() {
       </div>
 
       {/* Top Filter Card */}
-      <div className="apple-pop-up stagger-1" style={{ position: 'relative', zIndex: isPopoverOpen ? 100 : 1 }}>
+      <div className="apple-pop-up stagger-1" style={{ position: 'relative', zIndex: 100 }}>
         <div className={styles.filterCard}>
           <div className={styles.filterHeader}>
             <div className={styles.filterTitleGroup}>
@@ -348,8 +335,9 @@ export default function InvoicesPage() {
               <h3>Filter by date</h3>
             </div>
 
-            <div style={{ position: 'relative', zIndex: 100 }} ref={popoverRef}>
+            <div>
               <button 
+                ref={calendarBtnRef}
                 className={styles.calendarBtn}
                 onClick={() => setIsPopoverOpen(!isPopoverOpen)}
                 title="Pick date from calendar"
@@ -362,72 +350,13 @@ export default function InvoicesPage() {
                 <Calendar size={16} />
               </button>
 
-              {isPopoverOpen && (
-                <div className={styles.calendarPopover}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', fontSize: '11px', fontWeight: 600, color: 'var(--invox-color-text-primary)' }}>
-                    <span>FILTER BY DATE</span>
-                    {(selectedDateNum || selectedStatus !== 'All') && (
-                      <button className={styles.statusPill} style={{ padding: '2px 8px', fontSize: '10px' }} onClick={handleClearFilter}>
-                        <X size={10} /> Clear
-                      </button>
-                    )}
-                  </div>
-
-                  <input 
-                    type="date"
-                    style={{
-                      width: '100%',
-                      padding: '8px 12px',
-                      backgroundColor: 'var(--invox-color-background)',
-                      border: '1px solid var(--invox-color-border)',
-                      borderRadius: '8px',
-                      color: 'var(--invox-color-text-primary)',
-                      fontSize: '13px',
-                      outline: 'none',
-                    }}
-                    onChange={(e) => {
-                      if (e.target.value) {
-                        const dayNum = String(new Date(e.target.value).getDate());
-                        setSelectedDateNum(dayNum);
-                        setIsPopoverOpen(false);
-                      }
-                    }}
-                  />
-
-                  <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <div style={{ fontSize: '10px', color: 'var(--invox-color-text-secondary)', textTransform: 'uppercase', marginBottom: '2px' }}>
-                      Quick Presets
-                    </div>
-                    {[
-                      { label: 'All Invoices', val: '' },
-                      { label: 'Today (Aug 05)', val: '5' },
-                      { label: 'Yesterday (Aug 04)', val: '4' },
-                      { label: 'Aug 03', val: '3' },
-                      { label: 'Jul 31', val: '31' },
-                    ].map((preset) => (
-                      <button
-                        key={preset.label}
-                        onClick={() => {
-                          setSelectedDateNum(preset.val);
-                          setIsPopoverOpen(false);
-                        }}
-                        style={{
-                          background: selectedDateNum === preset.val ? 'rgba(255,255,255,0.1)' : 'transparent',
-                          border: 'none',
-                          color: selectedDateNum === preset.val ? 'var(--invox-color-text-primary)' : 'var(--invox-color-text-secondary)',
-                          textAlign: 'left',
-                          padding: '6px 8px',
-                          borderRadius: '6px',
-                          fontSize: '12px',
-                          cursor: 'pointer',
-                        }}
-                      >
-                        {preset.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <CalendarPopover
+                isOpen={isPopoverOpen}
+                onClose={() => setIsPopoverOpen(false)}
+                anchorRef={calendarBtnRef}
+                selectedDateNum={selectedDateNum}
+                onSelectDateNum={setSelectedDateNum}
+              />
             </div>
           </div>
 
@@ -482,7 +411,7 @@ export default function InvoicesPage() {
       </div>
 
       {/* Invoices List Table Card */}
-      <div className="apple-pop-up stagger-2">
+      <div className="apple-pop-up stagger-2" style={{ position: 'relative', zIndex: 1 }}>
         <div className={styles.tableCard}>
           <div className={styles.tableHeaderBar}>
             <div>

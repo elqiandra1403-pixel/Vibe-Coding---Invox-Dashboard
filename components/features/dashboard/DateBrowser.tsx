@@ -1,7 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+'use client';
+
+import React, { useState, useRef } from 'react';
 import compStyles from '@/app/(app)/dashboard/dashboard-components.module.css';
-import { Calendar, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useDashboardStore } from '@/stores/dashboardStore';
+import { CalendarPopover } from '@/components/shared/CalendarPopover';
 
 const DATES = [
   { day: 'Wed', num: '22' },
@@ -23,7 +26,7 @@ const DATES = [
 
 export function DateBrowser() {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const popoverRef = useRef<HTMLDivElement>(null);
+  const calendarBtnRef = useRef<HTMLButtonElement>(null);
   
   const selectedDateNum = useDashboardStore(state => state.selectedDateNum);
   const setSelectedDateNum = useDashboardStore(state => state.setSelectedDateNum);
@@ -47,31 +50,17 @@ export function DateBrowser() {
     setIsPopoverOpen(false);
   };
 
-  // Close popover when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-        setIsPopoverOpen(false);
-      }
-    };
-    if (isPopoverOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isPopoverOpen]);
-
   return (
-    <div className={compStyles.dateBrowser} style={{ position: 'relative', zIndex: isPopoverOpen ? 100 : 1 }}>
+    <div className={compStyles.dateBrowser}>
       <div className={compStyles.dateBrowserHeader}>
         <div className={compStyles.dateBrowserTitle}>
           PICK A DAY
           <h3>Browse by date</h3>
         </div>
 
-        <div className={compStyles.popoverWrapper} ref={popoverRef} style={{ position: 'relative', zIndex: 100 }}>
+        <div className={compStyles.popoverWrapper}>
           <button 
+            ref={calendarBtnRef}
             className={compStyles.calendarBtn}
             onClick={() => setIsPopoverOpen(!isPopoverOpen)}
             title="Pick date from calendar"
@@ -84,63 +73,13 @@ export function DateBrowser() {
             <Calendar size={16} />
           </button>
 
-          {isPopoverOpen && (
-            <div className={compStyles.calendarPopover} style={{ zIndex: 9999 }}>
-              <div className={compStyles.popoverHeader}>
-                <span>FILTER BY DATE</span>
-                {selectedDateNum && (
-                  <button className={compStyles.clearFilterBtn} onClick={handleClearFilter}>
-                    <X size={12} /> Clear
-                  </button>
-                )}
-              </div>
-
-              <input 
-                type="date"
-                className={compStyles.datePickerInput}
-                onChange={(e) => {
-                  if (e.target.value) {
-                    const dayNum = String(new Date(e.target.value).getDate());
-                    setSelectedDateNum(dayNum);
-                    setIsPopoverOpen(false);
-                  }
-                }}
-              />
-
-              <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ fontSize: '10px', color: 'var(--invox-color-text-secondary)', textTransform: 'uppercase', marginBottom: '2px' }}>
-                  Quick Presets
-                </div>
-                {[
-                  { label: 'All Invoices', val: '' },
-                  { label: 'Today (Aug 05)', val: '5' },
-                  { label: 'Yesterday (Aug 04)', val: '4' },
-                  { label: 'Aug 03', val: '3' },
-                  { label: 'Jul 31', val: '31' },
-                ].map((preset) => (
-                  <button
-                    key={preset.label}
-                    onClick={() => {
-                      setSelectedDateNum(preset.val);
-                      setIsPopoverOpen(false);
-                    }}
-                    style={{
-                      background: selectedDateNum === preset.val ? 'rgba(255,255,255,0.1)' : 'transparent',
-                      border: 'none',
-                      color: selectedDateNum === preset.val ? 'var(--invox-color-text-primary)' : 'var(--invox-color-text-secondary)',
-                      textAlign: 'left',
-                      padding: '6px 8px',
-                      borderRadius: '6px',
-                      fontSize: '12px',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    {preset.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
+          <CalendarPopover
+            isOpen={isPopoverOpen}
+            onClose={() => setIsPopoverOpen(false)}
+            anchorRef={calendarBtnRef}
+            selectedDateNum={selectedDateNum}
+            onSelectDateNum={setSelectedDateNum}
+          />
         </div>
       </div>
 

@@ -226,6 +226,11 @@
   transform: translateX(20px) !important;
 }
 
+.toggleInput:disabled + .slider {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 /* Appearance Theme Switcher */
 .themeGrid {
   display: grid;

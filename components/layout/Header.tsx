@@ -8,12 +8,13 @@ import styles from './Header.module.css';
 
 export function Header() {
   const router = useRouter();
-  const { theme, toggleTheme, setSearchModalOpen, setNewInvoiceModalOpen, addToast, toggleMobileMenu } = useUiStore();
+  const { theme, toggleTheme, setSearchModalOpen, setNewInvoiceModalOpen, addToast, toggleMobileMenu, notificationSettings } = useUiStore();
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(2);
   const notifRef = useRef<HTMLDivElement>(null);
 
   const isDark = theme === 'dark';
+  const notificationsActive = notificationSettings.allowNotifications;
 
   // Close notification popover when clicking outside
   useEffect(() => {
@@ -85,19 +86,20 @@ export function Header() {
             style={{
               color: isNotifOpen ? 'var(--invox-color-text-primary)' : 'var(--invox-color-text-secondary)',
               backgroundColor: isNotifOpen ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+              opacity: notificationsActive ? 1 : 0.65,
             }}
           >
             <Bell size={20} />
-            {unreadCount > 0 && <span className={styles.unreadBadge} />}
+            {notificationsActive && unreadCount > 0 && <span className={styles.unreadBadge} />}
           </button>
 
           {isNotifOpen && (
             <div className={styles.notifPopover}>
               <div className={styles.popoverHeader}>
                 <div className={styles.popoverTitle}>
-                  Notifications {unreadCount > 0 && `(${unreadCount} new)`}
+                  Notifications {!notificationsActive ? '(Off)' : unreadCount > 0 ? `(${unreadCount} new)` : ''}
                 </div>
-                {unreadCount > 0 && (
+                {notificationsActive && unreadCount > 0 && (
                   <button 
                     className={styles.markAllReadBtn}
                     onClick={handleMarkAllRead}

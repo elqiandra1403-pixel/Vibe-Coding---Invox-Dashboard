@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Calendar, ChevronLeft, ChevronRight, CheckCircle2, Clock, AlertCircle, CalendarX, X } from 'lucide-react';
 import { CurrencyDisplay } from '@/components/shared/CurrencyDisplay';
 import { useUiStore } from '@/stores/uiStore';
+import { CalendarPopover } from '@/components/shared/CalendarPopover';
 import styles from './payments.module.css';
 
 export interface PaymentItem {
@@ -53,7 +54,7 @@ const RECENT_PAYMENTS: PaymentItem[] = [
 
 export default function PaymentsPage() {
   const router = useRouter();
-  const popoverRef = useRef<HTMLDivElement>(null);
+  const calendarBtnRef = useRef<HTMLButtonElement>(null);
   const { userProfile } = useUiStore();
 
   const [selectedDateNum, setSelectedDateNum] = useState<string>('5');
@@ -78,20 +79,6 @@ export default function PaymentsPage() {
     setIsPopoverOpen(false);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (popoverRef.current && !popoverRef.current.contains(event.target as Node)) {
-        setIsPopoverOpen(false);
-      }
-    };
-    if (isPopoverOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isPopoverOpen]);
-
   const filteredPayments = useMemo(() => {
     if (!selectedDateNum) return RECENT_PAYMENTS;
     return RECENT_PAYMENTS.filter(p => p.dayNum === selectedDateNum);
@@ -100,7 +87,7 @@ export default function PaymentsPage() {
   return (
     <div className={styles.container}>
       {/* Header */}
-      <div className="apple-pop-up" style={{ position: 'relative', zIndex: 1000 }}>
+      <div className="apple-pop-up" style={{ position: 'relative', zIndex: 100 }}>
         <div className={styles.headerSection}>
           <div>
             <span className={styles.kicker}>PAYMENTS</span>
@@ -110,8 +97,9 @@ export default function PaymentsPage() {
             </p>
           </div>
 
-          <div style={{ position: 'relative', zIndex: 1001 }} ref={popoverRef}>
+          <div>
             <button 
+              ref={calendarBtnRef}
               className={styles.calendarBtn}
               onClick={() => setIsPopoverOpen(!isPopoverOpen)}
               title="Pick date from calendar"
@@ -124,72 +112,20 @@ export default function PaymentsPage() {
               <Calendar size={16} />
             </button>
 
-            {isPopoverOpen && (
-              <div className={styles.calendarPopover}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', fontSize: '11px', fontWeight: 600, color: 'var(--invox-color-text-primary)' }}>
-                  <span>FILTER BY DATE</span>
-                  {selectedDateNum && (
-                    <button className={styles.resetBtn} style={{ padding: '2px 8px', fontSize: '10px' }} onClick={handleClearFilter}>
-                      <X size={10} /> Clear
-                    </button>
-                  )}
-                </div>
-
-                <input 
-                  type="date"
-                  style={{
-                    width: '100%',
-                    padding: '8px 12px',
-                    backgroundColor: 'var(--invox-color-background)',
-                    border: '1px solid var(--invox-color-border)',
-                    borderRadius: '8px',
-                    color: 'var(--invox-color-text-primary)',
-                    fontSize: '13px',
-                    outline: 'none',
-                  }}
-                  onChange={(e) => {
-                    if (e.target.value) {
-                      const dayNum = String(new Date(e.target.value).getDate());
-                      setSelectedDateNum(dayNum);
-                      setIsPopoverOpen(false);
-                    }
-                  }}
-                />
-
-                <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                  <div style={{ fontSize: '10px', color: 'var(--invox-color-text-secondary)', textTransform: 'uppercase', marginBottom: '2px' }}>
-                    Quick Presets
-                  </div>
-                  {[
-                    { label: 'All Payments', val: '' },
-                    { label: 'Today (Aug 05)', val: '5' },
-                    { label: 'Yesterday (Aug 04)', val: '4' },
-                    { label: 'Aug 01', val: '1' },
-                    { label: 'Jul 31', val: '31' },
-                  ].map((preset) => (
-                    <button
-                      key={preset.label}
-                      onClick={() => {
-                        setSelectedDateNum(preset.val);
-                        setIsPopoverOpen(false);
-                      }}
-                      style={{
-                        background: selectedDateNum === preset.val ? 'rgba(255,255,255,0.1)' : 'transparent',
-                        border: 'none',
-                        color: selectedDateNum === preset.val ? 'var(--invox-color-text-primary)' : 'var(--invox-color-text-secondary)',
-                        textAlign: 'left',
-                        padding: '6px 8px',
-                        borderRadius: '6px',
-                        fontSize: '12px',
-                        cursor: 'pointer',
-                      }}
-                    >
-                      {preset.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+            <CalendarPopover
+              isOpen={isPopoverOpen}
+              onClose={() => setIsPopoverOpen(false)}
+              anchorRef={calendarBtnRef}
+              selectedDateNum={selectedDateNum}
+              onSelectDateNum={setSelectedDateNum}
+              presets={[
+                { label: 'All Payments', val: '' },
+                { label: 'Today (Aug 05)', val: '5' },
+                { label: 'Yesterday (Aug 04)', val: '4' },
+                { label: 'Aug 01', val: '1' },
+                { label: 'Jul 31', val: '31' },
+              ]}
+            />
           </div>
         </div>
       </div>

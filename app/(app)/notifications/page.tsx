@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { CheckCircle2, AlertCircle, Send, FileText, Bell } from 'lucide-react';
+import { CheckCircle2, AlertCircle, Send, FileText, Bell, BellOff } from 'lucide-react';
+import { useUiStore } from '@/stores/uiStore';
 import styles from './notifications.module.css';
 
 export interface NotificationItem {
@@ -65,8 +66,10 @@ const INITIAL_NOTIFICATIONS: NotificationItem[] = [
 ];
 
 export default function NotificationsPage() {
+  const { notificationSettings, setNotificationSettings } = useUiStore();
   const [items, setItems] = useState<NotificationItem[]>(INITIAL_NOTIFICATIONS);
 
+  const isNotificationsOff = !notificationSettings.allowNotifications;
   const unreadCount = items.filter(item => !item.isRead).length;
 
   const handleMarkAllAsRead = () => {
@@ -119,7 +122,7 @@ export default function NotificationsPage() {
           <div>
             <span className={styles.kicker}>NOTIFICATIONS</span>
             <h1 className={styles.title}>
-              {unreadCount > 0 ? `${unreadCount} unread` : 'All read'}
+              {isNotificationsOff ? 'Notifications OFF' : unreadCount > 0 ? `${unreadCount} unread` : 'All read'}
             </h1>
             <p className={styles.subtitle}>
               Payments, reminders, and system events, gathered in one calm feed.
@@ -129,13 +132,49 @@ export default function NotificationsPage() {
           <button 
             className={styles.markReadBtn}
             onClick={handleMarkAllAsRead}
-            disabled={unreadCount === 0}
-            style={{ opacity: unreadCount === 0 ? 0.5 : 1, cursor: unreadCount === 0 ? 'default' : 'pointer' }}
+            disabled={unreadCount === 0 || isNotificationsOff}
+            style={{ opacity: (unreadCount === 0 || isNotificationsOff) ? 0.5 : 1, cursor: (unreadCount === 0 || isNotificationsOff) ? 'default' : 'pointer' }}
           >
             Mark all as read
           </button>
         </div>
       </div>
+
+      {isNotificationsOff && (
+        <div className="apple-pop-up" style={{ marginBottom: '16px' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '12px 16px',
+            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+            border: '1px solid rgba(239, 68, 68, 0.25)',
+            borderRadius: '12px',
+            color: '#f87171',
+            fontSize: '13px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <BellOff size={16} />
+              <span>In-app notifications are currently turned OFF in Settings.</span>
+            </div>
+            <button
+              onClick={() => setNotificationSettings({ allowNotifications: true })}
+              style={{
+                background: '#ef4444',
+                color: '#fff',
+                border: 'none',
+                padding: '6px 12px',
+                borderRadius: '6px',
+                fontSize: '12px',
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              Turn ON
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Notifications Card */}
       <div className="apple-pop-up stagger-1">
