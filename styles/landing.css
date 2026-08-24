@@ -1,0 +1,1706 @@
+/* Invox Landing Page Stylesheet — High Precision Figma Alignment */
+
+.landing-wrapper {
+  min-height: 100vh;
+  background-color: #FAFAFC;
+  color: #1E2540;
+  font-family: Inter, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+.landing-container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.landing-section-header {
+  text-align: center;
+  max-width: 840px;
+  margin: 0 auto 52px auto;
+}
+
+.landing-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.landing-section-title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #1E2540;
+  margin: 0 0 16px 0;
+}
+
+.landing-section-subtitle {
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: #64748B;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Header / Navbar ─────────────────────────────────────────────────── */
+
+.landing-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.landing-nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.landing-logo-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.landing-logo-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background-color: #181D28;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.02em;
+}
+
+.landing-logo-text {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #0F172A;
+}
+
+.landing-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.landing-nav-link {
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748B;
+  transition: color 150ms ease;
+}
+
+.landing-nav-link:hover {
+  color: #0F172A;
+}
+
+.landing-action-group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.landing-nav-link-signin {
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.landing-nav-link-signin:hover {
+  color: #0F172A;
+}
+
+.landing-btn-getstarted {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+  background-color: #52607B;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: background-color 150ms ease;
+}
+
+.landing-btn-getstarted:hover {
+  background-color: #3E4A61;
+}
+
+
+/* ── Hero Section ─────────────────────────────────────────────────────── */
+
+.landing-hero-section {
+  padding: 64px 24px 80px 24px;
+  background-color: #FAFAFC;
+}
+
+.landing-hero-content {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.landing-hero-title {
+  font-size: clamp(38px, 5.5vw, 60px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #0F172A;
+  margin: 16px 0 0 0;
+}
+
+.landing-hero-subtitle-bold {
+  font-size: clamp(18px, 2vw, 21px);
+  font-weight: 600;
+  color: #1E293B;
+  margin: 20px 0 10px 0;
+}
+
+.landing-hero-description {
+  font-size: clamp(14px, 1.6vw, 15px);
+  color: #64748B;
+  line-height: 1.55;
+  max-width: 580px;
+  margin: 0 auto 32px auto;
+  font-weight: 400;
+}
+
+.landing-hero-cta-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+
+.landing-btn-primary-lg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #FFFFFF;
+  background-color: #475467;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+  transition: all 180ms ease;
+}
+
+.landing-btn-primary-lg:hover {
+  background-color: #344054;
+  transform: translateY(-1px);
+}
+
+.landing-btn-secondary-lg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #334155;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 180ms ease;
+}
+
+.landing-btn-secondary-lg:hover {
+  border-color: #CBD5E1;
+  background-color: #F8FAFC;
+  color: #0F172A;
+  transform: translateY(-1px);
+}
+
+/* ── Hero Mockup Card (Identical to Figma Image 2) ───────────────────── */
+
+.landing-mockup-wrapper {
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.landing-mockup-card {
+  border-radius: 20px;
+  background-color: #FAFAFC;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 32px 64px -12px rgba(16, 24, 40, 0.12), 0 12px 28px -8px rgba(16, 24, 40, 0.08);
+  overflow: hidden;
+}
+
+.landing-mockup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding: 0 20px;
+  background-color: #FAFAFC;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.landing-mockup-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.landing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #E2E8F0;
+}
+
+.landing-mockup-url {
+  font-size: 12px;
+  color: #94A3B8;
+  background-color: #F1F5F9;
+  padding: 3px 16px;
+  border-radius: 9999px;
+  font-weight: 400;
+}
+
+.landing-mockup-body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  background-color: #FAFAFC;
+}
+
+.landing-mockup-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 12px;
+  border-right: 1px solid #E2E8F0;
+}
+
+.landing-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748B;
+  text-decoration: none;
+}
+
+.landing-sidebar-active {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  color: #0F172A;
+  font-weight: 700;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.landing-mockup-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.landing-mockup-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.landing-stat-box {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 16px 18px;
+  text-align: left;
+}
+
+.landing-stat-label {
+  font-size: 13px;
+  font-weight: 400;
+  color: #64748B;
+  margin-bottom: 6px;
+}
+
+.landing-stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.landing-stat-subtext {
+  font-size: 13px;
+  color: #94A3B8;
+  font-weight: 400;
+}
+
+.landing-stat-badge-green {
+  font-size: 13px;
+  font-weight: 600;
+  color: #10B981;
+}
+
+.landing-middle-grid {
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 16px;
+}
+
+.landing-chart-box {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.landing-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.landing-chart-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0F172A;
+}
+
+.landing-chart-period {
+  font-size: 12px;
+  color: #94A3B8;
+}
+
+.landing-bars-grid {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 90px;
+}
+
+.landing-bar-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.landing-bar-fill {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  background-color: #5C667A;
+}
+
+.landing-success-box {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-success-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 6px 0 10px 0;
+}
+
+.landing-progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: #F1F5F9;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.landing-progress-bar {
+  height: 100%;
+  background-color: #10B981;
+  border-radius: 9999px;
+}
+
+.landing-success-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.landing-legend-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #64748B;
+}
+
+.landing-legend-row strong {
+  color: #0F172A;
+  font-weight: 600;
+}
+
+.landing-table-container {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 6px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-row-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 6px;
+  border-bottom: 1px solid #F8FAFC;
+  font-size: 13.5px;
+}
+
+.landing-row-item:last-child {
+  border-bottom: none;
+}
+
+.landing-col-code {
+  color: #94A3B8;
+  font-weight: 400;
+  width: 90px;
+}
+
+.landing-col-name {
+  color: #0F172A;
+  font-weight: 600;
+  flex: 1;
+}
+
+.landing-col-amount {
+  color: #0F172A;
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+.landing-badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.landing-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.landing-status-paid {
+  background-color: #ECFDF5;
+  color: #047857;
+}
+
+.landing-status-paid .landing-status-dot {
+  background-color: #10B981;
+}
+
+.landing-status-pending {
+  background-color: #FFFBEB;
+  color: #B45309;
+}
+
+.landing-status-pending .landing-status-dot {
+  background-color: #F59E0B;
+}
+
+.landing-status-overdue {
+  background-color: #FEF2F2;
+  color: #B91C1C;
+}
+
+.landing-status-overdue .landing-status-dot {
+  background-color: #EF4444;
+}
+
+@media (max-width: 640px) {
+  .hidden-mobile { display: none; }
+  .landing-middle-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Metrics / Positioning Section ───────────────────────────────────── */
+
+.landing-metrics-section {
+  padding: 96px 24px;
+  background-color: #FFFFFF;
+}
+
+.landing-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94A3B8;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.landing-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1040px;
+  margin: 48px auto 0 auto;
+}
+
+.landing-metric-card {
+  text-align: left;
+  padding: 32px 28px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  transition: all 180ms ease;
+}
+
+.landing-metric-card:hover {
+  transform: translateY(-2px);
+  border-color: #CBD5E1;
+  box-shadow: 0 12px 24px -8px rgba(15, 23, 42, 0.06);
+}
+
+.landing-card-icon-wrap {
+  margin-bottom: 20px;
+}
+
+.landing-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0 0 8px 0;
+}
+
+.landing-card-description {
+  font-size: 14px;
+  color: #64748B;
+  line-height: 1.55;
+  margin: 0;
+  font-weight: 400;
+}
+
+
+.landing-metric-num {
+  font-size: clamp(36px, 4vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #1E2540;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+/* ── Problem Section (Your invoices shouldn't live in spreadsheets) ────── */
+
+.landing-problem-section {
+  padding: 96px 24px;
+  background-color: #FAFAFC;
+}
+
+.landing-section-header-left {
+  max-width: 1040px;
+  margin: 0 auto 48px auto;
+  text-align: left;
+}
+
+.landing-section-title-left {
+  font-size: clamp(32px, 4vw, 42px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #0F172A;
+  margin: 0 0 14px 0;
+}
+
+.landing-section-subtitle-left {
+  font-size: 16px;
+  color: #64748B;
+  margin: 0;
+  font-weight: 400;
+}
+
+.landing-cards-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.landing-feature-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  transition: all 180ms ease;
+}
+
+.landing-feature-card:hover {
+  transform: translateY(-2px);
+  border-color: #CBD5E1;
+  box-shadow: 0 12px 24px -8px rgba(15, 23, 42, 0.06);
+}
+
+.landing-num-badge {
+  font-size: 13px;
+  font-weight: 600;
+  color: #52607B;
+  margin-bottom: 24px;
+}
+
+.landing-feature-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0 0 8px 0;
+}
+
+.landing-feature-desc {
+  font-size: 14px;
+  color: #64748B;
+  line-height: 1.55;
+  margin: 0;
+  font-weight: 400;
+}
+
+
+/* ── Lifecycle Section (One workspace for your entire invoice lifecycle) ── */
+
+.landing-role-section {
+  padding: 96px 24px;
+  background-color: #FFFFFF;
+}
+
+.landing-lifecycle-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.landing-lifecycle-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.landing-lifecycle-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.landing-lifecycle-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0 0 6px 0;
+}
+
+.landing-lifecycle-desc {
+  font-size: 13.5px;
+  color: #64748B;
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 400;
+}
+
+
+/* ── Operations Showcase Section (Everything you need to manage invoices) ─ */
+
+.landing-operations-section {
+  padding: 96px 24px 120px 24px;
+  background-color: #FAFAFC;
+}
+
+.landing-op-mockup-card {
+  max-width: 1040px;
+  margin: 0 auto;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  box-shadow: 0 32px 64px -12px rgba(16, 24, 40, 0.10), 0 12px 28px -8px rgba(16, 24, 40, 0.06);
+  overflow: hidden;
+}
+
+.landing-op-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid #E2E8F0;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.landing-op-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 9999px;
+  font-size: 13px;
+  color: #64748B;
+  width: 320px;
+  max-width: 100%;
+}
+
+.landing-op-filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.landing-filter-btn {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid #E2E8F0;
+  background-color: #FFFFFF;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.landing-filter-btn:hover {
+  background-color: #F8FAFC;
+  color: #0F172A;
+}
+
+.landing-filter-btn.active {
+  background-color: #181D28;
+  border-color: #181D28;
+  color: #FFFFFF;
+}
+
+.landing-filter-btn.date {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.landing-op-table-wrap {
+  overflow-x: auto;
+}
+
+.landing-op-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.landing-op-table th {
+  padding: 14px 24px;
+  color: #94A3B8;
+  font-weight: 500;
+  font-size: 13px;
+  border-bottom: 1px solid #E2E8F0;
+  background-color: #FFFFFF;
+}
+
+.landing-op-table td {
+  padding: 18px 24px;
+  border-bottom: 1px solid #F1F5F9;
+  color: #334155;
+}
+
+.landing-op-table tr:last-child td {
+  border-bottom: none;
+}
+
+.landing-op-table .col-inv {
+  color: #64748B;
+  font-weight: 400;
+}
+
+.landing-op-table .col-cust {
+  color: #0F172A;
+  font-weight: 600;
+}
+
+.landing-op-table .col-amt {
+  color: #0F172A;
+  font-weight: 500;
+}
+
+.landing-op-table .col-due {
+  color: #64748B;
+  font-weight: 400;
+}
+
+.landing-status-draft {
+  background-color: #F1F5F9;
+  color: #475569;
+}
+
+.landing-status-draft .landing-status-dot {
+  background-color: #64748B;
+}
+
+/* ── Workflow Section (From creation to payment, without the busywork) ──── */
+
+.landing-workflow-section {
+  padding: 96px 24px;
+  background-color: #FFFFFF;
+}
+
+.landing-workflow-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.landing-eyebrow-left {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94A3B8;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.landing-workflow-title {
+  font-size: clamp(30px, 3.5vw, 40px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #0F172A;
+  margin: 0 0 32px 0;
+  text-align: left;
+}
+
+.landing-stepper-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.landing-step-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #0F172A;
+}
+
+.landing-step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #F1F5F9;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.landing-done-badge {
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background-color: #ECFDF5;
+  color: #047857;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.landing-inv-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 36px 32px;
+  box-shadow: 0 24px 48px -12px rgba(16, 24, 40, 0.08), 0 8px 20px -6px rgba(16, 24, 40, 0.04);
+}
+
+.landing-inv-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.landing-inv-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94A3B8;
+  letter-spacing: 0.08em;
+}
+
+.landing-inv-main-info {
+  margin-bottom: 24px;
+}
+
+.landing-inv-id {
+  font-size: 22px;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 4px 0 2px 0;
+}
+
+.landing-inv-meta {
+  font-size: 13.5px;
+  color: #64748B;
+  margin: 0;
+  font-weight: 400;
+}
+
+.landing-inv-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #F1F5F9;
+  margin-bottom: 16px;
+}
+
+.landing-inv-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.landing-item-name {
+  color: #475569;
+  font-weight: 400;
+}
+
+.landing-item-price {
+  color: #0F172A;
+  font-weight: 500;
+}
+
+.landing-inv-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #F1F5F9;
+  margin-bottom: 16px;
+}
+
+.landing-inv-sub-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+}
+
+.landing-sub-label {
+  color: #64748B;
+}
+
+.landing-sub-val {
+  color: #64748B;
+  font-weight: 400;
+}
+
+.landing-inv-totals {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.landing-total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 17px;
+  font-weight: 600;
+  color: #0F172A;
+}
+
+.landing-balance-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.landing-balance-label {
+  color: #047857;
+  font-weight: 500;
+}
+
+.landing-balance-val {
+  color: #047857;
+  font-weight: 600;
+}
+
+
+/* ── Dark Mode Section (See the money behind your invoices) ────────────── */
+
+.landing-dark-section {
+  padding: 100px 24px;
+  background-color: #0F121D;
+  color: #FFFFFF;
+  position: relative;
+}
+
+.landing-dark-title {
+  font-size: clamp(32px, 4vw, 42px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #FFFFFF;
+  margin: 0 0 14px 0;
+  text-align: left;
+}
+
+.landing-dark-subtitle {
+  font-size: 16px;
+  color: #94A3B8;
+  margin: 0 0 48px 0;
+  font-weight: 400;
+  text-align: left;
+}
+
+.landing-dark-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1040px;
+  margin: 0 auto 24px auto;
+}
+
+.landing-dark-metric-card {
+  background-color: #191C28;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 24px 20px;
+  text-align: left;
+}
+
+.landing-dark-metric-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748B;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.landing-dark-metric-value {
+  font-size: clamp(26px, 3vw, 32px);
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+.landing-dark-dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 20px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.landing-dark-card {
+  background-color: #191C28;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 28px 24px;
+  text-align: left;
+}
+
+.landing-dark-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.landing-dark-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.landing-dark-card-sub {
+  font-size: 13px;
+  color: #64748B;
+}
+
+.landing-dark-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 140px;
+  padding-top: 12px;
+}
+
+.landing-dark-bar {
+  flex: 1;
+  background-color: #52607B;
+  border-radius: 4px 4px 0 0;
+  transition: all 200ms ease;
+}
+
+.landing-dark-bar:hover {
+  background-color: #64748B;
+}
+
+.landing-dark-activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.landing-dark-activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.landing-dark-act-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #3B82F6;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.landing-dark-act-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #E2E8F0;
+  margin-bottom: 2px;
+}
+
+.landing-dark-act-sub {
+  font-size: 12.5px;
+  color: #64748B;
+}
+
+/* ── Client Portal Section (Give your clients answers, not another email thread) ── */
+
+.landing-portal-section {
+  padding: 96px 24px;
+  background-color: #FAFAFC;
+}
+
+.landing-portal-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.landing-portal-title {
+  font-size: clamp(28px, 3.2vw, 38px);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: #0F172A;
+  margin: 0 0 20px 0;
+  text-align: left;
+}
+
+.landing-portal-subtitle {
+  font-size: 15px;
+  color: #64748B;
+  line-height: 1.55;
+  margin: 0 0 32px 0;
+  font-weight: 400;
+  text-align: left;
+}
+
+.landing-portal-features {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0 0 36px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.landing-portal-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.landing-portal-bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #94A3B8;
+  flex-shrink: 0;
+}
+
+.landing-portal-security-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  font-size: 13px;
+  color: #475569;
+  font-weight: 400;
+}
+
+.landing-portal-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  box-shadow: 0 24px 48px -12px rgba(16, 24, 40, 0.08), 0 8px 20px -6px rgba(16, 24, 40, 0.04);
+  overflow: hidden;
+}
+
+.landing-portal-card-body {
+  padding: 28px 24px;
+  text-align: left;
+}
+
+.landing-portal-heading {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0 0 20px 0;
+}
+
+.landing-portal-inv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.landing-portal-inv-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  background-color: #FFFFFF;
+}
+
+.landing-portal-inv-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.landing-portal-inv-id {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #0F172A;
+}
+
+.landing-portal-inv-issuer {
+  font-size: 12px;
+  color: #94A3B8;
+}
+
+.landing-portal-inv-amount {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0F172A;
+}
+
+/* ── Security & Audit Section (Every financial action, accounted for) ─── */
+
+.landing-audit-section {
+  padding: 96px 24px;
+  background-color: #FFFFFF;
+}
+
+.landing-audit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.landing-audit-title {
+  font-size: clamp(30px, 3.5vw, 40px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #0F172A;
+  margin: 0 0 20px 0;
+  text-align: left;
+}
+
+.landing-audit-subtitle {
+  font-size: 15px;
+  color: #64748B;
+  line-height: 1.55;
+  margin: 0 0 32px 0;
+  font-weight: 400;
+  text-align: left;
+}
+
+.landing-audit-badges {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.landing-audit-badge-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  font-size: 13px;
+  color: #334155;
+  font-weight: 400;
+}
+
+.landing-audit-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  padding: 24px 28px;
+  box-shadow: 0 24px 48px -12px rgba(16, 24, 40, 0.08), 0 8px 20px -6px rgba(16, 24, 40, 0.04);
+}
+
+.landing-audit-log-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-audit-log-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid #F1F5F9;
+  text-align: left;
+}
+
+.landing-audit-log-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.landing-audit-log-item:first-child {
+  padding-top: 0;
+}
+
+.landing-audit-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #475569;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.landing-audit-log-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.landing-audit-action {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0F172A;
+}
+
+.landing-audit-details {
+  font-size: 12.5px;
+  color: #94A3B8;
+}
+
+/* ── Workflow Toolkit Section (Everything your invoice workflow needs) ─── */
+
+.landing-toolkit-section {
+  padding: 96px 24px;
+  background-color: #FAFAFC;
+}
+
+.landing-toolkit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1040px;
+  margin: 48px auto 0 auto;
+}
+
+.landing-toolkit-card {
+  text-align: left;
+  padding: 32px 28px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  transition: all 180ms ease;
+}
+
+.landing-toolkit-card:hover {
+  transform: translateY(-2px);
+  border-color: #CBD5E1;
+  box-shadow: 0 12px 24px -8px rgba(15, 23, 42, 0.06);
+}
+
+.landing-toolkit-icon {
+  margin-bottom: 20px;
+}
+
+.landing-toolkit-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0 0 8px 0;
+}
+
+.landing-toolkit-desc {
+  font-size: 14px;
+  color: #64748B;
+  line-height: 1.55;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ── Role Views Section (Built for everyone involved in getting paid) ──── */
+
+.landing-role-views-section {
+  padding: 96px 24px;
+  background-color: #FFFFFF;
+}
+
+.landing-role-views-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.landing-role-view-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 32px 28px;
+  text-align: left;
+  transition: all 180ms ease;
+}
+
+.landing-role-view-card:hover {
+  transform: translateY(-2px);
+  border-color: #CBD5E1;
+  box-shadow: 0 12px 24px -8px rgba(15, 23, 42, 0.06);
+}
+
+.landing-role-view-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94A3B8;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.landing-role-view-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0 0 20px 0;
+}
+
+.landing-role-view-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.landing-role-view-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #475569;
+}
+
+.landing-role-bullet {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #475569;
+  flex-shrink: 0;
+}
+
+
+
+
+
+
+/* ── Spotlights Section ───────────────────────────────────────────────── */
+
+.landing-spotlight-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.landing-spotlight-card {
+  background-color: #FFFFFF;
+  border: 1px solid #EAEFF5;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 12px 30px -10px rgba(30, 37, 64, 0.05);
+}
+
+/* ── Testimonials & FAQ ───────────────────────────────────────────────── */
+
+.landing-testimonial-card {
+  background-color: #FFFFFF;
+  border: 1px solid #EAEFF5;
+  border-radius: 20px;
+  padding: 32px 24px;
+  box-shadow: 0 4px 16px rgba(30, 37, 64, 0.03);
+  transition: all 180ms ease;
+}
+
+.landing-faq-item {
+  background-color: #FAFAFC;
+  border: 1px solid #EAEFF5;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 150ms ease;
+  margin-bottom: 14px;
+}
+
+.landing-faq-item-open {
+  border-color: #2D3452;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(30, 37, 64, 0.06);
+}
+
+/* ── CTA Banner ───────────────────────────────────────────────────────── */
+
+.landing-cta-banner-card {
+  background: linear-gradient(135deg, #1E2540 0%, #0B0D17 100%);
+  border-radius: 28px;
+  padding: 80px 40px;
+  text-align: center;
+  color: #FFFFFF;
+  box-shadow: 0 24px 48px -12px rgba(11, 13, 23, 0.3);
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+
+.landing-footer {
+  background-color: #0B0D17;
+  color: #94A3B8;
+  padding: 80px 24px 32px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Responsive Rules ─────────────────────────────────────────────────── */
+
+@media (max-width: 868px) {
+  .landing-nav-menu { display: none; }
+  .landing-mockup-body { grid-template-columns: 1fr; }
+  .landing-mockup-sidebar { display: none; }
+  .landing-cards-grid-3 { grid-template-columns: 1fr; }
+  .landing-roles-grid { grid-template-columns: repeat(2, 1fr); }
+  .landing-spotlight-row { grid-template-columns: 1fr; gap: 40px; }
+  .landing-dark-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 540px) {
+  .landing-mockup-stats-grid { grid-template-columns: 1fr; }
+  .landing-roles-grid { grid-template-columns: 1fr; }
+  .landing-dark-grid { grid-template-columns: 1fr; }
+}

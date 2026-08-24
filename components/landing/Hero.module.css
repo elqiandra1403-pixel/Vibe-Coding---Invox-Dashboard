@@ -1,0 +1,316 @@
+.heroSection {
+  padding: 70px 24px 70px 24px;
+  background: radial-gradient(circle at 50% 0%, rgba(45, 52, 82, 0.04) 0%, rgba(250, 250, 252, 0) 70%);
+  position: relative;
+}
+
+.heroContent {
+  max-width: 840px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background-color: #F1F4F9;
+  border: 1px solid #E2E8F0;
+  color: #2D3452;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #1E2540;
+  margin: 0 0 20px 0;
+}
+
+.titleAccent {
+  color: #2D3452;
+}
+
+.description {
+  font-size: clamp(16px, 2vw, 19px);
+  color: #64748B;
+  line-height: 1.55;
+  max-width: 640px;
+  margin: 0 auto 36px auto;
+  font-weight: 400;
+}
+
+.ctaGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.primaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFFFFF;
+  background-color: #2D3452;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(45, 52, 82, 0.25);
+  transition: all 180ms ease;
+}
+
+.primaryCta:hover {
+  background-color: #1E2540;
+  box-shadow: 0 6px 20px rgba(30, 37, 64, 0.35);
+  transform: translateY(-2px);
+}
+
+.secondaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2D3452;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 180ms ease;
+}
+
+.secondaryCta:hover {
+  border-color: #CBD5E1;
+  background-color: #F8FAFC;
+  color: #1E2540;
+  transform: translateY(-2px);
+}
+
+/* Mockup Card Container matching Figma */
+.mockupContainer {
+  max-width: 1040px;
+  margin: 0 auto;
+  border-radius: 20px;
+  background-color: #FFFFFF;
+  border: 1px solid #EAEFF5;
+  box-shadow: 0 20px 48px -12px rgba(30, 37, 64, 0.08), 0 1px 3px rgba(0, 0, 0, 0.02);
+  padding: 24px;
+  overflow: hidden;
+}
+
+.mockupHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #F1F4F9;
+  margin-bottom: 20px;
+}
+
+.mockupDots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dotRed { background-color: #FF5F56; }
+.dotYellow { background-color: #FFBD2E; }
+.dotGreen { background-color: #27C93F; }
+
+.mockupTitle {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94A3B8;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.mockupBody {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+}
+
+.mockupSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-right: 20px;
+  border-right: 1px solid #F1F4F9;
+}
+
+.sidebarItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #64748B;
+  text-decoration: none;
+}
+
+.sidebarActive {
+  background-color: #F1F4F9;
+  color: #2D3452;
+  font-weight: 600;
+}
+
+.mockupMain {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mockupStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.statCard {
+  background-color: #FAFAFC;
+  border: 1px solid #F1F4F9;
+  border-radius: 14px;
+  padding: 16px;
+  text-align: left;
+}
+
+.statLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748B;
+  margin-bottom: 6px;
+}
+
+.statValue {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1E2540;
+  margin-bottom: 4px;
+}
+
+.statBadge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #079455;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* Horizontal Progress bar for Collection Rate matching Figma */
+.progressTrack {
+  width: 100%;
+  height: 6px;
+  background-color: #E2E8F0;
+  border-radius: 9999px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: #079455;
+  border-radius: 9999px;
+}
+
+.chartContainer {
+  background-color: #FAFAFC;
+  border: 1px solid #F1F4F9;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.chartTitle {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1E2540;
+}
+
+.barsGrid {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 90px;
+  padding-top: 10px;
+}
+
+.barCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.barFill {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(180deg, #5C6B93 0%, #3B4468 100%);
+}
+
+.barLabel {
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+.rowsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tableRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background-color: #FAFAFC;
+  border: 1px solid #F1F4F9;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+@media (max-width: 868px) {
+  .mockupBody {
+    grid-template-columns: 1fr;
+  }
+  .mockupSidebar {
+    display: none;
+  }
+  .mockupStatsGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,64 @@
+.pageWrapper {
+  min-height: 100vh;
+  background-color: #FAFAFC;
+  color: #1E2540;
+  font-family: var(--invox-font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif);
+  overflow-x: hidden;
+}
+
+.pageWrapper main {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.sectionHeader {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 48px auto;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background-color: #F1F4F9;
+  border: 1px solid #E2E8F0;
+  color: #2D3452;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.sectionTitle {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #1E2540;
+  margin: 0 0 16px 0;
+}
+
+.sectionSubtitle {
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: #64748B;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+}
