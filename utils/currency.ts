@@ -33,13 +33,15 @@ export function convertCurrency(
 ): number {
   if (!amount || isNaN(amount)) return 0;
   
-  const from = (fromCurrency || 'USD').toUpperCase();
-  const to = (toCurrency || 'USD').toUpperCase();
+  const from = (fromCurrency || 'USD').trim().toUpperCase();
+  const to = (toCurrency || 'USD').trim().toUpperCase();
 
   if (from === to) return amount;
 
   const fromRate = rates[from] ?? DEFAULT_EXCHANGE_RATES[from as SupportedCurrency] ?? 1.0;
   const toRate = rates[to] ?? DEFAULT_EXCHANGE_RATES[to as SupportedCurrency] ?? 1.0;
+
+  if (fromRate <= 0) return 0;
 
   const amountInUSD = amount / fromRate;
   const converted = amountInUSD * toRate;
@@ -56,7 +58,7 @@ export function convertCurrency(
  * Formats a monetary amount into its localized currency representation.
  */
 export function formatCurrency(amount: number, currency: string = 'USD'): string {
-  const code = (currency || 'USD').toUpperCase() as SupportedCurrency;
+  const code = (currency || 'USD').trim().toUpperCase() as SupportedCurrency;
   const config = CURRENCY_CONFIGS[code] || CURRENCY_CONFIGS.USD;
   const validAmount = isNaN(amount) ? 0 : amount;
 
@@ -80,38 +82,42 @@ export function formatCurrency(amount: number, currency: string = 'USD'): string
  * Formats a compact currency representation for chart Y-axes (e.g. $750k, €690k, £592k, Rp12B).
  */
 export function formatCompactCurrency(amountInUSD: number, targetCurrency: string = 'USD'): string {
-  const code = (targetCurrency || 'USD').toUpperCase() as SupportedCurrency;
+  const code = (targetCurrency || 'USD').trim().toUpperCase() as SupportedCurrency;
   const config = CURRENCY_CONFIGS[code] || CURRENCY_CONFIGS.USD;
   const converted = convertCurrency(amountInUSD, 'USD', code);
 
   if (converted === 0) return `${config.symbol}0`;
 
+  const absVal = Math.abs(converted);
+  const isNegative = converted < 0;
+  const sign = isNegative ? '-' : '';
+
   if (code === 'IDR') {
-    if (converted >= 1000000000) {
-      const val = (converted / 1000000000).toFixed(1).replace(/\.0$/, '');
-      return `Rp${val}M`; // Miliar
+    if (absVal >= 1000000000) {
+      const val = (absVal / 1000000000).toFixed(1).replace(/\.0$/, '');
+      return `Rp${sign}${val}M`; // Miliar
     }
-    if (converted >= 1000000) {
-      const val = (converted / 1000000).toFixed(1).replace(/\.0$/, '');
-      return `Rp${val}Jt`; // Juta
+    if (absVal >= 1000000) {
+      const val = (absVal / 1000000).toFixed(1).replace(/\.0$/, '');
+      return `Rp${sign}${val}Jt`; // Juta
     }
-    if (converted >= 1000) {
-      const val = (converted / 1000).toFixed(1).replace(/\.0$/, '');
-      return `Rp${val}rb`;
+    if (absVal >= 1000) {
+      const val = (absVal / 1000).toFixed(1).replace(/\.0$/, '');
+      return `Rp${sign}${val}rb`;
     }
-    return `Rp${Math.round(converted)}`;
+    return `Rp${sign}${Math.round(absVal)}`;
   }
 
-  if (converted >= 1000000) {
-    const val = (converted / 1000000).toFixed(1).replace(/\.0$/, '');
-    return `${config.symbol}${val}M`;
+  if (absVal >= 1000000) {
+    const val = (absVal / 1000000).toFixed(1).replace(/\.0$/, '');
+    return `${sign}${config.symbol}${val}M`;
   }
-  if (converted >= 1000) {
-    const val = (converted / 1000).toFixed(1).replace(/\.0$/, '');
-    return `${config.symbol}${val}k`;
+  if (absVal >= 1000) {
+    const val = (absVal / 1000).toFixed(1).replace(/\.0$/, '');
+    return `${sign}${config.symbol}${val}k`;
   }
 
-  return `${config.symbol}${Math.round(converted)}`;
+  return `${sign}${config.symbol}${Math.round(absVal)}`;
 }
 
 /**
