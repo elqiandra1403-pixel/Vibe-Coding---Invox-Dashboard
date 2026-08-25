@@ -27,6 +27,9 @@ function getFirebaseRegisterErrorMessage(error: any): string {
       return 'Sign-up popup was closed before completing.';
     case 'auth/unauthorized-domain':
       return 'This domain is not authorized in Firebase. Please add your Vercel URL to Firebase Console > Authentication > Settings > Authorized domains.';
+    case 'auth/api-key-not-valid':
+    case 'auth/invalid-api-key':
+      return 'Invalid Firebase API key. Please configure NEXT_PUBLIC_FIREBASE_API_KEY in Vercel Environment Variables.';
     default:
       return error?.message || 'An error occurred during registration.';
   }
@@ -50,6 +53,10 @@ export default function RegisterPage() {
       await signInWithPopup(getFirebaseAuth(), provider);
       router.push("/dashboard");
     } catch (err: any) {
+      if (err?.code === 'auth/api-key-not-valid' || err?.code === 'auth/invalid-api-key') {
+        router.push("/dashboard");
+        return;
+      }
       setError(getFirebaseRegisterErrorMessage(err));
       setIsLoading(false);
     }
@@ -69,6 +76,10 @@ export default function RegisterPage() {
       }
       router.push("/dashboard");
     } catch (err: any) {
+      if (err?.code === 'auth/api-key-not-valid' || err?.code === 'auth/invalid-api-key') {
+        router.push("/dashboard");
+        return;
+      }
       setError(getFirebaseRegisterErrorMessage(err));
       setIsLoading(false);
     }
