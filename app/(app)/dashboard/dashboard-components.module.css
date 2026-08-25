@@ -284,7 +284,7 @@
   line-height: 1.4;
   letter-spacing: -0.1px;
   white-space: nowrap;
-  border-bottom: 1px solid var(--invox-color-border);
+  border-bottom: none;
 }
 
 .table tr:last-child td {
@@ -295,10 +295,11 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 4px 8px;
+  padding: 4px 10px;
   border-radius: var(--invox-radius-pill);
   font-size: var(--invox-text-xs);
   font-weight: 500;
+  border: none;
 }
 
 .statusDot {
@@ -308,25 +309,25 @@
 }
 
 .statusPaid {
-  background-color: rgba(34, 197, 94, 0.1);
-  color: #22c55e;
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
 }
-.statusPaid .statusDot { background-color: #22c55e; }
+.statusPaid .statusDot { background-color: #34d399; }
 
 .statusPending {
-  background-color: rgba(59, 130, 246, 0.1);
-  color: #3b82f6;
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
 }
-.statusPending .statusDot { background-color: #3b82f6; }
+.statusPending .statusDot { background-color: #fbbf24; }
 
 .statusOverdue {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #f87171;
 }
-.statusOverdue .statusDot { background-color: #ef4444; }
+.statusOverdue .statusDot { background-color: #f87171; }
 
 .statusDraft {
-  background-color: rgba(107, 114, 128, 0.1);
+  background-color: rgba(107, 114, 128, 0.15);
   color: #9ca3af;
 }
 .statusDraft .statusDot { background-color: #9ca3af; }

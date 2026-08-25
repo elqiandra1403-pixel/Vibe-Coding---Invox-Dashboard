@@ -139,7 +139,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px;
-  border-bottom: 1px solid var(--invox-color-border, #242c38);
+  border-bottom: none;
 }
 
 .invoiceItem:last-child {
@@ -176,8 +176,8 @@
 }
 
 .badgePaid {
-  background-color: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
   padding: 4px 10px;
   border-radius: 12px;
   font-size: 11px;
@@ -185,8 +185,8 @@
 }
 
 .badgePending {
-  background-color: rgba(59, 130, 246, 0.15);
-  color: #3b82f6;
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
   padding: 4px 10px;
   border-radius: 12px;
   font-size: 11px;
@@ -204,7 +204,7 @@
 
 .badgeOverdue {
   background-color: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
+  color: #f87171;
   padding: 4px 10px;
   border-radius: 12px;
   font-size: 11px;

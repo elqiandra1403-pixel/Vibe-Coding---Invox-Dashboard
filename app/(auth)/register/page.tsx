@@ -76,10 +76,10 @@ export default function RegisterPage() {
   return (
     <div className={styles.formContainer}>
       <div className={styles.header}>
-        <div className={styles.logo}>
+        <Link href="/" className={styles.logo} style={{ textDecoration: "none" }}>
           <div className={styles.logoIcon}>iv</div>
           <span className={styles.logoText}>Invox</span>
-        </div>
+        </Link>
         <p className={styles.kicker}>GET STARTED</p>
         <h1 className={styles.title}>Create your account</h1>
         <p className={styles.description}>A calmer way to invoice, track, and get paid.</p>

@@ -11,29 +11,34 @@ import { FeatureGridSection } from "@/components/landing/FeatureGridSection";
 import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
 import { FaqSection } from "@/components/landing/FaqSection";
 import { RoleViewsSection } from "@/components/landing/RoleViewsSection";
-import { PricingSection } from "@/components/landing/PricingSection";
 import { CtaBanner } from "@/components/landing/CtaBanner";
+import { FaqAccordionSection } from "@/components/landing/FaqAccordionSection";
+import { DarkFinalCtaSection } from "@/components/landing/DarkFinalCtaSection";
 import { Footer } from "@/components/landing/Footer";
+import { ScrollRevealWrapper } from "@/components/landing/ScrollRevealWrapper";
 
 export default function LandingPage() {
   return (
     <div className="landing-wrapper">
       <Navbar />
-      <main>
-        <Hero />
-        <MetricsSection />
-        <ProblemSolutionSection />
-        <RoleAccessSection />
-        <InvoiceOperationsSection />
-        <FeatureSpotlights />
-        <DarkSection />
-        <FeatureGridSection />
-        <TestimonialsSection />
-        <FaqSection />
-        <RoleViewsSection />
-        <PricingSection />
-        <CtaBanner />
-      </main>
+      <ScrollRevealWrapper>
+        <main>
+          <Hero />
+          <div className="scroll-reveal"><MetricsSection /></div>
+          <div className="scroll-reveal"><ProblemSolutionSection /></div>
+          <div className="scroll-reveal"><RoleAccessSection /></div>
+          <div className="scroll-reveal"><InvoiceOperationsSection /></div>
+          <div className="scroll-reveal"><FeatureSpotlights /></div>
+          <div className="scroll-reveal"><DarkSection /></div>
+          <div className="scroll-reveal"><FeatureGridSection /></div>
+          <div className="scroll-reveal"><TestimonialsSection /></div>
+          <div className="scroll-reveal"><FaqSection /></div>
+          <div className="scroll-reveal"><RoleViewsSection /></div>
+          <div className="scroll-reveal"><CtaBanner /></div>
+          <div className="scroll-reveal"><FaqAccordionSection /></div>
+          <div className="scroll-reveal"><DarkFinalCtaSection /></div>
+        </main>
+      </ScrollRevealWrapper>
       <Footer />
     </div>
   );

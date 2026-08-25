@@ -70,10 +70,10 @@ export default function LoginPage() {
   return (
     <div className={styles.formContainer}>
       <div className={styles.header}>
-        <div className={styles.logo}>
+        <Link href="/" className={styles.logo} style={{ textDecoration: "none" }}>
           <div className={styles.logoIcon}>iv</div>
           <span className={styles.logoText}>Invox</span>
-        </div>
+        </Link>
         <p className={styles.welcomeSubtitle}>WELCOME BACK</p>
         <h1 className={styles.title}>Sign in to Invox</h1>
         <p className={styles.description}>Pick up right where your cash flow left off.</p>

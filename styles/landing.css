@@ -1,5 +1,220 @@
 /* Invox Landing Page Stylesheet — High Precision Figma Alignment */
 
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Premium Professional Text Effects & Selection ───────────────────── */
+
+::selection {
+  background-color: #0F172A;
+  color: #FFFFFF;
+}
+
+body {
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  text-rendering: optimizeLegibility;
+}
+
+/* Staggered Text Reveal inside Scroll-Reveal Sections */
+
+.scroll-reveal .landing-section-title,
+.scroll-reveal .landing-section-title-left,
+.scroll-reveal .landing-portal-title,
+.scroll-reveal .landing-audit-title,
+.scroll-reveal .landing-pricing-title,
+.scroll-reveal .landing-faq-accordion-title,
+.scroll-reveal .landing-dark-title,
+.scroll-reveal .landing-dark-cta-title {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1) 120ms,
+              transform 600ms cubic-bezier(0.16, 1, 0.3, 1) 120ms;
+}
+
+.scroll-reveal.revealed .landing-section-title,
+.scroll-reveal.revealed .landing-section-title-left,
+.scroll-reveal.revealed .landing-portal-title,
+.scroll-reveal.revealed .landing-audit-title,
+.scroll-reveal.revealed .landing-pricing-title,
+.scroll-reveal.revealed .landing-faq-accordion-title,
+.scroll-reveal.revealed .landing-dark-title,
+.scroll-reveal.revealed .landing-dark-cta-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal .landing-section-subtitle,
+.scroll-reveal .landing-section-subtitle-left,
+.scroll-reveal .landing-portal-subtitle,
+.scroll-reveal .landing-audit-subtitle,
+.scroll-reveal .landing-pricing-subtitle,
+.scroll-reveal .landing-dark-subtitle,
+.scroll-reveal .landing-dark-cta-subtitle {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1) 220ms,
+              transform 600ms cubic-bezier(0.16, 1, 0.3, 1) 220ms;
+}
+
+.scroll-reveal.revealed .landing-section-subtitle,
+.scroll-reveal.revealed .landing-section-subtitle-left,
+.scroll-reveal.revealed .landing-portal-subtitle,
+.scroll-reveal.revealed .landing-audit-subtitle,
+.scroll-reveal.revealed .landing-pricing-subtitle,
+.scroll-reveal.revealed .landing-dark-subtitle,
+.scroll-reveal.revealed .landing-dark-cta-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Subtle Gradient Fill for Primary Headlines */
+
+.landing-dark-title,
+.landing-dark-cta-title {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.landing-hero-title,
+.landing-section-title,
+.landing-section-title-left,
+.landing-portal-title,
+.landing-audit-title,
+.landing-pricing-title,
+.landing-faq-accordion-title {
+  background: linear-gradient(180deg, #0F172A 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Eyebrow Badge Shimmer Effect */
+
+.landing-eyebrow,
+.landing-eyebrow-left {
+  letter-spacing: 0.12em;
+  transition: color 200ms ease;
+}
+
+/* Animated Hover Underline for Nav Menu Items & Footer Links */
+
+.landing-nav-link {
+  position: relative;
+  transition: color 200ms ease;
+}
+
+.landing-nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #0F172A;
+  border-radius: 99px;
+  transition: width 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-nav-link:hover::after {
+  width: 100%;
+}
+
+/* Title Hover Micro-Interactions on Feature Cards */
+
+.landing-pos-title,
+.landing-problem-title,
+.landing-toolkit-title,
+.landing-role-view-title {
+  transition: color 200ms ease, transform 200ms ease;
+}
+
+.landing-pos-card:hover .landing-pos-title,
+.landing-problem-card:hover .landing-problem-title,
+.landing-toolkit-card:hover .landing-toolkit-title,
+.landing-role-view-card:hover .landing-role-view-title {
+  color: #0F172A;
+  transform: translateX(2px);
+}
+
+/* ── Scroll Reveal Animations ────────────────────────────────────────── */
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Interactive Card & Element Hover Effects ───────────────────────── */
+
+.landing-pos-card,
+.landing-problem-card,
+.landing-step-circle-wrapper,
+.landing-ops-mockup,
+.landing-spotlight-card,
+.landing-dark-metric-card,
+.landing-portal-card,
+.landing-audit-card,
+.landing-toolkit-card,
+.landing-role-view-card,
+.landing-pricing-card,
+.landing-faq-accordion-card {
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 250ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-pos-card:hover,
+.landing-problem-card:hover,
+.landing-toolkit-card:hover,
+.landing-role-view-card:hover {
+  transform: translateY(-5px);
+  border-color: #CBD5E1;
+  box-shadow: 0 16px 36px -10px rgba(15, 23, 42, 0.08);
+}
+
+.landing-pricing-card:hover,
+.landing-audit-card:hover,
+.landing-portal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px -12px rgba(15, 23, 42, 0.1);
+}
+
+/* Button & Link Micro-Interactions */
+
+.landing-btn-primary,
+.landing-btn-secondary,
+.landing-pricing-btn-primary,
+.landing-pricing-btn-secondary,
+.landing-dark-cta-btn-primary,
+.landing-dark-cta-btn-secondary {
+  transition: transform 180ms ease,
+              box-shadow 180ms ease,
+              background-color 180ms ease,
+              border-color 180ms ease;
+}
+
+.landing-btn-primary:hover,
+.landing-pricing-btn-primary:hover,
+.landing-dark-cta-btn-primary:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.25);
+}
+
+.landing-btn-secondary:hover,
+.landing-pricing-btn-secondary:hover,
+.landing-dark-cta-btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -4px rgba(15, 23, 42, 0.08);
+}
+
 .landing-wrapper {
   min-height: 100vh;
   background-color: #FAFAFC;
@@ -502,7 +717,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 6px;
-  border-bottom: 1px solid #F8FAFC;
+  border-bottom: none;
   font-size: 13.5px;
 }
 
@@ -545,30 +760,33 @@
 }
 
 .landing-status-paid {
-  background-color: #ECFDF5;
-  color: #047857;
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+  border: none;
 }
 
 .landing-status-paid .landing-status-dot {
-  background-color: #10B981;
+  background-color: #34D399;
 }
 
 .landing-status-pending {
-  background-color: #FFFBEB;
-  color: #B45309;
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #FBBF24;
+  border: none;
 }
 
 .landing-status-pending .landing-status-dot {
-  background-color: #F59E0B;
+  background-color: #FBBF24;
 }
 
 .landing-status-overdue {
-  background-color: #FEF2F2;
-  color: #B91C1C;
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #F87171;
+  border: none;
 }
 
 .landing-status-overdue .landing-status-dot {
-  background-color: #EF4444;
+  background-color: #F87171;
 }
 
 @media (max-width: 640px) {
@@ -871,7 +1089,7 @@
 
 .landing-op-table td {
   padding: 18px 24px;
-  border-bottom: 1px solid #F1F5F9;
+  border-bottom: none;
   color: #334155;
 }
 
@@ -897,6 +1115,24 @@
 .landing-op-table .col-due {
   color: #64748B;
   font-weight: 400;
+}
+
+.landing-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.landing-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .landing-status-draft {
@@ -1618,6 +1854,253 @@
   flex-shrink: 0;
 }
 
+/* ── Pricing Banner Section (Simple plans for growing teams) ─────────── */
+
+.landing-pricing-section {
+  padding: 96px 24px;
+  background-color: #FAFAFC;
+}
+
+.landing-pricing-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 28px;
+  padding: 72px 40px;
+  text-align: center;
+  max-width: 1040px;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+}
+
+.landing-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94A3B8;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.landing-pricing-title {
+  font-size: clamp(30px, 4vw, 40px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #0F172A;
+  margin: 0 0 14px 0;
+  text-align: center;
+}
+
+.landing-pricing-subtitle {
+  font-size: 15px;
+  color: #64748B;
+  line-height: 1.55;
+  margin: 0 0 32px 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+.landing-pricing-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.landing-pricing-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  background-color: #475569;
+  color: #FFFFFF;
+  font-size: 14.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+.landing-pricing-btn-primary:hover {
+  background-color: #334155;
+}
+
+.landing-pricing-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  color: #0F172A;
+  font-size: 14.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+.landing-pricing-btn-secondary:hover {
+  background-color: #F8FAFC;
+  border-color: #CBD5E1;
+}
+
+/* ── FAQ Accordion Section (Frequently asked questions) ──────────────── */
+
+.landing-faq-accordion-section {
+  padding: 96px 24px;
+  background-color: #FFFFFF;
+}
+
+.landing-faq-accordion-title {
+  font-size: clamp(30px, 4vw, 40px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #0F172A;
+  margin: 0 0 48px 0;
+  text-align: center;
+}
+
+.landing-faq-accordion-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 24px;
+  max-width: 760px;
+  margin: 0 auto;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.02);
+}
+
+.landing-faq-accordion-item {
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.landing-faq-accordion-item:last-child {
+  border-bottom: none;
+}
+
+.landing-faq-accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 150ms ease;
+}
+
+.landing-faq-accordion-trigger:hover {
+  background-color: #F8FAFC;
+}
+
+.landing-faq-accordion-question {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: #0F172A;
+}
+
+.landing-faq-accordion-icon {
+  color: #64748B;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.landing-faq-accordion-content {
+  padding: 0 28px 22px 28px;
+  text-align: left;
+}
+
+.landing-faq-accordion-content p {
+  font-size: 14.5px;
+  color: #64748B;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ── Dark Final CTA Section (Ready to simplify your invoice workflow?) ─ */
+
+.landing-dark-cta-section {
+  padding: 120px 24px;
+  background-color: #0B0D17;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.landing-dark-cta-content {
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.landing-dark-cta-title {
+  font-size: clamp(32px, 4.5vw, 44px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #FFFFFF;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.landing-dark-cta-subtitle {
+  font-size: 15px;
+  color: #94A3B8;
+  line-height: 1.55;
+  margin: 0 0 36px 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+.landing-dark-cta-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.landing-dark-cta-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  background-color: #52607B;
+  color: #FFFFFF;
+  font-size: 14.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+.landing-dark-cta-btn-primary:hover {
+  background-color: #64748B;
+}
+
+.landing-dark-cta-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  font-size: 14.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 150ms ease;
+}
+
+.landing-dark-cta-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+
+
+
 
 
 
@@ -1681,11 +2164,922 @@
 /* ── Footer ───────────────────────────────────────────────────────────── */
 
 .landing-footer {
-  background-color: #0B0D17;
-  color: #94A3B8;
+  background-color: #FFFFFF;
+  color: #64748B;
   padding: 80px 24px 32px 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid #F1F5F9;
 }
+
+.landing-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 64px;
+  max-width: 1040px;
+  margin: 0 auto 64px auto;
+  text-align: left;
+}
+
+.landing-footer-col-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.landing-footer-tagline {
+  font-size: 14px;
+  color: #64748B;
+  line-height: 1.5;
+  margin: 16px 0 0 0;
+  font-weight: 400;
+}
+
+.landing-footer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.landing-footer-heading {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0F172A;
+  margin: 0 0 16px 0;
+}
+
+.landing-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.landing-footer-links a {
+  color: #64748B;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.landing-footer-links a:hover {
+  color: #0F172A;
+}
+
+.landing-footer-ext-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #64748B;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.landing-footer-ext-link:hover {
+  color: #0F172A;
+}
+
+.landing-footer-bottom {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-top: 24px;
+  border-top: 1px solid #F1F5F9;
+  text-align: left;
+}
+
+.landing-footer-bottom p {
+  font-size: 13px;
+  color: #94A3B8;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* ── Theme Toggle Button ──────────────────────────────────────────────── */
+
+.landing-theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  color: #0F172A;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.landing-theme-toggle-btn:hover {
+  background-color: #E2E8F0;
+  transform: scale(1.05);
+}
+
+.landing-theme-toggle-icon {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.landing-theme-toggle-btn:hover .landing-theme-toggle-icon {
+  transform: rotate(20deg);
+}
+
+/* ── Full Landing Page Dark Mode Overrides (Figma Node 4391-4991) ─────── */
+
+html[data-theme="dark"] .landing-wrapper {
+  background-color: #090A10 !important;
+  color: #F8FAFC !important;
+}
+
+/* ── Section 1 Dark Mode: Header / Navbar (Figma Node 4391-5027) ────────── */
+
+html[data-theme="dark"] .landing-header {
+  background-color: rgba(9, 10, 16, 0.92) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .landing-logo-icon {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="dark"] .landing-logo-text {
+  color: #F8FAFC !important;
+}
+
+html[data-theme="dark"] .landing-nav-link {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-nav-link:hover {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-nav-link::after {
+  background-color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-nav-link-signin {
+  color: #F8FAFC !important;
+}
+
+html[data-theme="dark"] .landing-nav-link-signin:hover {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-btn-getstarted {
+  background-color: #52607B !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-btn-getstarted:hover {
+  background-color: #64748B !important;
+}
+
+html[data-theme="dark"] .landing-theme-toggle-btn {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  color: #F8FAFC !important;
+}
+
+html[data-theme="dark"] .landing-theme-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+
+/* ── Section 2 Dark Mode: Hero Section (Figma Node 4391-5258) ──────────── */
+
+html[data-theme="dark"] .landing-hero-section {
+  background-color: #0B0D17 !important;
+}
+
+html[data-theme="dark"] .landing-badge {
+  background-color: #121624 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #E2E8F0 !important;
+}
+
+html[data-theme="dark"] .landing-badge svg {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-hero-title {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html[data-theme="dark"] .landing-hero-subtitle-bold {
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="dark"] .landing-hero-description {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-hero-cta-group .landing-btn-primary-lg {
+  background-color: #52607B !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-hero-cta-group .landing-btn-secondary-lg {
+  background-color: #121624 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #FFFFFF !important;
+}
+
+/* Dark Mode Hero Dashboard Browser Mockup Window */
+html[data-theme="dark"] .landing-mockup-wrapper {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="dark"] .landing-mockup-card {
+  background-color: #0F121D !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8) !important;
+}
+
+html[data-theme="dark"] .landing-mockup-header {
+  background-color: #0F121D !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .landing-dot {
+  background-color: #334155 !important;
+}
+
+html[data-theme="dark"] .landing-mockup-url {
+  background-color: #181E30 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-mockup-body {
+  background-color: #0F121D !important;
+}
+
+html[data-theme="dark"] .landing-mockup-sidebar {
+  background-color: #0F121D !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .landing-sidebar-item {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-sidebar-item:hover {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-sidebar-active {
+  background-color: #181E30 !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Inner Stats Cards */
+html[data-theme="dark"] .landing-stat-box {
+  background-color: #141826 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .landing-stat-label {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-stat-value {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-stat-subtext {
+  color: #64748B !important;
+}
+
+/* Middle Analytics Grid Cards */
+html[data-theme="dark"] .landing-chart-box,
+html[data-theme="dark"] .landing-success-box {
+  background-color: #141826 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .landing-chart-title {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-chart-period {
+  color: #64748B !important;
+}
+
+html[data-theme="dark"] .landing-bar-fill {
+  background-color: #52607B !important;
+}
+
+html[data-theme="dark"] .landing-success-value {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-progress-track {
+  background-color: #1E2538 !important;
+}
+
+html[data-theme="dark"] .landing-legend-row span {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-legend-row strong {
+  color: #FFFFFF !important;
+}
+
+/* ── Section 3 Dark Mode: Positioning Section (Figma Node 4391-5259) ──── */
+
+html[data-theme="dark"] .landing-metrics-section {
+  background-color: #0E101A !important;
+}
+
+html[data-theme="dark"] .landing-metrics-section .landing-eyebrow {
+  color: #64748B !important;
+  letter-spacing: 0.14em;
+}
+
+html[data-theme="dark"] .landing-metrics-section .landing-section-title {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html[data-theme="dark"] .landing-metrics-section .landing-section-subtitle {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-metric-card {
+  background-color: #141824 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.4) !important;
+}
+
+html[data-theme="dark"] .landing-metric-card:hover {
+  background-color: #181E30 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+html[data-theme="dark"] .landing-card-icon-wrap {
+  background-color: transparent !important;
+}
+
+html[data-theme="dark"] .landing-card-icon-wrap svg {
+  color: #52607B !important;
+}
+
+html[data-theme="dark"] .landing-card-title {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-card-description {
+  color: #94A3B8 !important;
+}
+
+/* Bottom Invoices Table Container in Hero Mockup */
+html[data-theme="dark"] .landing-table-container {
+  background-color: #141826 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .landing-row-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+html[data-theme="dark"] .landing-col-code {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-col-name,
+html[data-theme="dark"] .landing-col-amount {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-status-paid {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  border: none !important;
+  color: #34D399 !important;
+}
+
+html[data-theme="dark"] .landing-status-pending {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  border: none !important;
+  color: #FBBF24 !important;
+}
+
+/* ── Section 4 Dark Mode: Problem Section (Figma Node 4391-5322) ────────── */
+
+html[data-theme="dark"] .landing-problem-section {
+  background-color: #090A10 !important;
+}
+
+html[data-theme="dark"] .landing-section-title-left {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html[data-theme="dark"] .landing-section-subtitle-left {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-problem-section .landing-feature-card {
+  background-color: #141824 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.4) !important;
+}
+
+html[data-theme="dark"] .landing-problem-section .landing-feature-card:hover {
+  background-color: #181E30 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+html[data-theme="dark"] .landing-num-badge {
+  color: #52607B !important;
+}
+
+html[data-theme="dark"] .landing-feature-title {
+  color: #FFFFFF !important;
+}
+
+/* ── Section 5 Dark Mode: Lifecycle Steps (Figma Node 4391-5375) ────────── */
+
+html[data-theme="dark"] .landing-role-section {
+  background-color: #0E101A !important;
+}
+
+html[data-theme="dark"] .landing-role-section .landing-section-title-left {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html[data-theme="dark"] .landing-role-section .landing-section-subtitle-left {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-lifecycle-icon {
+  background-color: #141824 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.3) !important;
+}
+
+html[data-theme="dark"] .landing-lifecycle-icon svg {
+  color: #52607B !important;
+}
+
+html[data-theme="dark"] .landing-lifecycle-title {
+  color: #FFFFFF !important;
+}
+
+/* ── Section 6 Dark Mode: Operations Table Section (Figma Node 4391-5466) ── */
+
+html[data-theme="dark"] .landing-operations-section {
+  background-color: #090A10 !important;
+}
+
+html[data-theme="dark"] .landing-op-mockup-card {
+  background-color: #141824 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7) !important;
+}
+
+html[data-theme="dark"] .landing-op-mockup-card .landing-mockup-header {
+  background-color: #141824 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+html[data-theme="dark"] .landing-address-bar {
+  background-color: #181E30 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-op-toolbar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .landing-op-search {
+  background-color: #181E30 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-op-search span {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-filter-btn {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-filter-btn:hover {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-filter-btn.active {
+  background-color: #FFFFFF !important;
+  border-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+
+html[data-theme="dark"] .landing-op-table th {
+  background-color: #141824 !important;
+  color: #64748B !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .landing-op-table td {
+  background-color: transparent !important;
+  border-bottom: none !important;
+}
+
+html[data-theme="dark"] .landing-op-table .col-inv,
+html[data-theme="dark"] .landing-op-table .col-due {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-op-table .col-cust,
+html[data-theme="dark"] .landing-op-table .col-amt {
+  color: #FFFFFF !important;
+}
+
+/* Operations Table Status Badges */
+html[data-theme="dark"] .landing-status-badge {
+  border-radius: 9999px !important;
+  padding: 4px 12px !important;
+  border: none !important;
+}
+
+html[data-theme="dark"] .landing-status-badge.landing-status-paid {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  border: none !important;
+  color: #34D399 !important;
+}
+
+html[data-theme="dark"] .landing-status-badge.landing-status-pending {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  border: none !important;
+  color: #FBBF24 !important;
+}
+
+html[data-theme="dark"] .landing-status-badge.landing-status-overdue {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  border: none !important;
+  color: #F87171 !important;
+}
+
+html[data-theme="dark"] .landing-status-badge.landing-status-draft {
+  background-color: rgba(30, 41, 59, 0.6) !important;
+  border: none !important;
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-status-paid .landing-status-dot {
+  background-color: #34D399 !important;
+}
+
+html[data-theme="dark"] .landing-status-pending .landing-status-dot {
+  background-color: #FBBF24 !important;
+}
+
+html[data-theme="dark"] .landing-status-overdue .landing-status-dot {
+  background-color: #F87171 !important;
+}
+
+html[data-theme="dark"] .landing-status-draft .landing-status-dot {
+  background-color: #94A3B8 !important;
+}
+
+/* ── Section 7 Dark Mode: Workflow Spotlight Section (Figma Node 4391-5629) ── */
+
+html[data-theme="dark"] .landing-workflow-section {
+  background-color: #0E101A !important;
+}
+
+html[data-theme="dark"] .landing-workflow-title {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+html[data-theme="dark"] .landing-step-num {
+  background-color: #141824 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-step-text {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-done-badge {
+  background-color: rgba(6, 78, 59, 0.6) !important;
+  border: 1px solid rgba(52, 211, 153, 0.25) !important;
+  color: #34D399 !important;
+}
+
+html[data-theme="dark"] .landing-inv-card {
+  background-color: #141824 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7) !important;
+}
+
+html[data-theme="dark"] .landing-inv-label {
+  color: #64748B !important;
+}
+
+html[data-theme="dark"] .landing-inv-id {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-inv-meta {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-item-name {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-item-price {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-inv-breakdown,
+html[data-theme="dark"] .landing-inv-totals {
+  border-top-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .landing-sub-label,
+html[data-theme="dark"] .landing-sub-val {
+  color: #64748B !important;
+}
+
+html[data-theme="dark"] .landing-total-label,
+html[data-theme="dark"] .landing-total-val {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-balance-label,
+html[data-theme="dark"] .landing-balance-val {
+  color: #34D399 !important;
+}
+
+
+
+
+
+html[data-theme="dark"] .landing-ops-section,
+html[data-theme="dark"] .landing-dark-section,
+html[data-theme="dark"] .landing-audit-section,
+html[data-theme="dark"] .landing-role-views-section,
+html[data-theme="dark"] .landing-faq-accordion-section,
+html[data-theme="dark"] .landing-dark-cta-section,
+html[data-theme="dark"] .landing-footer {
+  background-color: #090A10 !important;
+}
+
+html[data-theme="dark"] .landing-pos-section,
+html[data-theme="dark"] .landing-step-section,
+html[data-theme="dark"] .landing-spotlights-section,
+html[data-theme="dark"] .landing-portal-section,
+html[data-theme="dark"] .landing-toolkit-section,
+html[data-theme="dark"] .landing-pricing-section {
+  background-color: #0E101A !important;
+}
+
+/* Badges & Eyebrows */
+html[data-theme="dark"] .landing-hero-badge,
+html[data-theme="dark"] .landing-badge,
+html[data-theme="dark"] .landing-portal-security-badge,
+html[data-theme="dark"] .landing-audit-badge-item {
+  background-color: #181E30 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="dark"] .landing-eyebrow,
+html[data-theme="dark"] .landing-eyebrow-left,
+html[data-theme="dark"] .landing-dark-metric-label {
+  color: #94A3B8 !important;
+}
+
+/* Section Titles Gradient */
+html[data-theme="dark"] .landing-hero-title,
+html[data-theme="dark"] .landing-section-title,
+html[data-theme="dark"] .landing-section-title-left,
+html[data-theme="dark"] .landing-portal-title,
+html[data-theme="dark"] .landing-audit-title,
+html[data-theme="dark"] .landing-pricing-title,
+html[data-theme="dark"] .landing-dark-title,
+html[data-theme="dark"] .landing-faq-accordion-title {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: #FFFFFF !important;
+}
+
+/* Section Subtitles & Body Descriptions */
+html[data-theme="dark"] .landing-section-subtitle,
+html[data-theme="dark"] .landing-section-subtitle-left,
+html[data-theme="dark"] .landing-hero-description,
+html[data-theme="dark"] .landing-hero-subtitle-bold,
+html[data-theme="dark"] .landing-portal-subtitle,
+html[data-theme="dark"] .landing-dark-subtitle,
+html[data-theme="dark"] .landing-audit-subtitle,
+html[data-theme="dark"] .landing-pricing-subtitle,
+html[data-theme="dark"] .landing-faq-accordion-content p {
+  color: #CBD5E1 !important;
+}
+
+/* Feature Lists, Stepper Lists & Bullets */
+html[data-theme="dark"] .landing-portal-feature-item,
+html[data-theme="dark"] .landing-role-view-item,
+html[data-theme="dark"] .landing-pos-feature {
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="dark"] .landing-portal-bullet,
+html[data-theme="dark"] .landing-role-bullet,
+html[data-theme="dark"] .landing-pos-bullet {
+  background-color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-step-text,
+html[data-theme="dark"] .landing-step-label {
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="dark"] .landing-step-num {
+  background-color: #181E30 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #CBD5E1 !important;
+}
+
+/* Lifecycle Section (Screenshot 4) */
+html[data-theme="dark"] .landing-lifecycle-title {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-lifecycle-desc {
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="dark"] .landing-lifecycle-icon {
+  background-color: #181E30 !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+html[data-theme="dark"] .landing-lifecycle-icon svg {
+  color: #CBD5E1 !important;
+}
+
+/* Sub-labels & Card Details */
+html[data-theme="dark"] .landing-sub-label,
+html[data-theme="dark"] .landing-sub-val,
+html[data-theme="dark"] .landing-item-name,
+html[data-theme="dark"] .landing-inv-label,
+html[data-theme="dark"] .landing-inv-meta,
+html[data-theme="dark"] .landing-portal-inv-issuer,
+html[data-theme="dark"] .landing-audit-details,
+html[data-theme="dark"] .landing-pos-desc,
+html[data-theme="dark"] .landing-problem-desc,
+html[data-theme="dark"] .landing-toolkit-desc {
+  color: #CBD5E1 !important;
+}
+
+/* Cards & Containers */
+html[data-theme="dark"] .landing-pos-card,
+html[data-theme="dark"] .landing-problem-card,
+html[data-theme="dark"] .landing-portal-card,
+html[data-theme="dark"] .landing-audit-card,
+html[data-theme="dark"] .landing-toolkit-card,
+html[data-theme="dark"] .landing-role-view-card,
+html[data-theme="dark"] .landing-pricing-card,
+html[data-theme="dark"] .landing-faq-accordion-card,
+html[data-theme="dark"] .landing-ops-mockup,
+html[data-theme="dark"] .landing-workflow-card {
+  background-color: #141824 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #F8FAFC !important;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Card Titles & Text */
+html[data-theme="dark"] .landing-pos-title,
+html[data-theme="dark"] .landing-problem-title,
+html[data-theme="dark"] .landing-toolkit-title,
+html[data-theme="dark"] .landing-role-view-title,
+html[data-theme="dark"] .landing-portal-heading,
+html[data-theme="dark"] .landing-portal-inv-id,
+html[data-theme="dark"] .landing-portal-inv-amount,
+html[data-theme="dark"] .landing-audit-action,
+html[data-theme="dark"] .landing-faq-accordion-question,
+html[data-theme="dark"] .landing-footer-heading {
+  color: #F8FAFC !important;
+}
+
+/* Footer Section (Screenshot 2) */
+html[data-theme="dark"] .landing-footer-tagline {
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="dark"] .landing-footer-links a,
+html[data-theme="dark"] .landing-footer-ext-link {
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="dark"] .landing-footer-links a:hover,
+html[data-theme="dark"] .landing-footer-ext-link:hover {
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-footer-bottom p {
+  color: #94A3B8 !important;
+}
+
+/* Step Items & Numbers */
+html[data-theme="dark"] .landing-step-circle-wrapper {
+  background-color: #141824 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme="dark"] .landing-step-circle {
+  background-color: #1E2538 !important;
+  color: #CBD5E1 !important;
+}
+
+html[data-theme="dark"] .landing-step-label {
+  color: #FFFFFF !important;
+}
+
+/* Buttons in Dark Mode */
+html[data-theme="dark"] .landing-btn-primary,
+html[data-theme="dark"] .landing-pricing-btn-primary,
+html[data-theme="dark"] .landing-dark-cta-btn-primary {
+  background-color: #52607B !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-btn-primary:hover,
+html[data-theme="dark"] .landing-pricing-btn-primary:hover,
+html[data-theme="dark"] .landing-dark-cta-btn-primary:hover {
+  background-color: #64748B !important;
+}
+
+html[data-theme="dark"] .landing-btn-secondary,
+html[data-theme="dark"] .landing-pricing-btn-secondary,
+html[data-theme="dark"] .landing-dark-cta-btn-secondary {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  color: #FFFFFF !important;
+}
+
+html[data-theme="dark"] .landing-btn-secondary:hover,
+html[data-theme="dark"] .landing-pricing-btn-secondary:hover,
+html[data-theme="dark"] .landing-dark-cta-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Table Mockup Rows & Portal Rows */
+html[data-theme="dark"] .landing-portal-inv-row {
+  background-color: #181E30 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .landing-faq-accordion-trigger:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+html[data-theme="dark"] .landing-faq-accordion-item,
+html[data-theme="dark"] .landing-footer-bottom {
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+  border-top-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme="dark"] .landing-footer-links a,
+html[data-theme="dark"] .landing-footer-ext-link {
+  color: #94A3B8 !important;
+}
+
+html[data-theme="dark"] .landing-footer-links a:hover,
+html[data-theme="dark"] .landing-footer-ext-link:hover {
+  color: #FFFFFF !important;
+}
+
+
+
+
 
 /* ── Responsive Rules ─────────────────────────────────────────────────── */
 

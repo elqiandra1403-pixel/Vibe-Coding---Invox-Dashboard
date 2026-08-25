@@ -21,7 +21,7 @@ export function RoleAccessSection() {
         <div className="landing-lifecycle-grid">
           <div className="landing-lifecycle-item">
             <div className="landing-lifecycle-icon">
-              <FileText size={18} style={{ color: "#475569" }} />
+              <FileText size={18} />
             </div>
             <h3 className="landing-lifecycle-title">Create</h3>
             <p className="landing-lifecycle-desc">
@@ -31,7 +31,7 @@ export function RoleAccessSection() {
 
           <div className="landing-lifecycle-item">
             <div className="landing-lifecycle-icon">
-              <Send size={18} style={{ color: "#475569" }} />
+              <Send size={18} />
             </div>
             <h3 className="landing-lifecycle-title">Send</h3>
             <p className="landing-lifecycle-desc">
@@ -41,7 +41,7 @@ export function RoleAccessSection() {
 
           <div className="landing-lifecycle-item">
             <div className="landing-lifecycle-icon">
-              <History size={18} style={{ color: "#475569" }} />
+              <History size={18} />
             </div>
             <h3 className="landing-lifecycle-title">Track</h3>
             <p className="landing-lifecycle-desc">
@@ -51,7 +51,7 @@ export function RoleAccessSection() {
 
           <div className="landing-lifecycle-item">
             <div className="landing-lifecycle-icon">
-              <Wallet size={18} style={{ color: "#475569" }} />
+              <Wallet size={18} />
             </div>
             <h3 className="landing-lifecycle-title">Collect</h3>
             <p className="landing-lifecycle-desc">
@@ -61,7 +61,7 @@ export function RoleAccessSection() {
 
           <div className="landing-lifecycle-item">
             <div className="landing-lifecycle-icon">
-              <Users size={18} style={{ color: "#475569" }} />
+              <Users size={18} />
             </div>
             <h3 className="landing-lifecycle-title">Manage</h3>
             <p className="landing-lifecycle-desc">

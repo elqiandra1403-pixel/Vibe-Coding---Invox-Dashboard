@@ -124,7 +124,7 @@
 
 .table td {
   padding: 16px 24px;
-  border-bottom: 1px solid #F1F5F9;
+  border-bottom: none;
   color: #334155;
 }
 
@@ -150,21 +150,22 @@
   border-radius: 9999px;
   font-size: 12px;
   font-weight: 600;
+  border: none;
 }
 
 .statusPaid {
-  background-color: #ECFDF5;
-  color: #047857;
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
 }
 
 .statusPending {
-  background-color: #FFFBEB;
-  color: #B45309;
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
 }
 
 .statusOverdue {
-  background-color: #FEF2F2;
-  color: #B91C1C;
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #f87171;
 }
 
 @media (max-width: 640px) {
