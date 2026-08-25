@@ -6,8 +6,31 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button/Button";
 import { Input } from "@/components/ui/Input/Input";
 import { Eye, EyeOff, ShieldCheck, Loader2 } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
+import { auth, googleProvider, appleProvider } from "@/lib/firebase";
+import { 
+  createUserWithEmailAndPassword, 
+  updateProfile,
+  signInWithPopup 
+} from "firebase/auth";
 import styles from "./register.module.css";
+
+function getFirebaseRegisterErrorMessage(error: any): string {
+  const code = error?.code;
+  switch (code) {
+    case 'auth/email-already-in-use':
+      return 'An account with this email address already exists.';
+    case 'auth/invalid-email':
+      return 'Please enter a valid email address.';
+    case 'auth/weak-password':
+      return 'Password is too weak. Please use at least 6 characters.';
+    case 'auth/popup-closed-by-user':
+      return 'Sign-up popup was closed before completing.';
+    case 'auth/unauthorized-domain':
+      return 'This domain is not authorized in Firebase. Please add your Vercel URL to Firebase Console > Authentication > Settings > Authorized domains.';
+    default:
+      return error?.message || 'An error occurred during registration.';
+  }
+}
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -18,29 +41,16 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
-  const supabase = React.useMemo(() => createClient(), []);
-
-  const handleOAuth = async (provider: "google" | "apple") => {
+  const handleOAuth = async (providerType: "google" | "apple") => {
     setIsLoading(true);
     setError(null);
 
     try {
-      if (supabase) {
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider,
-          options: {
-            redirectTo: `${window.location.origin}/dashboard`,
-          },
-        });
-        if (error) throw error;
-      } else {
-        // Fallback demo mode redirect
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 500);
-      }
+      const provider = providerType === "google" ? googleProvider : appleProvider;
+      await signInWithPopup(auth, provider);
+      router.push("/dashboard");
     } catch (err: any) {
-      setError(err.message || "Failed to sign up with provider.");
+      setError(getFirebaseRegisterErrorMessage(err));
       setIsLoading(false);
     }
   };
@@ -53,22 +63,13 @@ export default function RegisterPage() {
     setError(null);
 
     try {
-      if (supabase) {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: {
-              full_name: fullName,
-            },
-          },
-        });
-        if (error) throw error;
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      if (fullName && userCredential.user) {
+        await updateProfile(userCredential.user, { displayName: fullName });
       }
-      // Successfully authenticated or demo mode
       router.push("/dashboard");
     } catch (err: any) {
-      setError(err.message || "Failed to create account.");
+      setError(getFirebaseRegisterErrorMessage(err));
       setIsLoading(false);
     }
   };

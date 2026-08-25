@@ -6,8 +6,34 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button/Button";
 import { Input } from "@/components/ui/Input/Input";
 import { Eye, EyeOff, ShieldCheck, Loader2 } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
+import { auth, googleProvider, appleProvider } from "@/lib/firebase";
+import { 
+  signInWithEmailAndPassword, 
+  signInWithPopup 
+} from "firebase/auth";
 import styles from "./login.module.css";
+
+function getFirebaseErrorMessage(error: any): string {
+  const code = error?.code;
+  switch (code) {
+    case 'auth/invalid-credential':
+    case 'auth/user-not-found':
+    case 'auth/wrong-password':
+      return 'Invalid email or password. Please check your credentials and try again.';
+    case 'auth/invalid-email':
+      return 'Please enter a valid email address.';
+    case 'auth/user-disabled':
+      return 'This account has been disabled. Please contact support.';
+    case 'auth/too-many-requests':
+      return 'Access to this account has been temporarily disabled due to many failed login attempts.';
+    case 'auth/popup-closed-by-user':
+      return 'Sign-in popup was closed before completing.';
+    case 'auth/unauthorized-domain':
+      return 'This domain is not authorized in Firebase. Please add your Vercel URL to Firebase Console > Authentication > Settings > Authorized domains.';
+    default:
+      return error?.message || 'An error occurred during sign-in.';
+  }
+}
 
 export default function LoginPage() {
   const router = useRouter();
@@ -17,29 +43,16 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
-  const supabase = React.useMemo(() => createClient(), []);
-
-  const handleOAuth = async (provider: "google" | "apple") => {
+  const handleOAuth = async (providerType: "google" | "apple") => {
     setIsLoading(true);
     setError(null);
 
     try {
-      if (supabase) {
-        const { error } = await supabase.auth.signInWithOAuth({
-          provider,
-          options: {
-            redirectTo: `${window.location.origin}/dashboard`,
-          },
-        });
-        if (error) throw error;
-      } else {
-        // Fallback demo mode redirect
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 500);
-      }
+      const provider = providerType === "google" ? googleProvider : appleProvider;
+      await signInWithPopup(auth, provider);
+      router.push("/dashboard");
     } catch (err: any) {
-      setError(err.message || "Failed to sign in with provider.");
+      setError(getFirebaseErrorMessage(err));
       setIsLoading(false);
     }
   };
@@ -52,17 +65,10 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      if (supabase) {
-        const { error } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-        if (error) throw error;
-      }
-      // Successfully authenticated or demo mode
+      await signInWithEmailAndPassword(auth, email, password);
       router.push("/dashboard");
     } catch (err: any) {
-      setError(err.message || "Invalid email or password.");
+      setError(getFirebaseErrorMessage(err));
       setIsLoading(false);
     }
   };
