@@ -46,12 +46,8 @@ export default function RegisterPage() {
     setError(null);
 
     try {
-      const authInstance = getFirebaseAuth();
-      if (!authInstance) {
-        throw new Error("Firebase is not initialized. Please configure NEXT_PUBLIC_FIREBASE_API_KEY in Vercel Environment Variables.");
-      }
       const provider = providerType === "google" ? googleProvider : appleProvider;
-      await signInWithPopup(authInstance, provider);
+      await signInWithPopup(getFirebaseAuth(), provider);
       router.push("/dashboard");
     } catch (err: any) {
       setError(getFirebaseRegisterErrorMessage(err));
@@ -67,11 +63,7 @@ export default function RegisterPage() {
     setError(null);
 
     try {
-      const authInstance = getFirebaseAuth();
-      if (!authInstance) {
-        throw new Error("Firebase is not initialized. Please configure NEXT_PUBLIC_FIREBASE_API_KEY in Vercel Environment Variables.");
-      }
-      const userCredential = await createUserWithEmailAndPassword(authInstance, email, password);
+      const userCredential = await createUserWithEmailAndPassword(getFirebaseAuth(), email, password);
       if (fullName && userCredential.user) {
         await updateProfile(userCredential.user, { displayName: fullName });
       }
