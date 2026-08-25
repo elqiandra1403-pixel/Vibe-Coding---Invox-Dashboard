@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button/Button";
 import { Input } from "@/components/ui/Input/Input";
 import { Eye, EyeOff, ShieldCheck, Loader2 } from "lucide-react";
-import { auth, googleProvider, appleProvider } from "@/lib/firebase";
+import { getFirebaseAuth, googleProvider, appleProvider } from "@/lib/firebase";
 import { 
   signInWithEmailAndPassword, 
   signInWithPopup 
@@ -48,8 +48,12 @@ export default function LoginPage() {
     setError(null);
 
     try {
+      const authInstance = getFirebaseAuth();
+      if (!authInstance) {
+        throw new Error("Firebase is not initialized. Please configure NEXT_PUBLIC_FIREBASE_API_KEY in Vercel Environment Variables.");
+      }
       const provider = providerType === "google" ? googleProvider : appleProvider;
-      await signInWithPopup(auth, provider);
+      await signInWithPopup(authInstance, provider);
       router.push("/dashboard");
     } catch (err: any) {
       setError(getFirebaseErrorMessage(err));
@@ -65,7 +69,11 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const authInstance = getFirebaseAuth();
+      if (!authInstance) {
+        throw new Error("Firebase is not initialized. Please configure NEXT_PUBLIC_FIREBASE_API_KEY in Vercel Environment Variables.");
+      }
+      await signInWithEmailAndPassword(authInstance, email, password);
       router.push("/dashboard");
     } catch (err: any) {
       setError(getFirebaseErrorMessage(err));
