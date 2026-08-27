@@ -6,12 +6,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button/Button";
 import { Input } from "@/components/ui/Input/Input";
 import { Eye, EyeOff, ShieldCheck, Loader2 } from "lucide-react";
-import { getFirebaseAuth, googleProvider, appleProvider } from "@/lib/firebase";
-import { 
-  createUserWithEmailAndPassword, 
-  updateProfile,
-  signInWithPopup 
-} from "firebase/auth";
+import { authService } from "@/features/auth/services/authService";
+import { useUiStore } from "@/stores/uiStore";
 import styles from "./register.module.css";
 
 function getFirebaseRegisterErrorMessage(error: any): string {
@@ -37,6 +33,7 @@ function getFirebaseRegisterErrorMessage(error: any): string {
 
 export default function RegisterPage() {
   const router = useRouter();
+  const setUserProfile = useUiStore((s) => s.setUserProfile);
   const [fullName, setFullName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -49,15 +46,21 @@ export default function RegisterPage() {
     setError(null);
 
     try {
-      const provider = providerType === "google" ? googleProvider : appleProvider;
-      await signInWithPopup(getFirebaseAuth(), provider);
-      router.push("/dashboard");
-    } catch (err: any) {
-      if (err?.code === 'auth/api-key-not-valid' || err?.code === 'auth/invalid-api-key') {
+      const userCred = providerType === "google"
+        ? await authService.loginWithGoogle()
+        : await authService.loginWithApple();
+
+      if (userCred?.user) {
+        setUserProfile({
+          name: userCred.user.displayName || fullName || userCred.user.email?.split("@")[0] || "User",
+          email: userCred.user.email || email,
+        });
         router.push("/dashboard");
-        return;
       }
+    } catch (err: any) {
+      console.error("Firebase OAuth error:", err);
       setError(getFirebaseRegisterErrorMessage(err));
+    } finally {
       setIsLoading(false);
     }
   };
@@ -70,17 +73,18 @@ export default function RegisterPage() {
     setError(null);
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(getFirebaseAuth(), email, password);
-      if (fullName && userCredential.user) {
-        await updateProfile(userCredential.user, { displayName: fullName });
-      }
-      router.push("/dashboard");
-    } catch (err: any) {
-      if (err?.code === 'auth/api-key-not-valid' || err?.code === 'auth/invalid-api-key') {
+      const userCredential = await authService.register(email, password, fullName);
+      if (userCredential?.user) {
+        setUserProfile({
+          name: fullName || userCredential.user.displayName || email.split("@")[0],
+          email: email,
+        });
         router.push("/dashboard");
-        return;
       }
+    } catch (err: any) {
+      console.error("Firebase Register error:", err);
       setError(getFirebaseRegisterErrorMessage(err));
+    } finally {
       setIsLoading(false);
     }
   };

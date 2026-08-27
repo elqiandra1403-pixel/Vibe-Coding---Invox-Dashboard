@@ -1,5 +1,11 @@
 "use client";
-// Phase 2: Return typed UserProfile from authStore
+
+import { useAuthStore } from "@/stores/authStore";
+
 export function useCurrentUser() {
-  return { user: null, loading: true };
+  const user = useAuthStore((s) => s.user);
+  const isLoading = useAuthStore((s) => s.isLoading);
+
+  return { user, loading: isLoading };
 }
+

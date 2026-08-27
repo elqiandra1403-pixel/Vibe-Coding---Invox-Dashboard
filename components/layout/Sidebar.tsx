@@ -13,7 +13,6 @@ import {
   Settings,
   LogOut
 } from 'lucide-react';
-import { createClient } from '@/lib/supabase/client';
 import { useUiStore } from '@/stores/uiStore';
 import styles from './Sidebar.module.css';
 

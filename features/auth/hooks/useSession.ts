@@ -1,5 +1,15 @@
 "use client";
-// Phase 2: Return current session from authStore / Supabase Auth
+
+import { useAuthStore } from "@/stores/authStore";
+
 export function useSession() {
-  return { session: null, loading: true };
+  const user = useAuthStore((s) => s.user);
+  const isLoading = useAuthStore((s) => s.isLoading);
+
+  return {
+    user,
+    session: user ? { user, access_token: "firebase-session" } : null,
+    loading: isLoading,
+  };
 }
+

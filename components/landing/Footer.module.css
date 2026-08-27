@@ -2,7 +2,7 @@
   background-color: #0B0D17;
   color: #94A3B8;
   padding: 80px 24px 32px 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: none;
 }
 
 .container {

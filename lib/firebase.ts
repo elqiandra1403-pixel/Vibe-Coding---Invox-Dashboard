@@ -47,6 +47,7 @@ export function getFirebaseAuth(): Auth {
 }
 
 export const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
 export const appleProvider = new OAuthProvider("apple.com");
 
 export const auth = new Proxy({} as Auth, {

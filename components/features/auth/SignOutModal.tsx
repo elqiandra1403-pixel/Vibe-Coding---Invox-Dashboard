@@ -1,20 +1,20 @@
 'use client';
 
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { LogOut, X, Loader2 } from 'lucide-react';
 import { useUiStore } from '@/stores/uiStore';
-import { createClient } from '@/lib/supabase/client';
+import { useAuthStore } from '@/stores/authStore';
+import { authService } from '@/features/auth/services/authService';
 import styles from './SignOutModal.module.css';
 
 export function SignOutModal() {
   const router = useRouter();
   const { signOutModalOpen, setSignOutModalOpen, userProfile, addToast } = useUiStore();
+  const clearAuth = useAuthStore((s) => s.clearAuth);
   const [mounted, setMounted] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
-
-  const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
     setMounted(true);
@@ -36,9 +36,8 @@ export function SignOutModal() {
   const handleConfirmSignOut = async () => {
     setIsSigningOut(true);
     try {
-      if (supabase) {
-        await supabase.auth.signOut();
-      }
+      await authService.logout();
+      clearAuth();
       addToast('Signed out of Invox session', 'info');
       setSignOutModalOpen(false);
       router.push('/login');

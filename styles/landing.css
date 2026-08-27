@@ -2167,7 +2167,7 @@ body {
   background-color: #FFFFFF;
   color: #64748B;
   padding: 80px 24px 32px 24px;
-  border-top: 1px solid #F1F5F9;
+  border-top: none;
 }
 
 .landing-footer-grid {
@@ -2846,6 +2846,7 @@ html[data-theme="dark"] .landing-faq-accordion-section,
 html[data-theme="dark"] .landing-dark-cta-section,
 html[data-theme="dark"] .landing-footer {
   background-color: #090A10 !important;
+  border-top: none !important;
 }
 
 html[data-theme="dark"] .landing-pos-section,
